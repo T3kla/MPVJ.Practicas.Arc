@@ -57,7 +57,7 @@ int Main(void)
 		// Render
 		glClear( GL_COLOR_BUFFER_BIT );	// Clear color buffer to preset values.
 
-		// Render backgground
+		// Render background
 		for (int i = 0; i <= SCR_WIDTH / 128; i++) {
 			for (int j = 0; j <= SCR_HEIGHT / 128; j++) {
 				CORE_RenderCenteredSprite(vec2(i * 128.f + 64.f, j * 128.f + 64.f), vec2(128.f, 128.f), texbkg);
