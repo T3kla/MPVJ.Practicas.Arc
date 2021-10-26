@@ -27,7 +27,7 @@
     <ClCompile Include="..\..\common\sys_win.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\common\example.cpp">
+    <ClCompile Include="..\..\common\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\common\font.cpp">
@@ -51,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\common\vector2d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ball\ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
