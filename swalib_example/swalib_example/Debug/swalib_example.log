@@ -1,8 +1,4 @@
-﻿  core.cpp
-  example.cpp
-  font.cpp
-  lodepng.cpp
-  stdafx.cpp
-  sys_win.cpp
+﻿  example.cpp
+  ball.cpp
   Generating Code...
   swalib_example.vcxproj -> C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\swalib_example\Debug\swalib_example.exe
