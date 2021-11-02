@@ -1,1 +1,3 @@
-﻿
+﻿  example.cpp
+C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common\example.cpp(144,16): warning C4244: 'argument': conversion from '__int64' to 'double', possible loss of data
+  swalib_example.vcxproj -> C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\swalib_example\Debug\swalib_example.exe

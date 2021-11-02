@@ -3,7 +3,14 @@
 #include "font.h"
 #include "stdafx.h"
 #include "sys.h"
+#include "time/time.h"
 #include "vector2d.h"
+#include <iomanip>
+#include <iostream>
+#include <sstream>
+#include <string>
+
+// https://www.reddit.com/r/gamedev/comments/4c2ekd/what_is_the_best_way_to_work_out_delta_time/
 
 const unsigned int NUM_BALLS = 10; // Max. num balls.
 const float MAX_BALL_SPEED = 8.f;  // Max vel. of ball. (pixels/?).
@@ -12,6 +19,13 @@ Ball balls[NUM_BALLS];             // Array of balls.
 // Load textures
 GLuint texbkg;
 GLuint texsmallball;
+
+// Time stuff
+auto delta = mytime::DeltaTime();
+auto fixed = 1.0 / 0.01;
+auto fix60 = 1.0 / 60.0;
+auto count = 0.0;
+auto cou60 = 0.0;
 
 void Init()
 {
@@ -49,21 +63,18 @@ void RenderLoop()
 
     // Render background
     for (int i = 0; i <= SCR_WIDTH / 128; i++)
-    {
         for (int j = 0; j <= SCR_HEIGHT / 128; j++)
-        {
             CORE_RenderCenteredSprite(vec2(i * 128.f + 64.f, j * 128.f + 64.f), vec2(128.f, 128.f), texbkg);
-        }
-    }
 
     // Render balls
     for (int i = 0; i < NUM_BALLS; i++)
-    {
         CORE_RenderCenteredSprite(balls[i].pos, vec2(balls[i].radius * 2.f, balls[i].radius * 2.f), balls[i].gfx);
-    }
 
     // Text
-    FONT_DrawString(vec2(SCR_WIDTH / 2 - 6 * 16, 16), "HELLO WORLD!");
+    std::ostringstream strm;
+    strm << std::fixed << std::setprecision(2) << delta;
+    std::string str = strm.str();
+    FONT_DrawString(vec2(SCR_WIDTH / 2 - 6 * 16, 16), str.c_str());
 
     // Exchanges the front and back buffers
     SYS_Show();
@@ -71,17 +82,14 @@ void RenderLoop()
 
 void GameLoop()
 {
-    // Run balls
     for (int i = 0; i < NUM_BALLS; i++)
     {
-        // New Pos.
         vec2 newpos = balls[i].pos + balls[i].vel;
 
-        // Collision detection.
         bool collision = false;
         int colliding_ball = -1;
+
         for (int j = 0; j < NUM_BALLS; j++)
-        {
             if (i != j)
             {
                 float limit2 = (balls[i].radius + balls[j].radius) * (balls[i].radius + balls[j].radius);
@@ -92,7 +100,6 @@ void GameLoop()
                     break;
                 }
             }
-        }
 
         if (!collision)
         {
@@ -107,22 +114,48 @@ void GameLoop()
 
         // Rebound on margins.
         if ((balls[i].pos.x > SCR_WIDTH) || (balls[i].pos.x < 0))
-        {
             balls[i].vel.x *= -1.0;
-        }
+
         if ((balls[i].pos.y > SCR_HEIGHT) || (balls[i].pos.y < 0))
-        {
             balls[i].vel.y *= -1.0;
-        }
     }
+}
+
+void Update(double dt)
+{
+}
+
+void FixedUpda60(double dt)
+{
+    GameLoop();
+}
+
+void FixedUpdate(double dt)
+{
+    RenderLoop();
 }
 
 void Loop()
 {
     while (!SYS_GottaQuit())
     {
-        RenderLoop();
-        GameLoop();
+        delta = mytime::DeltaTime();
+
+        Update(delta);
+
+        count += delta;
+        if (count > fixed)
+        {
+            FixedUpdate(fixed);
+            count -= fixed;
+        }
+
+        cou60 += delta;
+        if (cou60 > fix60)
+        {
+            FixedUpda60(fix60);
+            cou60 -= fix60;
+        }
 
         SYS_Pump();    // Process Windows messages.
         SYS_Sleep(17); // To force 60 fps
