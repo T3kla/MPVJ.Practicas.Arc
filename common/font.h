@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _FONT_H_
+#define _FONT_H_
 
 // Forward definition
 class vec2;
@@ -16,3 +17,5 @@ void FONT_DrawChar(const vec2 &p0, const vec2 &p1, unsigned char ch);
 //-----------------------------------------------------------------------------
 // Draw a string in a window position.
 void FONT_DrawString(const vec2 &p0, const char string[]);
+
+#endif
