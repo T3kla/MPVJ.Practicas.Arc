@@ -1,8 +1,4 @@
 ﻿  example.cpp
-C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common\example.cpp(19,5): error C3861: 'RenderInit': identifier not found
-C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common\example.cpp(23,9): error C3861: 'RenderLoop': identifier not found
-C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common\example.cpp(24,9): error C3861: 'GameLoop': identifier not found
-C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common\example.cpp(30,5): error C3861: 'GameEnd': identifier not found
-C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common\example.cpp(50,27): error C2082: redefinition of formal parameter 'texsmallball'
-  sys_win.cpp
+  ball.cpp
   Generating Code...
+  swalib_example.vcxproj -> C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\swalib_example\Debug\swalib_example.exe

@@ -75,8 +75,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+<<<<<<< HEAD
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\swalib_example\swalib_example;C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+>>>>>>> asd
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -100,8 +104,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+<<<<<<< HEAD
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\swalib_example\swalib_example;C:\Users\manuel.segura\source\repos\MPVJ.Practicas.Arc\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+>>>>>>> asd
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -124,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="ball\ball.h" />
     <ClInclude Include="core\core.h" />
     <ClInclude Include="font\font.h" />
@@ -140,6 +149,24 @@
     <ClCompile Include="sys\stdafx.cpp" />
     <ClCompile Include="sys\sys_osx.cpp" />
     <ClCompile Include="sys\sys_win.cpp" />
+=======
+    <ClCompile Include="..\..\common\core.cpp" />
+    <ClCompile Include="..\..\common\example.cpp" />
+    <ClCompile Include="..\..\common\font.cpp" />
+    <ClCompile Include="..\..\common\lodepng.cpp" />
+    <ClCompile Include="..\..\common\stdafx.cpp" />
+    <ClCompile Include="..\..\common\sys_win.cpp" />
+    <ClCompile Include="balls\ball.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\common\core.h" />
+    <ClInclude Include="..\..\common\font.h" />
+    <ClInclude Include="..\..\common\lodepng.h" />
+    <ClInclude Include="..\..\common\stdafx.h" />
+    <ClInclude Include="..\..\common\sys.h" />
+    <ClInclude Include="..\..\common\vector2d.h" />
+    <ClInclude Include="balls\ball.h" />
+>>>>>>> asd
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
