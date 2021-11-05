@@ -1,0 +1,28 @@
+{
+    "files.associations": {
+        "*.uss": "css",
+        "*.uxml": "xml",
+        "*.clang-format": "yaml",
+        ".ruleset": "xml",
+        ".config": "xml",
+        "algorithm": "cpp",
+        "iomanip": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "atomic": "cpp",
+        "vector": "cpp",
+        "istream": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "streambuf": "cpp",
+        "system_error": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xloctime": "cpp",
+        "xmemory": "cpp",
+        "xutility": "cpp",
+        "ios": "cpp",
+        "string": "cpp"
+    }
+}

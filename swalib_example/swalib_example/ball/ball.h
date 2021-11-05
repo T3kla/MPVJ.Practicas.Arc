@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../common/stdafx.h"
-#include "vector2d.h"
+#include "..\..\..\common\stdafx.h"
+#include "..\..\..\common\vector2d.h"
 
 struct Ball // Info Ball
 {

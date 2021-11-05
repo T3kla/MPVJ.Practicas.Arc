@@ -1,35 +1,32 @@
-#include "balls/ball.h"
+#include "..\swalib_example\swalib_example\ball\ball.h"
+#include "..\swalib_example\swalib_example\counter\counter.h"
 #include "core.h"
 #include "font.h"
 #include "stdafx.h"
 #include "sys.h"
-#include "time/time.h"
 #include "vector2d.h"
-#include <iomanip>
 #include <iostream>
-#include <sstream>
-#include <string>
 
-// https://www.reddit.com/r/gamedev/comments/4c2ekd/what_is_the_best_way_to_work_out_delta_time/
+// Balls stuff
+const float MAX_BALL_SPEED = 500.f; // Max vel. of ball. (pixels/second).
+const unsigned int NUM_BALLS = 10;  // Max. num balls.
+Ball balls[NUM_BALLS];              // Array of balls.
 
-const unsigned int NUM_BALLS = 10; // Max. num balls.
-const float MAX_BALL_SPEED = 8.f;  // Max vel. of ball. (pixels/?).
-Ball balls[NUM_BALLS];             // Array of balls.
+// Time stuff
+const double freq_fx = (1.0 / 60.0) * 1000.0;
+const unsigned short avg_samples = 64;
+tkl::counter counter;
+std::vector<double> avg_up(avg_samples, 0);
+std::vector<double> avg_fx(avg_samples, 0);
+double timeasd;
 
-// Load textures
+// Texture stuff
 GLuint texbkg;
 GLuint texsmallball;
 
-// Time stuff
-auto delta = mytime::DeltaTime();
-auto fixed = 1.0 / 0.01;
-auto fix60 = 1.0 / 60.0;
-auto count = 0.0;
-auto cou60 = 0.0;
-
 void Init()
 {
-    FONT_Init(); // Characters and symbols inicialization to draw on screen.
+    FONT_Init();
 
     // Load textures
     texbkg = CORE_LoadPNG("data/circle-bkg-128.png", true);
@@ -71,20 +68,35 @@ void RenderLoop()
         CORE_RenderCenteredSprite(balls[i].pos, vec2(balls[i].radius * 2.f, balls[i].radius * 2.f), balls[i].gfx);
 
     // Text
-    std::ostringstream strm;
-    strm << std::fixed << std::setprecision(2) << delta;
-    std::string str = strm.str();
-    FONT_DrawString(vec2(SCR_WIDTH / 2 - 6 * 16, 16), str.c_str());
+    auto avg_up_final = 0.0;
+    auto avg_fx_final = 0.0;
+
+    for (auto &&i : avg_up)
+        avg_up_final += i;
+    for (auto &&i : avg_fx)
+        avg_fx_final += i;
+
+    auto fps_up = (1.0 / (avg_up_final / (double)avg_samples)) * 1000.0;
+    auto fps_fx = (1.0 / (avg_fx_final / (double)avg_samples)) * 1000.0;
+
+    auto str_tm = "      TIME: " + std::to_string(timeasd / 1000.0);
+    auto str_up = "UPDATE FPS: " + std::to_string(fps_up);
+    auto str_fx = " FIXED FPS: " + std::to_string(fps_fx);
+
+    FONT_DrawString(vec2(0, 32), str_tm.c_str());
+    FONT_DrawString(vec2(0, 16), str_fx.c_str());
+    FONT_DrawString(vec2(0, 0), str_up.c_str());
 
     // Exchanges the front and back buffers
     SYS_Show();
 }
 
-void GameLoop()
+void GameLoop(double dt)
 {
     for (int i = 0; i < NUM_BALLS; i++)
     {
-        vec2 newpos = balls[i].pos + balls[i].vel;
+        // Decouple speed from time/cycles
+        vec2 newpos = balls[i].pos + balls[i].vel * (dt / 1000);
 
         bool collision = false;
         int colliding_ball = -1;
@@ -123,11 +135,7 @@ void GameLoop()
 
 void Update(double dt)
 {
-}
-
-void FixedUpda60(double dt)
-{
-    GameLoop();
+    GameLoop(dt);
 }
 
 void FixedUpdate(double dt)
@@ -137,28 +145,37 @@ void FixedUpdate(double dt)
 
 void Loop()
 {
+    auto pos_up = 0;
+    auto dt_up = 0.0;
+    counter.stamp();
+
+    auto pos_fx = 0;
+    auto cum_fx = 0.0;
+
     while (!SYS_GottaQuit())
     {
-        delta = mytime::DeltaTime();
+        double dt_up = counter.measure();
+        counter.stamp();
 
-        Update(delta);
+        avg_up[pos_up] = dt_up;
+        pos_up += 1 - avg_samples * (pos_up == avg_samples - 1);
 
-        count += delta;
-        if (count > fixed)
+        Update(dt_up);
+
+        timeasd += dt_up;
+        cum_fx += dt_up;
+        if (cum_fx >= freq_fx)
         {
-            FixedUpdate(fixed);
-            count -= fixed;
+            avg_fx[pos_fx] = cum_fx;
+            pos_fx += 1 - avg_samples * (pos_fx == avg_samples - 1);
+
+            FixedUpdate(cum_fx);
+
+            cum_fx = 0;
         }
 
-        cou60 += delta;
-        if (cou60 > fix60)
-        {
-            FixedUpda60(fix60);
-            cou60 -= fix60;
-        }
-
-        SYS_Pump();    // Process Windows messages.
-        SYS_Sleep(17); // To force 60 fps
+        SYS_Pump(); // Process Windows messages.
+        // SYS_Sleep(17); // To force 60 fps
     }
 }
 

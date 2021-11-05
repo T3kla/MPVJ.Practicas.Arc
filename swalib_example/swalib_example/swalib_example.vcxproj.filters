@@ -33,10 +33,10 @@
     <ClCompile Include="..\..\common\font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="balls\ball.cpp">
+    <ClCompile Include="ball\ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="time\time.cpp">
+    <ClCompile Include="counter\counter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,10 +59,10 @@
     <ClInclude Include="..\..\common\vector2d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="balls\ball.h">
+    <ClInclude Include="counter\counter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="time\time.h">
+    <ClInclude Include="ball\ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
