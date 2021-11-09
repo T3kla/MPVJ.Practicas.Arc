@@ -1,5 +1,5 @@
 #include "..\swalib_example\swalib_example\ball\ball.h"
-#include "..\swalib_example\swalib_example\counter\counter.h"
+#include "..\swalib_example\swalib_example\time\time.h"
 #include "core.h"
 #include "font.h"
 #include "stdafx.h"
@@ -8,17 +8,20 @@
 #include <iostream>
 
 // Balls stuff
-const float MAX_BALL_SPEED = 500.f; // Max vel. of ball. (pixels/second).
-const unsigned int NUM_BALLS = 10;  // Max. num balls.
+const float MAX_BALL_SPEED = 100.f; // Max vel. of ball. (pixels/second).
+const unsigned int NUM_BALLS = 30;  // Max. num balls.
+const float MAX_BALL_RAD = 20.f;    //
+const float MIN_BALL_RAD = 10.f;    //
 Ball balls[NUM_BALLS];              // Array of balls.
 
 // Time stuff
-const double freq_fx = (1.0 / 60.0) * 1000.0;
-const unsigned short avg_samples = 64;
-tkl::counter counter;
-std::vector<double> avg_up(avg_samples, 0);
-std::vector<double> avg_fx(avg_samples, 0);
-double timeasd;
+constexpr auto TIME_FIXED_FREQ = (1. / 60.) * 1000.;
+constexpr auto TIME_AVG_SAMPLES = 64u;
+
+auto avg_rl = std::vector<double>(TIME_AVG_SAMPLES, 0);
+auto avg_fx = std::vector<double>(TIME_AVG_SAMPLES, 0);
+
+auto tkl_time = tkl::time(3.0);
 
 // Texture stuff
 GLuint texbkg;
@@ -46,9 +49,12 @@ void Init()
     // Init game state.
     for (int i = 0; i < NUM_BALLS; i++)
     {
+        auto rad = CORE_FRand(MIN_BALL_RAD, MAX_BALL_RAD);
+        auto mass = rad / 5.f;
         balls[i].pos = vec2(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT));
         balls[i].vel = vec2(CORE_FRand(-MAX_BALL_SPEED, +MAX_BALL_SPEED), CORE_FRand(-MAX_BALL_SPEED, +MAX_BALL_SPEED));
-        balls[i].radius = 16.f;
+        balls[i].radius = CORE_FRand(MIN_BALL_RAD, MAX_BALL_RAD);
+        balls[i].mass = mass;
         balls[i].gfx = texsmallball;
     }
 }
@@ -67,115 +73,170 @@ void RenderLoop()
     for (int i = 0; i < NUM_BALLS; i++)
         CORE_RenderCenteredSprite(balls[i].pos, vec2(balls[i].radius * 2.f, balls[i].radius * 2.f), balls[i].gfx);
 
-    // Text
     auto avg_up_final = 0.0;
     auto avg_fx_final = 0.0;
 
-    for (auto &&i : avg_up)
+    for (auto &&i : avg_rl)
         avg_up_final += i;
     for (auto &&i : avg_fx)
         avg_fx_final += i;
 
-    auto fps_up = (1.0 / (avg_up_final / (double)avg_samples)) * 1000.0;
-    auto fps_fx = (1.0 / (avg_fx_final / (double)avg_samples)) * 1000.0;
+    auto fps_up = (1.0 / (avg_up_final / (double)TIME_AVG_SAMPLES)) * 1000.0;
+    auto fps_fx = (1.0 / (avg_fx_final / (double)TIME_AVG_SAMPLES)) * 1000.0;
 
-    auto str_tm = "      TIME: " + std::to_string(timeasd / 1000.0);
+    auto str_tw = " WARP TIME: " + std::to_string(tkl_time.get_count_scaled() / 1000.0);
+    auto str_tr = " REAL TIME: " + std::to_string(tkl_time.get_count_unscaled() / 1000.0);
     auto str_up = "UPDATE FPS: " + std::to_string(fps_up);
     auto str_fx = " FIXED FPS: " + std::to_string(fps_fx);
 
-    FONT_DrawString(vec2(0, 32), str_tm.c_str());
+    FONT_DrawString(vec2(0, 48), str_tw.c_str());
+    FONT_DrawString(vec2(0, 32), str_tr.c_str());
     FONT_DrawString(vec2(0, 16), str_fx.c_str());
     FONT_DrawString(vec2(0, 0), str_up.c_str());
 
-    // Exchanges the front and back buffers
-    SYS_Show();
+    SYS_Show(); // Exchanges the front and back buffers
 }
 
 void GameLoop(double dt)
 {
-    for (int i = 0; i < NUM_BALLS; i++)
+    // auto reflect = [](const vec2 &vel, const vec2 &nor) { return vel - 2 * (vdot(vel, nor)) * nor; };
+    auto nozero = [](const float &f) { return f == 0.f ? f + FLT_EPSILON : f; };
+
+    for (auto i = 0u; i < NUM_BALLS; i++)
     {
-        // Decouple speed from time/cycles
-        vec2 newpos = balls[i].pos + balls[i].vel * (dt / 1000);
+        for (auto j = 0u; j < NUM_BALLS; j++)
+        {
+            if (i == j)
+                continue;
 
-        bool collision = false;
-        int colliding_ball = -1;
+            auto limit = (balls[i].radius + balls[j].radius) * (balls[i].radius + balls[j].radius);
 
-        for (int j = 0; j < NUM_BALLS; j++)
-            if (i != j)
+            if (vlen2(balls[i].pos - balls[j].pos) <= limit)
             {
-                float limit2 = (balls[i].radius + balls[j].radius) * (balls[i].radius + balls[j].radius);
-                if (vlen2(newpos - balls[j].pos) <= limit2)
-                {
-                    collision = true;
-                    colliding_ball = j;
-                    break;
-                }
-            }
+                // Elastic sphere collisions
+                auto p1 = balls[i].pos;
+                auto p2 = balls[j].pos;
+                auto v1 = balls[i].vel;
+                auto v2 = balls[j].vel;
+                auto m1 = balls[i].mass;
+                auto m2 = balls[j].mass;
+                auto r1 = balls[i].radius;
+                auto r2 = balls[j].radius;
 
-        if (!collision)
-        {
-            balls[i].pos = newpos;
+                // Backtime to ensure single point intersection
+                auto backTimeRoot =
+                    0.5f *
+                    sqrtf(4.f *
+                              powf(p1.x * (v1.x - v2.x) + p2.x * (-v1.x + v2.x) + (p1.y - p2.y) * (v1.y - v2.y), 2.f) -
+                          4.f *
+                              (p1.x * p1.x + p1.y * p1.y - 2.f * p1.x * p2.x + p2.x * p2.x - 2.f * p1.y * p2.y +
+                               p2.y * p2.y - r1 * r1 - 2.f * r1 * r2 - r2 * r2) *
+                              (v1.x * v1.x + v1.y * v1.y - 2.f * v1.x * v2.x + v2.x * v2.x - 2.f * v1.y * v2.y +
+                               v2.y * v2.y));
+                auto backTimeSummand = p1.x * v1.x - p2.x * v1.x + p1.y * v1.y - p2.y * v1.y - p1.x * v2.x +
+                                       p2.x * v2.x - p1.y * v2.y + p2.y * v2.y;
+                auto backTimeDivisor =
+                    v1.x * v1.x + v1.y * v1.y - 2.f * v1.x * v2.x + v2.x * v2.x - 2.f * v1.y * v2.y + v2.y * v2.y;
+                auto backTime = (backTimeSummand + backTimeRoot) / backTimeDivisor;
+
+                if (isnan(backTimeSummand) || isnan(backTimeRoot) || isnan(backTimeDivisor))
+                {
+                    continue;
+                }
+
+                backTime += 0.001f;
+
+                p1 -= v1 * backTime;
+                p2 -= v2 * backTime;
+
+                // Resolving collision
+                auto col_nor = vnorm(p1 - p2);
+
+                // Decompose to parallel and orthogonal components
+                auto v1_dot = vdot(col_nor, v1);
+                auto v1_par = col_nor * v1_dot;
+                auto v1_ort = v1 - v1_par;
+
+                auto v2_dot = vdot(col_nor, v2);
+                auto v2_par = col_nor * v2_dot;
+                auto v2_ort = v2 - v2_par;
+
+                // One dimensional collision with parallel component
+                auto v1_len = vlen(v1_par) * (v1_dot > 0.f ? 1.f : -1.f);
+                auto v2_len = vlen(v2_par) * (v2_dot > 0.f ? 1.f : -1.f);
+
+                // Conservation of momentum
+                auto rel_vel = 2.f * (m1 * v1_len + m2 * v2_len) / nozero(m1 + m2);
+
+                auto v1_len_f = rel_vel - v1_len;
+                auto v2_len_f = rel_vel - v2_len;
+
+                // Scale parallel component
+                v1_par *= v1_len_f / nozero(v1_len);
+                v2_par *= v2_len_f / nozero(v2_len);
+
+                // Recompose velocity
+                balls[i].vel = v1_par + v1_ort;
+                balls[j].vel = v2_par + v2_ort;
+
+                // Simple reflection, not enough!
+                //      auto nor = vnorm(balls[i].vel - balls[j].vel);
+                //      balls[i].vel = reflect(balls[i].vel, nor);
+                //      balls[j].vel = reflect(balls[j].vel, nor * -1.f);
+                break;
+            }
         }
-        else
-        {
-            // Rebound!
-            balls[i].vel = balls[i].vel * -1.f;
-            balls[colliding_ball].vel = balls[colliding_ball].vel * -1.f;
-        }
+
+        balls[i].pos = balls[i].pos + balls[i].vel * (float)(dt / 1000.);
 
         // Rebound on margins.
-        if ((balls[i].pos.x > SCR_WIDTH) || (balls[i].pos.x < 0))
-            balls[i].vel.x *= -1.0;
-
-        if ((balls[i].pos.y > SCR_HEIGHT) || (balls[i].pos.y < 0))
-            balls[i].vel.y *= -1.0;
+        if ((balls[i].pos.x > SCR_WIDTH) || (balls[i].pos.x < 0.f))
+            balls[i].vel.x *= -1.f;
+        if ((balls[i].pos.y > SCR_HEIGHT) || (balls[i].pos.y < 0.f))
+            balls[i].vel.y *= -1.f;
     }
 }
 
-void Update(double dt)
+void Update()
 {
-    GameLoop(dt);
 }
 
 void FixedUpdate(double dt)
 {
+    GameLoop(dt);
     RenderLoop();
 }
 
 void Loop()
 {
-    auto pos_up = 0;
-    auto dt_up = 0.0;
-    counter.stamp();
-
-    auto pos_fx = 0;
-    auto cum_fx = 0.0;
+    auto next = [](auto &it) { it += 1u - TIME_AVG_SAMPLES * (it == TIME_AVG_SAMPLES - 1u); };
+    auto cum_fx = 0.;
+    auto avg_rl_it = 0u;
+    auto avg_fx_it = 0u;
 
     while (!SYS_GottaQuit())
     {
-        double dt_up = counter.measure();
-        counter.stamp();
+        tkl_time.update();
 
-        avg_up[pos_up] = dt_up;
-        pos_up += 1 - avg_samples * (pos_up == avg_samples - 1);
+        auto delta = tkl_time.get_delta_unscaled();
 
-        Update(dt_up);
+        cum_fx += delta;
+        avg_rl[avg_rl_it] = delta;
+        next(avg_rl_it);
 
-        timeasd += dt_up;
-        cum_fx += dt_up;
-        if (cum_fx >= freq_fx)
+        Update();
+
+        if (cum_fx >= TIME_FIXED_FREQ)
         {
-            avg_fx[pos_fx] = cum_fx;
-            pos_fx += 1 - avg_samples * (pos_fx == avg_samples - 1);
+            avg_fx[avg_fx_it] = cum_fx;
+            next(avg_fx_it);
 
-            FixedUpdate(cum_fx);
+            FixedUpdate(cum_fx * tkl_time.get_scale());
 
             cum_fx = 0;
         }
 
-        SYS_Pump(); // Process Windows messages.
-        // SYS_Sleep(17); // To force 60 fps
+        SYS_Pump();
     }
 }
 

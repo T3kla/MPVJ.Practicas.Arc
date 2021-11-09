@@ -36,7 +36,7 @@
     <ClCompile Include="ball\ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="counter\counter.cpp">
+    <ClCompile Include="time\time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClInclude Include="..\..\common\vector2d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="counter\counter.h">
+    <ClInclude Include="time\time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ball\ball.h">

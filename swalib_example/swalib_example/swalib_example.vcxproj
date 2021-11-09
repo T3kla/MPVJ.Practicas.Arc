@@ -127,7 +127,7 @@
     <ClCompile Include="..\..\common\stdafx.cpp" />
     <ClCompile Include="..\..\common\sys_win.cpp" />
     <ClCompile Include="ball\ball.cpp" />
-    <ClCompile Include="counter\counter.cpp" />
+    <ClCompile Include="time\time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\core.h" />
@@ -137,7 +137,7 @@
     <ClInclude Include="..\..\common\sys.h" />
     <ClInclude Include="..\..\common\vector2d.h" />
     <ClInclude Include="ball\ball.h" />
-    <ClInclude Include="counter\counter.h" />
+    <ClInclude Include="time\time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
