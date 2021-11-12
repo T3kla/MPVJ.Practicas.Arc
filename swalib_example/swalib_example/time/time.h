@@ -50,7 +50,7 @@ class time
         return scale;
     }
 
-    double set_scale(double _scale)
+    void set_scale(double _scale)
     {
         scale = _scale;
     }

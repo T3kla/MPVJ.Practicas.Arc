@@ -84,11 +84,19 @@ void RenderLoop()
     auto fps_up = (1.0 / (avg_up_final / (double)TIME_AVG_SAMPLES)) * 1000.0;
     auto fps_fx = (1.0 / (avg_fx_final / (double)TIME_AVG_SAMPLES)) * 1000.0;
 
-    auto str_tw = " WARP TIME: " + std::to_string(tkl_time.get_count_scaled() / 1000.0);
-    auto str_tr = " REAL TIME: " + std::to_string(tkl_time.get_count_unscaled() / 1000.0);
-    auto str_up = "UPDATE FPS: " + std::to_string(fps_up);
-    auto str_fx = " FIXED FPS: " + std::to_string(fps_fx);
+    auto str_m1 = "       ARROW_UP AND ARROW_DOWN";
+    auto str_m2 = "           TO MODIFY SCALE";
 
+    FONT_DrawString(vec2(0, SCR_HEIGHT - 16), str_m1);
+    FONT_DrawString(vec2(0, SCR_HEIGHT - 32), str_m2);
+
+    auto str_sc = "       SCALE: " + std::to_string(tkl_time.get_scale());
+    auto str_tw = " SCALED TIME: " + std::to_string(tkl_time.get_count_scaled() / 1000.0);
+    auto str_tr = "   REAL TIME: " + std::to_string(tkl_time.get_count_unscaled() / 1000.0);
+    auto str_up = "  UPDATE FPS: " + std::to_string(fps_up);
+    auto str_fx = "   FIXED FPS: " + std::to_string(fps_fx);
+
+    FONT_DrawString(vec2(0, 64), str_sc.c_str());
     FONT_DrawString(vec2(0, 48), str_tw.c_str());
     FONT_DrawString(vec2(0, 32), str_tr.c_str());
     FONT_DrawString(vec2(0, 16), str_fx.c_str());
@@ -162,8 +170,8 @@ void GameLoop(double dt)
                 auto v2_ort = v2 - v2_par;
 
                 // One dimensional collision with parallel component
-                auto v1_len = vlen(v1_par) * (v1_dot > 0.f ? 1.f : -1.f);
-                auto v2_len = vlen(v2_par) * (v2_dot > 0.f ? 1.f : -1.f);
+                auto v1_len = fabsf(v1_dot) * (v1_dot > 0.f ? 1.f : -1.f);
+                auto v2_len = fabsf(v2_dot) * (v2_dot > 0.f ? 1.f : -1.f);
 
                 // Conservation of momentum
                 auto rel_vel = 2.f * (m1 * v1_len + m2 * v2_len) / nozero(m1 + m2);
@@ -189,16 +197,41 @@ void GameLoop(double dt)
 
         balls[i].pos = balls[i].pos + balls[i].vel * (float)(dt / 1000.);
 
-        // Rebound on margins.
-        if ((balls[i].pos.x > SCR_WIDTH) || (balls[i].pos.x < 0.f))
+        // Rebound on margins
+        if ((balls[i].pos.x > SCR_WIDTH))
+        {
+            balls[i].pos.x = SCR_WIDTH - 1;
             balls[i].vel.x *= -1.f;
-        if ((balls[i].pos.y > SCR_HEIGHT) || (balls[i].pos.y < 0.f))
+        }
+        if ((balls[i].pos.x < 0.f))
+        {
+            balls[i].pos.x = 1;
+            balls[i].vel.x *= -1.f;
+        }
+        if ((balls[i].pos.y > SCR_HEIGHT))
+        {
+            balls[i].pos.y = SCR_HEIGHT - 1;
             balls[i].vel.y *= -1.f;
+        }
+        if ((balls[i].pos.y < 0.f))
+        {
+            balls[i].pos.y = 1;
+            balls[i].vel.y *= -1.f;
+        }
     }
+}
+
+void Input()
+{
+    if (SYS_KeyPressed(SYS_KEY_UP))
+        tkl_time.set_scale(tkl_time.get_scale() + .001f * tkl_time.get_delta_unscaled());
+    if (SYS_KeyPressed(SYS_KEY_DOWN))
+        tkl_time.set_scale(tkl_time.get_scale() - .001f * tkl_time.get_delta_unscaled());
 }
 
 void Update()
 {
+    Input();
 }
 
 void FixedUpdate(double dt)
