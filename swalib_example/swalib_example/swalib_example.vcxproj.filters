@@ -5,65 +5,130 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Source Files\ball">
+      <UniqueIdentifier>{b0c5d9f7-3029-47c9-a529-cb3e277236e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Source Files\time">
+      <UniqueIdentifier>{c746f6f5-8892-4c8d-b1a5-9328c14971e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\.lib">
+      <UniqueIdentifier>{2ce1319c-fe67-452c-a058-32590e346acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{bc39d910-6912-432d-84b3-428d7608284a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\loops">
+      <UniqueIdentifier>{51de201e-fddd-4de3-a484-79a74cc76d5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\loops\1 input">
+      <UniqueIdentifier>{1ed15bc7-770e-4179-a788-858e8c2cc82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\loops\2 game">
+      <UniqueIdentifier>{e7848383-f32d-4e41-9e1b-d0330ba11812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\loops\3 render">
+      <UniqueIdentifier>{66cbbe19-23f2-4354-babf-69801c2c5677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\interfaces">
+      <UniqueIdentifier>{c4bb1df6-0717-491e-8d26-253274cadbb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{732a7218-be49-426c-949c-6367749133ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math\vec">
+      <UniqueIdentifier>{a7a90b53-7c5c-42d6-b1bf-d1b85d92436e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\common\core.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ball.cpp">
+      <Filter>Source Files\ball</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\common\lodepng.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="core.cpp">
+      <Filter>Source Files\.lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\common\stdafx.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="font.cpp">
+      <Filter>Source Files\.lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\common\sys_win.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lodepng.cpp">
+      <Filter>Source Files\.lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\common\example.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files\.lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\common\font.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="sys_win.cpp">
+      <Filter>Source Files\.lib</Filter>
     </ClCompile>
-    <ClCompile Include="ball\ball.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="time.cpp">
+      <Filter>Source Files\time</Filter>
     </ClCompile>
-    <ClCompile Include="time\time.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stasis.cpp">
+      <Filter>Source Files\time</Filter>
+    </ClCompile>
+    <ClCompile Include="engine.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files\engine\loops\1 input</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\engine\loops\2 game</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Source Files\engine\loops\3 render</Filter>
+    </ClCompile>
+    <ClCompile Include="vec.cpp">
+      <Filter>Source Files\math\vec</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\common\core.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ball.h">
+      <Filter>Source Files\ball</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\lodepng.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="core.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\stdafx.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="font.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\sys.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lodepng.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\font.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\vector2d.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="sys.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
-    <ClInclude Include="time\time.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="vector2d.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
-    <ClInclude Include="ball\ball.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="time.h">
+      <Filter>Source Files\time</Filter>
+    </ClInclude>
+    <ClInclude Include="stasis.h">
+      <Filter>Source Files\time</Filter>
+    </ClInclude>
+    <ClInclude Include="engine.h">
+      <Filter>Source Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Source Files\engine\loops\1 input</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Source Files\engine\loops\2 game</Filter>
+    </ClInclude>
+    <ClInclude Include="render.h">
+      <Filter>Source Files\engine\loops\3 render</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobject.h">
+      <Filter>Source Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="vec.h">
+      <Filter>Source Files\math\vec</Filter>
+    </ClInclude>
+    <ClInclude Include="pi.h">
+      <Filter>Source Files\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

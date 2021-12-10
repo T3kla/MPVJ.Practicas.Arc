@@ -120,24 +120,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\common\core.cpp" />
-    <ClCompile Include="..\..\common\example.cpp" />
-    <ClCompile Include="..\..\common\font.cpp" />
-    <ClCompile Include="..\..\common\lodepng.cpp" />
-    <ClCompile Include="..\..\common\stdafx.cpp" />
-    <ClCompile Include="..\..\common\sys_win.cpp" />
-    <ClCompile Include="ball\ball.cpp" />
-    <ClCompile Include="time\time.cpp" />
+    <ClCompile Include="ball.cpp" />
+    <ClCompile Include="core.cpp" />
+    <ClCompile Include="engine.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="font.cpp" />
+    <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="render.cpp" />
+    <ClCompile Include="stasis.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="sys_win.cpp" />
+    <ClCompile Include="time.cpp" />
+    <ClCompile Include="vec.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\common\core.h" />
-    <ClInclude Include="..\..\common\font.h" />
-    <ClInclude Include="..\..\common\lodepng.h" />
-    <ClInclude Include="..\..\common\stdafx.h" />
-    <ClInclude Include="..\..\common\sys.h" />
-    <ClInclude Include="..\..\common\vector2d.h" />
-    <ClInclude Include="ball\ball.h" />
-    <ClInclude Include="time\time.h" />
+    <ClInclude Include="ball.h" />
+    <ClInclude Include="core.h" />
+    <ClInclude Include="engine.h" />
+    <ClInclude Include="font.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gameobject.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="pi.h" />
+    <ClInclude Include="render.h" />
+    <ClInclude Include="stasis.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="sys.h" />
+    <ClInclude Include="time.h" />
+    <ClInclude Include="vec.h" />
+    <ClInclude Include="vector2d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
