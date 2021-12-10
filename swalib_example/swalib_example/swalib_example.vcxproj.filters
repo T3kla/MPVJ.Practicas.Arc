@@ -38,6 +38,9 @@
     <Filter Include="Source Files\math\vec">
       <UniqueIdentifier>{a7a90b53-7c5c-42d6-b1bf-d1b85d92436e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\assignment">
+      <UniqueIdentifier>{ce07d6a1-6db5-438d-b28b-c7b716a6708f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp">
@@ -58,9 +61,6 @@
     <ClCompile Include="sys_win.cpp">
       <Filter>Source Files\.lib</Filter>
     </ClCompile>
-    <ClCompile Include="time.cpp">
-      <Filter>Source Files\time</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stasis.cpp">
       <Filter>Source Files\time</Filter>
@@ -79,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="vec.cpp">
       <Filter>Source Files\math\vec</Filter>
+    </ClCompile>
+    <ClCompile Include="ass_03.cpp">
+      <Filter>Source Files\assignment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,9 +106,6 @@
     <ClInclude Include="vector2d.h">
       <Filter>Source Files\.lib</Filter>
     </ClInclude>
-    <ClInclude Include="time.h">
-      <Filter>Source Files\time</Filter>
-    </ClInclude>
     <ClInclude Include="stasis.h">
       <Filter>Source Files\time</Filter>
     </ClInclude>
@@ -129,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="pi.h">
       <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="ass_03.h">
+      <Filter>Source Files\assignment</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

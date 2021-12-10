@@ -28,26 +28,33 @@ void Game::UnSubscribe(const GameObject *gameObject) {
 
 const std::vector<GameObject *> *Game::GetGameObjects() { return &Get().each; }
 
-void Game::Init() { Start(); }
+void Game::Init() {
 
-void Game::Exit() { End(); }
+  // GameObject Start
+  Start();
+}
+
+void Game::Exit() {
+  // GameObject End
+  End();
+}
 
 void Game::Start() {
-  for (auto &&go : *Game::Get().GetGameObjects())
+  for (auto &&go : *instance.GetGameObjects())
     go->Start();
 }
 
 void Game::Update() {
-  for (auto &&go : *Game::Get().GetGameObjects())
+  for (auto &&go : *instance.GetGameObjects())
     go->Update();
 }
 
 void Game::Fixed() {
-  for (auto &&go : *Game::Get().GetGameObjects())
+  for (auto &&go : *instance.GetGameObjects())
     go->Fixed();
 }
 
 void Game::End() {
-  for (auto &&go : *Game::Get().GetGameObjects())
+  for (auto &&go : *instance.GetGameObjects())
     go->End();
 }

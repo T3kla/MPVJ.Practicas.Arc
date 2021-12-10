@@ -16,13 +16,13 @@ public:                        //
 private:
   std::vector<GameObject *> each = std::vector<GameObject *>();
 
-  void Init();
-  void Exit();
+  static void Init();
+  static void Exit();
 
-  void Start();  // GameObject calls
-  void Update(); //
-  void Fixed();  //
-  void End();    //
+  static void Start();  // GameObject calls
+  static void Update(); //
+  static void Fixed();  //
+  static void End();    //
 
 public:
   static void Subscribe(GameObject *gameObject);

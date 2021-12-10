@@ -13,6 +13,7 @@ public:                            //
   static Engine &Get();            //
 
 private:
+  double fxCount = 0.;
   double mouseX = 0.;
   double mouseY = 0.;
   double mouseDeltaX = 0.;
@@ -20,6 +21,9 @@ private:
 
 public:
   static void Run();
+
+  static float GetUpdateFPS();
+  static float GetFixedFPS();
 
   static Vec2 GetMousePos();
   static void SetMousePos(const Vec2 &pos);

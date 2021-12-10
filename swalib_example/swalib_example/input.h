@@ -11,7 +11,7 @@ public:                          //
   static Input &Get();           //
 
 private:
-  void Init();
-  void Loop();
-  void Exit();
+  static void Init();
+  static void Loop();
+  static void Exit();
 };

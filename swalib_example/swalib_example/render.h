@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdafx.h"
+
 class Render {
   friend class Engine;
 
@@ -11,7 +13,14 @@ public:                            //
   static Render &Get();            //
 
 private:
-  void Init();
-  void Loop();
-  void Exit();
+  GLuint txBg = 0;
+  GLuint txBall = 0;
+
+  static void Init();
+  static void Loop();
+  static void Exit();
+
+public:
+  static const GLuint &GetTxBg();
+  static const GLuint &GetTxBall();
 };

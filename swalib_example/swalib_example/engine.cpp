@@ -5,45 +5,54 @@
 #include "stasis.h"
 #include "sys.h"
 
+static double nowUp = 0.;
+static double nowFx = 0.;
+static double oldUp = 0.;
+static double oldFx = 0.;
+static double freqUp = 0.;
+static double freqFx = 0.;
+
+auto FreqRefresh = [](double &now, double &old, double &freq) {
+  nowUp = Stasis::GetTime();
+  freqUp = nowUp - oldUp;
+  oldUp = nowUp;
+};
+
 Engine Engine::instance;
 
 Engine::Engine() {}
 
 Engine &Engine::Get() { return instance; }
 
-static double count = 0.;
-
 void Engine::Run() {
-  auto &input = Input::Get();
-  auto &game = Game::Get();
-  auto &rend = Render::Get();
-  auto &time = Stasis::Get();
-
-  time.RefreshTime();
-
-  input.Init();
-  rend.Init();
-  game.Init();
+  Stasis::RefreshTime();
+  Input::Init();
+  Render::Init();
+  Game::Init();
 
   while (!SYS_GottaQuit()) {
-    time.RefreshTime();
+    Stasis::RefreshTime();
+    Input::Loop();
 
-    input.Loop();
-    game.Update();
+    FreqRefresh(nowUp, oldUp, freqUp);
+    Game::Update();
 
-    count += time.GetDelta();
-    count = min(count, STEP * 2);
-    while (count >= STEP) {
-      game.Fixed();
-      count -= STEP;
+    instance.fxCount += Stasis::GetDelta();
+    instance.fxCount = min(instance.fxCount, STEP * 2);
+    while (instance.fxCount >= STEP) {
+      FreqRefresh(nowUp, oldUp, freqFx);
+      Game::Fixed();
+
+      instance.fxCount -= STEP;
     }
 
-    rend.Loop();
+    Render::Loop();
+    SYS_Pump();
   }
 
-  input.Exit();
-  game.Exit();
-  rend.Exit();
+  Input::Exit();
+  Game::Exit();
+  Render::Exit();
 }
 
 Vec2 Engine::GetMousePos() {
@@ -63,3 +72,6 @@ void Engine::SetMouseDelta(const Vec2 &pos) {
   Get().mouseDeltaX = pos.x;
   Get().mouseDeltaY = pos.y;
 }
+
+float Engine::GetUpdateFPS() { return 1000. / freqUp; }
+float Engine::GetFixedFPS() { return 1000. / freqFx; }

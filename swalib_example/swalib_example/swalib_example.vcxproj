@@ -120,6 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ass_03.cpp" />
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="engine.cpp" />
@@ -132,10 +133,10 @@
     <ClCompile Include="stasis.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="sys_win.cpp" />
-    <ClCompile Include="time.cpp" />
     <ClCompile Include="vec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ass_03.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="engine.h" />
@@ -149,7 +150,6 @@
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sys.h" />
-    <ClInclude Include="time.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="vector2d.h" />
   </ItemGroup>
