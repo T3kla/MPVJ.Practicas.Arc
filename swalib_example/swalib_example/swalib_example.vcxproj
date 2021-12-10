@@ -129,6 +129,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="physics.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="stasis.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -138,18 +139,25 @@
   <ItemGroup>
     <ClInclude Include="ass_03.h" />
     <ClInclude Include="ball.h" />
+    <ClInclude Include="collider_circle.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="engine.h" />
+    <ClInclude Include="entity.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameobject.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="juggler.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="physics.h" />
     <ClInclude Include="pi.h" />
     <ClInclude Include="render.h" />
+    <ClInclude Include="render_sprite.h" />
+    <ClInclude Include="rigidbody_2d.h" />
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sys.h" />
+    <ClInclude Include="transform_2d.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="vector2d.h" />
   </ItemGroup>

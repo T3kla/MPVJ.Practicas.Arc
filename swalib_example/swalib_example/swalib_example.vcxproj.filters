@@ -5,9 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\ball">
-      <UniqueIdentifier>{b0c5d9f7-3029-47c9-a529-cb3e277236e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\time">
       <UniqueIdentifier>{c746f6f5-8892-4c8d-b1a5-9328c14971e9}</UniqueIdentifier>
     </Filter>
@@ -41,10 +38,28 @@
     <Filter Include="Source Files\assignment">
       <UniqueIdentifier>{ce07d6a1-6db5-438d-b28b-c7b716a6708f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ecs">
+      <UniqueIdentifier>{acba6a3c-15b3-4f28-b672-93759ff00211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\system">
+      <UniqueIdentifier>{c01111a3-ab6a-42aa-83ec-acdc824f6232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\component">
+      <UniqueIdentifier>{237f1a5b-1be0-443a-bb5a-14ab73660ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\system\physics">
+      <UniqueIdentifier>{0914cc0f-c899-4a98-88b8-4e660c2d4d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\entities">
+      <UniqueIdentifier>{474e53b0-147a-47fd-9585-fdff78470ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\entities\ball">
+      <UniqueIdentifier>{b0c5d9f7-3029-47c9-a529-cb3e277236e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp">
-      <Filter>Source Files\ball</Filter>
+      <Filter>Source Files\ecs\entities\ball</Filter>
     </ClCompile>
     <ClCompile Include="core.cpp">
       <Filter>Source Files\.lib</Filter>
@@ -83,10 +98,13 @@
     <ClCompile Include="ass_03.cpp">
       <Filter>Source Files\assignment</Filter>
     </ClCompile>
+    <ClCompile Include="physics.cpp">
+      <Filter>Source Files\ecs\system\physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h">
-      <Filter>Source Files\ball</Filter>
+      <Filter>Source Files\ecs\entities\ball</Filter>
     </ClInclude>
     <ClInclude Include="core.h">
       <Filter>Source Files\.lib</Filter>
@@ -132,6 +150,27 @@
     </ClInclude>
     <ClInclude Include="ass_03.h">
       <Filter>Source Files\assignment</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Source Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_2d.h">
+      <Filter>Source Files\ecs\component</Filter>
+    </ClInclude>
+    <ClInclude Include="render_sprite.h">
+      <Filter>Source Files\ecs\component</Filter>
+    </ClInclude>
+    <ClInclude Include="collider_circle.h">
+      <Filter>Source Files\ecs\component</Filter>
+    </ClInclude>
+    <ClInclude Include="rigidbody_2d.h">
+      <Filter>Source Files\ecs\component</Filter>
+    </ClInclude>
+    <ClInclude Include="physics.h">
+      <Filter>Source Files\ecs\system\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="juggler.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
