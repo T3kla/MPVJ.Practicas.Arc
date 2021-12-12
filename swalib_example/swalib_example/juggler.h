@@ -1,21 +1,32 @@
 #pragma once
 
-// Component array which ensures static allocation
-// and tight packaging of components
+#include "entity_manager.h"
+#include <cassert>
+#include <unordered_map>
 
-template <class T> class Juggler {
+// Array wrapper that ensures the data is tightly packed
+
+class IJuggler {
+public:
+  // Replace with event subscription to OnEntityDesctruction in EntityMan
+  // Maybe polling?
+  virtual ~IJuggler() = default;
+  virtual void EntityDestroyed(EntID id) = 0;
+};
+
+template <class T> class Juggler : public IJuggler {
 private:
-  const T *;
-  size_t capacity;
+  std::array<T, MAX_ENTS> data;
+  std::unordered_map<EntID, size_t> ent_idx;
+  std::unordered_map<size_t, EntID> idx_ent;
   size_t size;
 
 public:
-  Juggler(size_t capacity = 1);
-  ~Juggler();
+  size_t GetSize() const;
 
-  size_t GetSize() { return size; };
-  void SetSize(size_t size) { this->size = size; };
+  void AddComponent(EntID id, const T &cmp);
+  T &GetComponent(EntID id) const;
+  void RemoveComponent(EntID id);
 
-  size_t GetCapacity() { return capacity; };
-  void SetCapacity(size_t capacity) { this->capacity = capacity; };
+  virtual void EntityDestroyed(EntID id) override;
 };

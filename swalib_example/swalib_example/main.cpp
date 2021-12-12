@@ -3,8 +3,8 @@
 #include <iostream>
 
 int Main(void) {
-
   auto ass01 = Ass03();
+
   Engine::Run();
 
   return 0;

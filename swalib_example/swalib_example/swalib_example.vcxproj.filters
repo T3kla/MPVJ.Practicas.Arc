@@ -41,25 +41,37 @@
     <Filter Include="Source Files\ecs">
       <UniqueIdentifier>{acba6a3c-15b3-4f28-b672-93759ff00211}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ecs\system">
-      <UniqueIdentifier>{c01111a3-ab6a-42aa-83ec-acdc824f6232}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ecs\component">
+    <Filter Include="Source Files\components">
       <UniqueIdentifier>{237f1a5b-1be0-443a-bb5a-14ab73660ce0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ecs\system\physics">
-      <UniqueIdentifier>{0914cc0f-c899-4a98-88b8-4e660c2d4d70}</UniqueIdentifier>
+    <Filter Include="Source Files\entities">
+      <UniqueIdentifier>{dfe5c806-e416-45a2-912f-46f64d41ffdb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ecs\entities">
+    <Filter Include="Source Files\entities\ball">
+      <UniqueIdentifier>{b0c5d9f7-3029-47c9-a529-cb3e277236e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\1 entity_manager">
       <UniqueIdentifier>{474e53b0-147a-47fd-9585-fdff78470ea9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ecs\entities\ball">
-      <UniqueIdentifier>{b0c5d9f7-3029-47c9-a529-cb3e277236e3}</UniqueIdentifier>
+    <Filter Include="Source Files\ecs\2 component_manager">
+      <UniqueIdentifier>{bae91f8f-4a22-4a45-aa89-cf5733b57b09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\3 system_manager">
+      <UniqueIdentifier>{97b9a7ec-6afa-4236-8ac4-1a573da4b6f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\systems">
+      <UniqueIdentifier>{c01111a3-ab6a-42aa-83ec-acdc824f6232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\systems\physics">
+      <UniqueIdentifier>{0914cc0f-c899-4a98-88b8-4e660c2d4d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\2 component_manager\juggler">
+      <UniqueIdentifier>{b8924fe1-bab9-4c06-b19b-fa4df4406b3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp">
-      <Filter>Source Files\ecs\entities\ball</Filter>
+      <Filter>Source Files\entities\ball</Filter>
     </ClCompile>
     <ClCompile Include="core.cpp">
       <Filter>Source Files\.lib</Filter>
@@ -99,12 +111,27 @@
       <Filter>Source Files\assignment</Filter>
     </ClCompile>
     <ClCompile Include="physics.cpp">
-      <Filter>Source Files\ecs\system\physics</Filter>
+      <Filter>Source Files\systems\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="entity_manager.cpp">
+      <Filter>Source Files\ecs\1 entity_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="juggler.cpp">
+      <Filter>Source Files\ecs\2 component_manager\juggler</Filter>
+    </ClCompile>
+    <ClCompile Include="component_manager.cpp">
+      <Filter>Source Files\ecs\2 component_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="system_manager.cpp">
+      <Filter>Source Files\ecs\3 system_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs_manager.cpp">
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h">
-      <Filter>Source Files\ecs\entities\ball</Filter>
+      <Filter>Source Files\entities\ball</Filter>
     </ClInclude>
     <ClInclude Include="core.h">
       <Filter>Source Files\.lib</Filter>
@@ -155,22 +182,37 @@
       <Filter>Source Files\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="transform_2d.h">
-      <Filter>Source Files\ecs\component</Filter>
+      <Filter>Source Files\components</Filter>
     </ClInclude>
     <ClInclude Include="render_sprite.h">
-      <Filter>Source Files\ecs\component</Filter>
+      <Filter>Source Files\components</Filter>
     </ClInclude>
     <ClInclude Include="collider_circle.h">
-      <Filter>Source Files\ecs\component</Filter>
+      <Filter>Source Files\components</Filter>
     </ClInclude>
     <ClInclude Include="rigidbody_2d.h">
-      <Filter>Source Files\ecs\component</Filter>
+      <Filter>Source Files\components</Filter>
     </ClInclude>
     <ClInclude Include="physics.h">
-      <Filter>Source Files\ecs\system\physics</Filter>
+      <Filter>Source Files\systems\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="entity_manager.h">
+      <Filter>Source Files\ecs\1 entity_manager</Filter>
     </ClInclude>
     <ClInclude Include="juggler.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ecs\2 component_manager\juggler</Filter>
+    </ClInclude>
+    <ClInclude Include="component_manager.h">
+      <Filter>Source Files\ecs\2 component_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="system.h">
+      <Filter>Source Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="system_manager.h">
+      <Filter>Source Files\ecs\3 system_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs_manager.h">
+      <Filter>Source Files\ecs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -122,10 +122,14 @@
   <ItemGroup>
     <ClCompile Include="ass_03.cpp" />
     <ClCompile Include="ball.cpp" />
+    <ClCompile Include="component_manager.cpp" />
     <ClCompile Include="core.cpp" />
+    <ClCompile Include="ecs_manager.cpp" />
     <ClCompile Include="engine.cpp" />
+    <ClCompile Include="entity_manager.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="juggler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="lodepng.cpp" />
@@ -133,6 +137,7 @@
     <ClCompile Include="render.cpp" />
     <ClCompile Include="stasis.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="sys_win.cpp" />
     <ClCompile Include="vec.cpp" />
   </ItemGroup>
@@ -140,9 +145,12 @@
     <ClInclude Include="ass_03.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="collider_circle.h" />
+    <ClInclude Include="component_manager.h" />
     <ClInclude Include="core.h" />
+    <ClInclude Include="ecs_manager.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="entity_manager.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameobject.h" />
@@ -157,6 +165,8 @@
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sys.h" />
+    <ClInclude Include="system.h" />
+    <ClInclude Include="system_manager.h" />
     <ClInclude Include="transform_2d.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="vector2d.h" />
