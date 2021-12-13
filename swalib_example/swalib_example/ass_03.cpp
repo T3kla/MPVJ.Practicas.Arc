@@ -1,18 +1,29 @@
 #include "ass_03.h"
+
+#include <random>
+
 #include "core.h"
-#include "ecs_manager.h"
+#include "sys.h"
+
+#include "engine_game.h"
 #include "engine_render.h"
 #include "entity.h"
-#include "sys.h"
-#include <random>
 
 #include "pi.h"
 #include "vec.h"
+
+#include "ecs_manager.h"
+//#include "entity_manager.h"
+//#include "component_manager.h"
+//#include "system_manager.h"
 
 #include "circle_collider.h"
 #include "rigidbody_2d.h"
 #include "sprite_renderer.h"
 #include "transform_2d.h"
+
+Ass03::Ass03() { EngineGame::Subscribe(this); }
+Ass03::~Ass03() { EngineGame::UnSubscribe(this); }
 
 void Ass03::Start() {
   // ECS initialization
@@ -47,6 +58,7 @@ void Ass03::Start() {
   std::uniform_real_distribution<float> randRad(minBallRadius, maxBallRadius);
 
   // Ball initialization
+  balls = std::vector<Ball>(BALLS_NUM);
   for (int i = 0; i < BALLS_NUM; i++) {
     auto id = ecs.CreateEntity();
 
@@ -54,12 +66,27 @@ void Ass03::Start() {
     auto area = radius * PI * PI;
 
     balls[i].SetEntID(id);
-    ecs.AddComponent(id, Transform2D({{randPosX(rand), randPosY(rand)}}));
-    ecs.AddComponent(id,
-                     Rigidbody2D((float)area, {randSpd(rand), randSpd(rand)}));
-    ecs.AddComponent(id, CircleCollider(false, radius));
-    ecs.AddComponent(
-        id, SpriteRenderer({radius, radius}, EngineRender::GetTxBall()));
+
+    Transform2D tf;
+    tf.position = {randPosX(rand), randPosY(rand)};
+    tf.rotation = 0.f;
+    tf.scale = {radius, radius};
+    ecs.AddComponent(id, tf);
+
+    Rigidbody2D rb;
+    rb.mass = 1.f;
+    rb.velocity = {randSpd(rand), randSpd(rand)};
+    ecs.AddComponent(id, rb);
+
+    CircleCollider cc;
+    cc.isTrigger = false;
+    cc.radius = radius;
+    ecs.AddComponent(id, cc);
+
+    SpriteRenderer sr;
+    sr.scale = {1.f, 1.f};
+    sr.texture = EngineRender::GetTxBall();
+    ecs.AddComponent(id, sr);
   }
 }
 

@@ -5,7 +5,7 @@
 #include "transform_2d.h"
 #include "vector2d.h"
 
-inline void SysRenderer::Run() {
+void SysRenderer::Run() {
   auto &ecs = ECS::Get();
   for (auto const &ent : entities) {
     auto &tf = ecs.GetComponent<Transform2D>(ent);

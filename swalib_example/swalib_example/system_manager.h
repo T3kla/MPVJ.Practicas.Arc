@@ -11,7 +11,7 @@ private:
   std::unordered_map<const char *, std::shared_ptr<System>> name_sys{};
 
 public:
-  template <typename T> std::shared_ptr<T> RegisterSystem() {
+  template <class T> std::shared_ptr<T> RegisterSystem() {
     const char *typeName = typeid(T).name();
 
     assert(name_sys.find(typeName) == name_sys.end() &&
@@ -22,7 +22,7 @@ public:
     return system;
   }
 
-  template <typename T> void SetSignature(Signature sign) {
+  template <class T> void SetSignature(Signature sign) {
     const char *typeName = typeid(T).name();
 
     assert(name_sys.find(typeName) != name_sys.end() &&

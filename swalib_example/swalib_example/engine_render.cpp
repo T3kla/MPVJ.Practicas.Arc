@@ -51,12 +51,6 @@ void EngineRender::Loop() {
       CORE_RenderCenteredSprite(vec2(i * 128.f + 64.f, j * 128.f + 64.f),
                                 vec2(128.f, 128.f), instance.txBg);
 
-  // Render balls
-  /*for (int i = 0; i < NUM_BALLS; i++)
-    CORE_RenderCenteredSprite(
-        balls[i].pos, vec2(balls[i].radius * 2.f, balls[i].radius * 2.f),
-        balls[i].gfx);*/
-
   auto avg_up_final = 0.0;
   auto avg_fx_final = 0.0;
 
@@ -85,6 +79,7 @@ void EngineRender::Loop() {
 void EngineRender::Exit() {
   CORE_UnloadPNG(instance.txBg);
   CORE_UnloadPNG(instance.txBall);
+
   FONT_End();
 }
 

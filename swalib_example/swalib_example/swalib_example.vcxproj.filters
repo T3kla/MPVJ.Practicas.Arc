@@ -74,6 +74,9 @@
     <Filter Include="Source Files\ecs\6 systems\renderer">
       <UniqueIdentifier>{f8d2d1ce-fdb9-4b2e-a8a0-68ead4e6245c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\math\pi">
+      <UniqueIdentifier>{1211317a-6f52-4335-aeb6-a0b7e0eb66d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp">
@@ -134,6 +137,9 @@
     <ClCompile Include="sys_renderer.cpp">
       <Filter>Source Files\ecs\6 systems\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="pi.cpp">
+      <Filter>Source Files\math\pi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h">
@@ -178,9 +184,6 @@
     <ClInclude Include="vec.h">
       <Filter>Source Files\math\vec</Filter>
     </ClInclude>
-    <ClInclude Include="pi.h">
-      <Filter>Source Files\math</Filter>
-    </ClInclude>
     <ClInclude Include="ass_03.h">
       <Filter>Source Files\assignment</Filter>
     </ClInclude>
@@ -222,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="sys_renderer.h">
       <Filter>Source Files\ecs\6 systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="pi.h">
+      <Filter>Source Files\math\pi</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,7 +6,4 @@
 struct SpriteRenderer {
   Vec2 scale = {1.f, 1.f};
   GLuint texture = 0;
-
-  SpriteRenderer(Vec2 scale = {1.f, 1.f}, GLuint texture = 0)
-      : scale(scale), texture(texture){};
 };

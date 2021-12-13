@@ -7,7 +7,7 @@
 #include "transform_2d.h"
 #include "vec.h"
 
-inline void SysPhysics::Run() {
+void SysPhysics::Run() {
   auto nozero = [](const float &f) { return f == 0.f ? f + FLT_EPSILON : f; };
   auto &ecs = ECS::Get();
 

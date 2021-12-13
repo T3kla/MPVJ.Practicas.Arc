@@ -24,12 +24,12 @@ public:
   EntID CreateEntity();
   void DestroyEntity(EntID id);
 
-  template <typename T> void RegisterComponent();
-  template <typename T> void AddComponent(EntID id, T component);
-  template <typename T> void RemoveComponent(EntID id);
-  template <typename T> T &GetComponent(EntID id);
-  template <typename T> CmpID GetComponentID();
+  template <class T> void RegisterComponent();
+  template <class T> void AddComponent(EntID id, T component);
+  template <class T> void RemoveComponent(EntID id);
+  template <class T> T &GetComponent(EntID id);
+  template <class T> CmpID GetComponentID();
 
-  template <typename T> std::shared_ptr<T> RegisterSystem();
-  template <typename T> void SetSystemSignature(Signature signature);
+  template <class T> std::shared_ptr<T> RegisterSystem();
+  template <class T> void SetSystemSignature(Signature signature);
 };

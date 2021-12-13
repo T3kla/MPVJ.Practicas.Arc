@@ -133,6 +133,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="pi.cpp" />
     <ClCompile Include="sys_physics.cpp" />
     <ClCompile Include="engine_render.cpp" />
     <ClCompile Include="sys_renderer.cpp" />

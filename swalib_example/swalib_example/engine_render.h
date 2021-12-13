@@ -21,6 +21,6 @@ private:
   static void Exit();
 
 public:
-  static const GLuint &GetTxBg();
-  static const GLuint &GetTxBall();
+  static const unsigned int &GetTxBg();
+  static const unsigned int &GetTxBall();
 };

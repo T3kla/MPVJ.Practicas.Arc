@@ -1,6 +1,6 @@
 #include "component_manager.h"
 
-template <typename T> std::shared_ptr<Juggler<T>> ComponentMan::GetJuggler() {
+template <class T> std::shared_ptr<Juggler<T>> ComponentMan::GetJuggler() {
   const char *typeName = typeid(T).name();
 
   assert(name_id.find(typeName) != name_id.end() &&
@@ -9,7 +9,7 @@ template <typename T> std::shared_ptr<Juggler<T>> ComponentMan::GetJuggler() {
   return std::static_pointer_cast<Juggler<T>>(name_juggler[typeName]);
 }
 
-template <typename T> CmpID ComponentMan::GetComponentID() const {
+template <class T> CmpID ComponentMan::GetComponentID() const {
   const char *typeName = typeid(T).name();
 
   assert(name_id.find(typeName) != name_id.end() &&
@@ -18,7 +18,7 @@ template <typename T> CmpID ComponentMan::GetComponentID() const {
   return name_id[typeName];
 }
 
-template <typename T> void ComponentMan::RegisterComponent() {
+template <class T> void ComponentMan::RegisterComponent() {
   const char *typeName = typeid(T).name();
 
   assert(name_id.find(typeName) == name_id.end() &&
@@ -30,16 +30,16 @@ template <typename T> void ComponentMan::RegisterComponent() {
   ++cmpCount;
 }
 
-template <typename T>
+template <class T>
 void ComponentMan::AddComponent(EntID id, const T &cmp) const {
   GetJuggler<T>()->AddComponent(entity, cmp);
 }
 
-template <typename T> void ComponentMan::RemoveComponent(EntID id) const {
+template <class T> void ComponentMan::RemoveComponent(EntID id) const {
   GetJuggler<T>()->RemoveComponent(id);
 }
 
-template <typename T> T &ComponentMan::GetComponent(EntID id) const {
+template <class T> T &ComponentMan::GetComponent(EntID id) const {
   return GetJuggler<T>()->GetComponent(id);
 }
 

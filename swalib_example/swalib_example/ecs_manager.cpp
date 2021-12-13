@@ -20,11 +20,11 @@ void ECS::DestroyEntity(EntID id) {
   sysMan->EntityDestroyed(id);
 }
 
-template <typename T> void ECS::RegisterComponent() {
+template <class T> void ECS::RegisterComponent() {
   cmpMan->RegisterComponent<T>();
 }
 
-template <typename T> void ECS::AddComponent(EntID id, T component) {
+template <class T> void ECS::AddComponent(EntID id, T component) {
   cmpMan->AddComponent<T>(id, component);
 
   Signature sign = entMan->GetSignature(id);
@@ -34,7 +34,7 @@ template <typename T> void ECS::AddComponent(EntID id, T component) {
   sysMan->EntitySignatureChanged(id, sign);
 }
 
-template <typename T> void ECS::RemoveComponent(EntID id) {
+template <class T> void ECS::RemoveComponent(EntID id) {
   cmpMan->RemoveComponent<T>();
 
   Signature sign = entMan->GetSignature();
@@ -44,18 +44,18 @@ template <typename T> void ECS::RemoveComponent(EntID id) {
   sysMan->EntitySignatureChanged(id, sign);
 }
 
-template <typename T> T &ECS::GetComponent(EntID id) {
+template <class T> T &ECS::GetComponent(EntID id) {
   return cmpMan->GetComponent<T>(id);
 }
 
-template <typename T> CmpID ECS::GetComponentID() {
+template <class T> CmpID ECS::GetComponentID() {
   return cmpMan->GetComponentID<T>();
 }
 
-template <typename T> std::shared_ptr<T> ECS::RegisterSystem() {
+template <class T> std::shared_ptr<T> ECS::RegisterSystem() {
   return sysMan->RegisterSystem<T>();
 }
 
-template <typename T> void ECS::SetSystemSignature(Signature signature) {
+template <class T> void ECS::SetSystemSignature(Signature signature) {
   sysMan->SetSignature<T>(signature);
 }
