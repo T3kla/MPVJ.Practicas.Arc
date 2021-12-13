@@ -24,12 +24,43 @@ public:
   EntID CreateEntity();
   void DestroyEntity(EntID id);
 
-  template <class T> void RegisterComponent();
-  template <class T> void AddComponent(EntID id, T component);
-  template <class T> void RemoveComponent(EntID id);
-  template <class T> T &GetComponent(EntID id);
-  template <class T> CmpID GetComponentID();
+  template <class T> void RegisterComponent() {
+    cmpMan->RegisterComponent<T>();
+  }
 
-  template <class T> std::shared_ptr<T> RegisterSystem();
-  template <class T> void SetSystemSignature(Signature signature);
+  template <class T> void AddComponent(EntID id, T component) {
+    cmpMan->AddComponent<T>(id, component);
+
+    Signature sign = entMan->GetSignature(id);
+    sign.set(cmpMan->GetComponentID<T>(), true);
+    entMan->SetSignature(id, sign);
+
+    sysMan->EntitySignatureChanged(id, sign);
+  }
+
+  template <class T> void RemoveComponent(EntID id) {
+    cmpMan->RemoveComponent<T>();
+
+    Signature sign = entMan->GetSignature();
+    sign.set(cmpMan->GetComponentID<T>(), false);
+    entMan->SetSignature(id, sign);
+
+    sysMan->EntitySignatureChanged(id, sign);
+  }
+
+  template <class T> T &GetComponent(EntID id) {
+    return cmpMan->GetComponent<T>(id);
+  }
+
+  template <class T> CmpID GetComponentID() {
+    return cmpMan->GetComponentID<T>();
+  }
+
+  template <class T> std::shared_ptr<T> RegisterSystem() {
+    return sysMan->RegisterSystem<T>();
+  }
+
+  template <class T> void SetSystemSignature(Signature signature) {
+    sysMan->SetSignature<T>(signature);
+  }
 };

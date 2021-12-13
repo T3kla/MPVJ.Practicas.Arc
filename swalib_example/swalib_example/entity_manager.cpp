@@ -1,12 +1,12 @@
 #include "entity_manager.h"
 #include <cassert>
 
-inline EntityMan::EntityMan() {
+EntityMan::EntityMan() {
   for (EntID i = 0; i < MAX_ENTS; ++i)
     unusedIDs.push(i);
 }
 
-inline EntID EntityMan::BorrowID() {
+EntID EntityMan::BorrowID() {
   assert(count < MAX_ENTS && "Too many entities in existence.");
 
   EntID id = unusedIDs.front();
@@ -16,7 +16,7 @@ inline EntID EntityMan::BorrowID() {
   return id;
 }
 
-inline void EntityMan::ReturnID(EntID id) {
+void EntityMan::ReturnID(EntID id) {
   assert(id < MAX_ENTS && "Entity out of range.");
 
   name_sign[id].reset();
@@ -25,12 +25,12 @@ inline void EntityMan::ReturnID(EntID id) {
   --count;
 }
 
-inline const Signature &EntityMan::GetSignature(EntID id) const {
+const Signature &EntityMan::GetSignature(EntID id) const {
   assert(id < MAX_ENTS && "Entity out of range.");
   return name_sign[id];
 }
 
-inline void EntityMan::SetSignature(EntID id, const Signature &sign) {
+void EntityMan::SetSignature(EntID id, const Signature &sign) {
   assert(id < MAX_ENTS && "Entity out of range.");
   name_sign[id] = sign;
 }

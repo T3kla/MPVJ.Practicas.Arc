@@ -129,7 +129,6 @@
     <ClCompile Include="entity_manager.cpp" />
     <ClCompile Include="engine_game.cpp" />
     <ClCompile Include="engine_input.cpp" />
-    <ClCompile Include="juggler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="lodepng.cpp" />

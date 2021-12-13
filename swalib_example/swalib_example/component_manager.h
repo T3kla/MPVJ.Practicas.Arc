@@ -13,15 +13,48 @@ private:
   std::unordered_map<const char *, std::shared_ptr<IJuggler>> name_juggler{};
   CmpID cmpCount = 0;
 
-  template <class T> std::shared_ptr<Juggler<T>> GetJuggler();
+  template <class T> std::shared_ptr<Juggler<T>> GetJuggler() {
+    const char *typeName = typeid(T).name();
+
+    assert(name_id.find(typeName) != name_id.end() &&
+           "Component not registered before use.");
+
+    return std::static_pointer_cast<Juggler<T>>(name_juggler[typeName]);
+  }
 
 public:
-  template <class T> CmpID GetComponentID() const;
-  template <class T> void RegisterComponent();
+  template <class T> CmpID GetComponentID() const {
+    const char *typeName = typeid(T).name();
+    auto it = name_id.find(typeName);
 
-  template <class T> void AddComponent(EntID id, const T &cmp) const;
-  template <class T> T &GetComponent(EntID id) const;
-  template <class T> void RemoveComponent(EntID id) const;
+    assert(it != name_id.end() && "Component not registered before use.");
+
+    return it->second;
+  }
+
+  template <class T> void RegisterComponent() {
+    const char *typeName = typeid(T).name();
+
+    assert(name_id.find(typeName) == name_id.end() &&
+           "Registering component type more than once.");
+
+    name_id.insert({typeName, cmpCount});
+    name_juggler.insert({typeName, std::make_shared<Juggler<T>>()});
+
+    ++cmpCount;
+  }
+
+  template <class T> void AddComponent(EntID id, const T &cmp) const {
+    GetJuggler<T>()->AddComponent(id, cmp);
+  }
+
+  template <class T> T &GetComponent(EntID id) const {
+    return GetJuggler<T>()->GetComponent(id);
+  }
+
+  template <class T> void RemoveComponent(EntID id) const {
+    GetJuggler<T>()->RemoveComponent(id);
+  }
 
   void EntityDestroyed(EntID id) const;
 };

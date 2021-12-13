@@ -122,9 +122,6 @@
     <ClCompile Include="entity_manager.cpp">
       <Filter>Source Files\ecs\1 entity_manager</Filter>
     </ClCompile>
-    <ClCompile Include="juggler.cpp">
-      <Filter>Source Files\ecs\2 component_manager\juggler</Filter>
-    </ClCompile>
     <ClCompile Include="component_manager.cpp">
       <Filter>Source Files\ecs\2 component_manager</Filter>
     </ClCompile>
