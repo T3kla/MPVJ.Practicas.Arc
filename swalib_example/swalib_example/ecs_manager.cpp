@@ -35,20 +35,20 @@ template <typename T> void ECS::AddComponent(EntID id, T component) {
 }
 
 template <typename T> void ECS::RemoveComponent(EntID id) {
-    cmpMan->RemoveComponent<T>());
+  cmpMan->RemoveComponent<T>();
 
-    Signature sign = entMan->GetSignature());
-    sign.set(cmpMan->GetComponentID<T>(), false);
-    entMan->SetSignature(), sign);
+  Signature sign = entMan->GetSignature();
+  sign.set(cmpMan->GetComponentID<T>(), false);
+  entMan->SetSignature(id, sign);
 
-    sysMan->EntitySignatureChanged(), sign);
+  sysMan->EntitySignatureChanged(id, sign);
 }
 
 template <typename T> T &ECS::GetComponent(EntID id) {
-    return cmpMan->GetComponent<T>());
+  return cmpMan->GetComponent<T>(id);
 }
 
-template <typename T> CmpID ECS::GetComponentType() {
+template <typename T> CmpID ECS::GetComponentID() {
   return cmpMan->GetComponentID<T>();
 }
 

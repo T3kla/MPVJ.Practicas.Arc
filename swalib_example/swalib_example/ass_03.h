@@ -2,6 +2,9 @@
 
 #include "ball.h"
 #include "gameobject.h"
+#include "sys_physics.h"
+#include "sys_renderer.h"
+#include <memory>
 
 constexpr unsigned int BALLS_NUM = 30;
 
@@ -12,13 +15,10 @@ private:
   float minBallRadius = 10.f;
   Ball balls[BALLS_NUM];
 
-public:
-  float GetMaxBallSpeed() const { return maxBallSpeed; }
-  float GetMaxBallRadius() const { return maxBallRadius; }
-  float GetMinBallRadius() const { return minBallRadius; }
-  const Ball *GetBalls() const { return balls; }
+  std::shared_ptr<SysPhysics> physics = nullptr;
+  std::shared_ptr<SysRenderer> renderer = nullptr;
 
-  // Inherited via GameObject
+public:
   virtual void Start() override;
   virtual void Update() override;
   virtual void Fixed() override;

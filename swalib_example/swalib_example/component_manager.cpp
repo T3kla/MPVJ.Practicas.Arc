@@ -1,7 +1,6 @@
 #include "component_manager.h"
 
-template <typename T>
-inline std::shared_ptr<Juggler<T>> ComponentMan::GetJuggler() {
+template <typename T> std::shared_ptr<Juggler<T>> ComponentMan::GetJuggler() {
   const char *typeName = typeid(T).name();
 
   assert(name_id.find(typeName) != name_id.end() &&
@@ -10,7 +9,7 @@ inline std::shared_ptr<Juggler<T>> ComponentMan::GetJuggler() {
   return std::static_pointer_cast<Juggler<T>>(name_juggler[typeName]);
 }
 
-template <typename T> inline CmpID ComponentMan::GetComponentID() const {
+template <typename T> CmpID ComponentMan::GetComponentID() const {
   const char *typeName = typeid(T).name();
 
   assert(name_id.find(typeName) != name_id.end() &&
@@ -19,7 +18,7 @@ template <typename T> inline CmpID ComponentMan::GetComponentID() const {
   return name_id[typeName];
 }
 
-template <typename T> inline void ComponentMan::RegisterComponent() {
+template <typename T> void ComponentMan::RegisterComponent() {
   const char *typeName = typeid(T).name();
 
   assert(name_id.find(typeName) == name_id.end() &&
@@ -32,20 +31,19 @@ template <typename T> inline void ComponentMan::RegisterComponent() {
 }
 
 template <typename T>
-inline void ComponentMan::AddComponent(EntID id, const T &cmp) const {
+void ComponentMan::AddComponent(EntID id, const T &cmp) const {
   GetJuggler<T>()->AddComponent(entity, cmp);
 }
 
-template <typename T>
-inline void ComponentMan::RemoveComponent(EntID id) const {
-  GetJuggler<T>()->RemoveComponent(entity);
+template <typename T> void ComponentMan::RemoveComponent(EntID id) const {
+  GetJuggler<T>()->RemoveComponent(id);
 }
 
-template <typename T> inline T &ComponentMan::GetComponent(EntID id) const {
-  return GetJuggler<T>()->GetComponent(entity);
+template <typename T> T &ComponentMan::GetComponent(EntID id) const {
+  return GetJuggler<T>()->GetComponent(id);
 }
 
-inline void ComponentMan::EntityDestroyed(EntID id) const {
+void ComponentMan::EntityDestroyed(EntID id) const {
   for (auto const &pair : name_juggler) {
     auto &cmp = pair.second;
     cmp->EntityDestroyed(id);

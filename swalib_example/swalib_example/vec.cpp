@@ -29,6 +29,8 @@ Vec2::Vec2(Vec2 &&_rhs) noexcept {
 
 float Vec2::Magnitude() const { return sqrt(x * x + y * y); }
 
+float Vec2::MagnitudeSq() const { return x * x + y * y; }
+
 Vec2 Vec2::Normalized() const { return *this / this->Magnitude(); }
 
 float Vec2::AngleDeg() const {

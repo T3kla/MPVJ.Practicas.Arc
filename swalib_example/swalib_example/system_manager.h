@@ -22,13 +22,13 @@ public:
     return system;
   }
 
-  template <typename T> void SetSignature(Signature signature) {
+  template <typename T> void SetSignature(Signature sign) {
     const char *typeName = typeid(T).name();
 
     assert(name_sys.find(typeName) != name_sys.end() &&
            "System used before registered.");
 
-    name_sign.insert({typeName, signature});
+    name_sign.insert({typeName, sign});
   }
 
   void EntityDestroyed(EntID id) {
@@ -37,6 +37,8 @@ public:
   }
 
   void EntitySignatureChanged(EntID id, const Signature &sign) {
+    // Ensures each system has a list of entities that
+    // share the system's signature
     for (auto const &pair : name_sys) {
       auto const &type = pair.first;
       auto const &system = pair.second;

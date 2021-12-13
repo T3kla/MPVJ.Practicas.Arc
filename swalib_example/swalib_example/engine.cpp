@@ -1,7 +1,7 @@
 #include "engine.h"
-#include "game.h"
-#include "input.h"
-#include "render.h"
+#include "engine_game.h"
+#include "engine_input.h"
+#include "engine_render.h"
 #include "stasis.h"
 #include "sys.h"
 
@@ -26,33 +26,33 @@ Engine &Engine::Get() { return instance; }
 
 void Engine::Run() {
   Stasis::RefreshTime();
-  Input::Init();
-  Render::Init();
-  Game::Init();
+  EngineInput::Init();
+  EngineRender::Init();
+  EngineGame::Init();
 
   while (!SYS_GottaQuit()) {
     Stasis::RefreshTime();
-    Input::Loop();
+    EngineInput::Loop();
 
     FreqRefresh(nowUp, oldUp, freqUp);
-    Game::Update();
+    EngineGame::Update();
 
     instance.fxCount += Stasis::GetDelta();
     instance.fxCount = min(instance.fxCount, STEP * 2);
     while (instance.fxCount >= STEP) {
       FreqRefresh(nowUp, oldUp, freqFx);
-      Game::Fixed();
+      EngineGame::Fixed();
 
       instance.fxCount -= STEP;
     }
 
-    Render::Loop();
+    EngineRender::Loop();
     SYS_Pump();
   }
 
-  Input::Exit();
-  Game::Exit();
-  Render::Exit();
+  EngineInput::Exit();
+  EngineGame::Exit();
+  EngineRender::Exit();
 }
 
 Vec2 Engine::GetMousePos() {

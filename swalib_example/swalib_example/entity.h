@@ -12,8 +12,8 @@ public:
   virtual void Update() = 0;      // Post-component update
   virtual void LateUpdate() = 0;  // Post-Update update
 
-  virtual EntID GetEntityID() const { return id; }
-  virtual void SetEntityID(const EntID &id) { this->id = id; }
+  virtual EntID GetEntID() const { return id; }
+  virtual void SetEntID(const EntID &id) { this->id = id; }
 
   virtual Signature GetSignature() const { return sign; }
   virtual void SetSignature(const Signature &sign) { this->sign = sign; }

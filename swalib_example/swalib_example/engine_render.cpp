@@ -1,4 +1,4 @@
-#include "render.h"
+#include "engine_render.h"
 #include "core.h"
 #include "engine.h"
 #include "font.h"
@@ -6,13 +6,13 @@
 #include "sys.h"
 #include "vector2d.h"
 
-Render Render::instance;
+EngineRender EngineRender::instance;
 
-Render::Render() {}
+EngineRender::EngineRender() {}
 
-Render &Render::Get() { return instance; }
+EngineRender &EngineRender::Get() { return instance; }
 
-void Render::Init() {
+void EngineRender::Init() {
   FONT_Init();
 
   // Load textures
@@ -41,7 +41,7 @@ void Render::Init() {
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Render::Loop() {
+void EngineRender::Loop() {
   // Render
   glClear(GL_COLOR_BUFFER_BIT); // Clear color buffer to preset values.
 
@@ -82,11 +82,11 @@ void Render::Loop() {
   SYS_Show(); // Exchanges the front and back buffers}
 }
 
-void Render::Exit() {
+void EngineRender::Exit() {
   CORE_UnloadPNG(instance.txBg);
   CORE_UnloadPNG(instance.txBall);
   FONT_End();
 }
 
-const GLuint &Render::GetTxBg() { return instance.txBg; }
-const GLuint &Render::GetTxBall() { return instance.txBall; }
+const GLuint &EngineRender::GetTxBg() { return instance.txBg; }
+const GLuint &EngineRender::GetTxBall() { return instance.txBall; }

@@ -28,7 +28,7 @@ public:
   template <typename T> void AddComponent(EntID id, T component);
   template <typename T> void RemoveComponent(EntID id);
   template <typename T> T &GetComponent(EntID id);
-  template <typename T> CmpID GetComponentType();
+  template <typename T> CmpID GetComponentID();
 
   template <typename T> std::shared_ptr<T> RegisterSystem();
   template <typename T> void SetSystemSignature(Signature signature);

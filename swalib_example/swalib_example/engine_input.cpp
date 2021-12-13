@@ -1,24 +1,24 @@
-#include "input.h"
+#include "engine_input.h"
 #include "engine.h"
-#include "render.h"
+#include "engine_render.h"
 #include "stasis.h"
 #include "sys.h"
 #include "vec.h"
 #include <iostream>
 
-Input Input::instance;
+EngineInput EngineInput::instance;
 
-Input::Input() {}
+EngineInput::EngineInput() {}
 
-Input &Input::Get() { return instance; }
+EngineInput &EngineInput::Get() { return instance; }
 
-void Input::Init() {}
+void EngineInput::Init() {}
 
-void Input::Loop() {
+void EngineInput::Loop() {
   if (SYS_KeyPressed(SYS_KEY_UP))
     Stasis::SetScale(Stasis::GetScale() + .001 * Stasis::GetDelta());
   if (SYS_KeyPressed(SYS_KEY_DOWN))
     Stasis::SetScale(Stasis::GetScale() - .001 * Stasis::GetDelta());
 }
 
-void Input::Exit() {}
+void EngineInput::Exit() {}

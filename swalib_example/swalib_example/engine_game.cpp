@@ -1,14 +1,14 @@
-#include "game.h"
+#include "engine_game.h"
 #include "stasis.h"
 #include <iostream>
 
-Game Game::instance;
+EngineGame EngineGame::instance;
 
-Game::Game() {}
+EngineGame::EngineGame() {}
 
-Game &Game::Get() { return instance; }
+EngineGame &EngineGame::Get() { return instance; }
 
-void Game::Subscribe(GameObject *gameObject) {
+void EngineGame::Subscribe(GameObject *gameObject) {
   // Duplication guard
   auto it = std::find(instance.each.begin(), instance.each.end(), gameObject);
   if (it != instance.each.end())
@@ -17,7 +17,7 @@ void Game::Subscribe(GameObject *gameObject) {
   instance.each.emplace_back(gameObject);
 }
 
-void Game::UnSubscribe(const GameObject *gameObject) {
+void EngineGame::UnSubscribe(const GameObject *gameObject) {
   // Not found guard
   auto it = std::find(instance.each.begin(), instance.each.end(), gameObject);
   if (it == instance.each.end())
@@ -26,35 +26,37 @@ void Game::UnSubscribe(const GameObject *gameObject) {
   instance.each.erase(it);
 }
 
-const std::vector<GameObject *> *Game::GetGameObjects() { return &Get().each; }
+const std::vector<GameObject *> *EngineGame::GetGameObjects() {
+  return &Get().each;
+}
 
-void Game::Init() {
+void EngineGame::Init() {
 
   // GameObject Start
   Start();
 }
 
-void Game::Exit() {
+void EngineGame::Exit() {
   // GameObject End
   End();
 }
 
-void Game::Start() {
+void EngineGame::Start() {
   for (auto &&go : *instance.GetGameObjects())
     go->Start();
 }
 
-void Game::Update() {
+void EngineGame::Update() {
   for (auto &&go : *instance.GetGameObjects())
     go->Update();
 }
 
-void Game::Fixed() {
+void EngineGame::Fixed() {
   for (auto &&go : *instance.GetGameObjects())
     go->Fixed();
 }
 
-void Game::End() {
+void EngineGame::End() {
   for (auto &&go : *instance.GetGameObjects())
     go->End();
 }

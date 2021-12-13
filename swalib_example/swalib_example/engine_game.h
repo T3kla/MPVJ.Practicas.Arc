@@ -3,15 +3,15 @@
 #include "gameobject.h"
 #include <vector>
 
-class Game {
+class EngineGame {
   friend class Engine;
 
-private:                       // SINGLETON
-  Game();                      //
-  static Game instance;        //
-public:                        //
-  Game(const Game &) = delete; //
-  static Game &Get();          //
+private:                                   // SINGLETON
+  EngineGame();                            //
+  static EngineGame instance;              //
+public:                                    //
+  EngineGame(const EngineGame &) = delete; //
+  static EngineGame &Get();                //
 
 private:
   std::vector<GameObject *> each = std::vector<GameObject *>();

@@ -1,18 +1,12 @@
 #pragma once
 
-#include "stdafx.h"
-#include "vec.h"
-#include "vector2d.h"
+#include "entity.h"
 
-struct Ball // Info Ball
-{
-  Vec2 pos;
-  Vec2 vel;
-  GLuint gfx;
-  float radius;
-  float mass;
+struct Ball : public Entity {
+  Ball(){};
+  ~Ball(){};
 
-  Ball();
-
-  Vec2 GetMomentum();
+  virtual void EarlyUpdate() override;
+  virtual void Update() override;
+  virtual void LateUpdate() override;
 };

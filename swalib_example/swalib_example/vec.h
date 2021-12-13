@@ -12,6 +12,7 @@ struct Vec2 {
   Vec2(Vec2 &&_rhs) noexcept;
 
   float Magnitude() const;
+  float MagnitudeSq() const;
   Vec2 Normalized() const;
   float AngleDeg() const;
   float AngleRad() const;
