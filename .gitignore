@@ -36,3 +36,6 @@
 *.exe
 *.out
 *.app
+swalib_example/Debug
+swalib_example/swalib_example/Debug
+swalib_example/swalib_example/Debug
