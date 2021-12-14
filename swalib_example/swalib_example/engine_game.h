@@ -19,7 +19,8 @@ private:
   static void Init();
   static void Exit();
 
-  static void Start();  // GameObject calls
+  static void Awake();  // GameObject calls
+  static void Start();  //
   static void Update(); //
   static void Fixed();  //
   static void End();    //

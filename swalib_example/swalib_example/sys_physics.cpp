@@ -14,7 +14,7 @@ void SysPhysics::Run() {
   for (auto const &a : entities) {
     auto &aTF = ecs.GetComponent<Transform2D>(a);
     auto &aRB = ecs.GetComponent<Rigidbody2D>(a);
-    auto &aCC = ecs.GetComponent<CircleCollider>(a);
+    // auto &aCC = ecs.GetComponent<CircleCollider>(a);
 
     for (auto const &b : entities) {
       if (a == b)
@@ -22,10 +22,9 @@ void SysPhysics::Run() {
 
       auto &bTF = ecs.GetComponent<Transform2D>(b);
       auto &bRB = ecs.GetComponent<Rigidbody2D>(b);
-      auto &bCC = ecs.GetComponent<CircleCollider>(b);
+      // auto &bCC = ecs.GetComponent<CircleCollider>(b);
 
-      auto limit = (aCC.radius + bCC.radius) * (aCC.radius + bCC.radius);
-
+      auto limit = (aTF.scale.x + bTF.scale.x) * (aTF.scale.x + bTF.scale.x);
       if ((aTF.position - bTF.position).MagnitudeSq() <= limit) {
         // Elastic sphere collisions
         auto p1 = aTF.position;
@@ -34,8 +33,8 @@ void SysPhysics::Run() {
         auto v2 = bRB.velocity;
         auto m1 = aRB.mass;
         auto m2 = bRB.mass;
-        auto r1 = aCC.radius;
-        auto r2 = bCC.radius;
+        auto r1 = aTF.scale.x;
+        auto r2 = bTF.scale.x;
 
         // Backtime to ensure single point intersection
         auto backTimeRoot =
@@ -101,7 +100,7 @@ void SysPhysics::Run() {
     }
 
     aTF.position =
-        aTF.position + aRB.velocity * (float)(Stasis::GetDelta() * 0.001);
+        aTF.position + aRB.velocity * (float)(Stasis::GetDeltaScaled() * 0.001);
 
     // Rebound on margins
     if (aTF.position.x > SCR_WIDTH) {

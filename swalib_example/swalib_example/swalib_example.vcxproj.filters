@@ -59,9 +59,6 @@
     <Filter Include="Source Files\ecs\4 entities">
       <UniqueIdentifier>{dfe5c806-e416-45a2-912f-46f64d41ffdb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ecs\4 entities\ball">
-      <UniqueIdentifier>{b0c5d9f7-3029-47c9-a529-cb3e277236e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\ecs\7 interfaces">
       <UniqueIdentifier>{b0693433-dd73-4154-bb60-60c88550f422}</UniqueIdentifier>
     </Filter>
@@ -79,9 +76,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ball.cpp">
-      <Filter>Source Files\ecs\4 entities\ball</Filter>
-    </ClCompile>
     <ClCompile Include="core.cpp">
       <Filter>Source Files\.lib</Filter>
     </ClCompile>
@@ -142,9 +136,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ball.h">
-      <Filter>Source Files\ecs\4 entities\ball</Filter>
-    </ClInclude>
     <ClInclude Include="core.h">
       <Filter>Source Files\.lib</Filter>
     </ClInclude>

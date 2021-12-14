@@ -13,9 +13,9 @@ static double freqUp = 0.;
 static double freqFx = 0.;
 
 auto FreqRefresh = [](double &now, double &old, double &freq) {
-  nowUp = Stasis::GetTime();
-  freqUp = nowUp - oldUp;
-  oldUp = nowUp;
+  now = Stasis::GetTime();
+  freq = now - old;
+  old = now;
 };
 
 Engine Engine::instance;
@@ -26,6 +26,7 @@ Engine &Engine::Get() { return instance; }
 
 void Engine::Run() {
   Stasis::RefreshTime();
+  EngineGame::Awake();
   EngineInput::Init();
   EngineRender::Init();
   EngineGame::Init();
@@ -40,7 +41,7 @@ void Engine::Run() {
     instance.fxCount += Stasis::GetDelta();
     instance.fxCount = min(instance.fxCount, STEP * 2);
     while (instance.fxCount >= STEP) {
-      FreqRefresh(nowUp, oldUp, freqFx);
+      FreqRefresh(nowFx, oldFx, freqFx);
       EngineGame::Fixed();
 
       instance.fxCount -= STEP;

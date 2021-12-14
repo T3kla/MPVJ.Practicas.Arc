@@ -1,6 +1,8 @@
 #pragma once
 
 #include "stdafx.h"
+#include "sys_renderer.h"
+#include <memory>
 
 class EngineRender {
   friend class Engine;
@@ -15,6 +17,7 @@ public:                                        //
 private:
   GLuint txBg = 0;
   GLuint txBall = 0;
+  std::shared_ptr<SysRenderer> sysRenderer = nullptr;
 
   static void Init();
   static void Loop();

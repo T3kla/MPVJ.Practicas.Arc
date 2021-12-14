@@ -121,7 +121,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ass_03.cpp" />
-    <ClCompile Include="ball.cpp" />
     <ClCompile Include="component_manager.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="ecs_manager.cpp" />
@@ -144,7 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ass_03.h" />
-    <ClInclude Include="ball.h" />
     <ClInclude Include="circle_collider.h" />
     <ClInclude Include="component_manager.h" />
     <ClInclude Include="core.h" />

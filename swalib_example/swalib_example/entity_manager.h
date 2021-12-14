@@ -4,7 +4,7 @@
 #include <bitset>
 #include <queue>
 
-constexpr size_t MAX_ENTS = 64;
+constexpr size_t MAX_ENTS = 1024;
 constexpr size_t MAX_CMPS = 8;
 
 using EntID = size_t;

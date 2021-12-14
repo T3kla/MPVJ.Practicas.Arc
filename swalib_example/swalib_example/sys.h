@@ -2,8 +2,8 @@
 #define _SYS_H_
 
 // Window constants
-#define SCR_WIDTH  640
-#define SCR_HEIGHT 480
+#define SCR_WIDTH  1280
+#define SCR_HEIGHT 720
 #define SCR_FULLSCREEN 0
 
 //#############################################################################

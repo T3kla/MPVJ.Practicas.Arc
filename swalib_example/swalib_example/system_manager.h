@@ -22,6 +22,16 @@ public:
     return system;
   }
 
+  template <class T> std::shared_ptr<T> GetSystem() {
+    const char *typeName = typeid(T).name();
+    auto it = name_sys.find(typeName);
+
+    if (it == name_sys.end())
+      throw "Can't find requested system.";
+
+    return std::static_pointer_cast<T>(it->second);
+  }
+
   template <class T> void SetSignature(Signature sign) {
     const char *typeName = typeid(T).name();
 

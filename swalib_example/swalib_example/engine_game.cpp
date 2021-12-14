@@ -31,7 +31,6 @@ const std::vector<GameObject *> *EngineGame::GetGameObjects() {
 }
 
 void EngineGame::Init() {
-
   // GameObject Start
   Start();
 }
@@ -39,6 +38,11 @@ void EngineGame::Init() {
 void EngineGame::Exit() {
   // GameObject End
   End();
+}
+
+void EngineGame::Awake() {
+  for (auto &&go : *instance.GetGameObjects())
+    go->Awake();
 }
 
 void EngineGame::Start() {

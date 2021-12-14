@@ -7,12 +7,12 @@
 
 void SysRenderer::Run() {
   auto &ecs = ECS::Get();
+
   for (auto const &ent : entities) {
     auto &tf = ecs.GetComponent<Transform2D>(ent);
     auto &sr = ecs.GetComponent<SpriteRenderer>(ent);
 
     CORE_RenderCenteredSprite(vec2(tf.position.x, tf.position.y),
-                              vec2(sr.scale.x * 2.f, sr.scale.y * 2.f),
-                              sr.texture);
+                              vec2(sr.scale.x, sr.scale.y), sr.texture);
   }
 }

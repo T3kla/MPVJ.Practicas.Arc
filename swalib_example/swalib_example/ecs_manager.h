@@ -60,6 +60,10 @@ public:
     return sysMan->RegisterSystem<T>();
   }
 
+  template <class T> std::shared_ptr<T> GetSystem() {
+    return sysMan->GetSystem<T>();
+  }
+
   template <class T> void SetSystemSignature(Signature signature) {
     sysMan->SetSignature<T>(signature);
   }

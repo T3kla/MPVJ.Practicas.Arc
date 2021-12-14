@@ -1,5 +1,6 @@
 #include "engine_render.h"
 #include "core.h"
+#include "ecs_manager.h"
 #include "engine.h"
 #include "font.h"
 #include "stasis.h"
@@ -39,6 +40,9 @@ void EngineRender::Init() {
   glEnable(GL_BLEND);
   //	Blend func. for alpha color.
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  // Get SysRenderer
+  instance.sysRenderer = ECS::Get().GetSystem<SysRenderer>();
 }
 
 void EngineRender::Loop() {
@@ -50,6 +54,9 @@ void EngineRender::Loop() {
     for (int j = 0; j <= SCR_HEIGHT / 128; j++)
       CORE_RenderCenteredSprite(vec2(i * 128.f + 64.f, j * 128.f + 64.f),
                                 vec2(128.f, 128.f), instance.txBg);
+
+  // Render balls
+  instance.sysRenderer->Run();
 
   auto avg_up_final = 0.0;
   auto avg_fx_final = 0.0;
