@@ -8,7 +8,7 @@ constexpr size_t MAX_ENTS = 64;
 constexpr size_t MAX_CMPS = 8;
 
 using EntID = size_t;
-using CmpID = unsigned char;
+using CmpID = size_t;
 using Signature = std::bitset<MAX_CMPS>;
 
 // Rent entity ids and binds them with their respective signatures

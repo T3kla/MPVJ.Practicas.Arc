@@ -16,8 +16,8 @@ private:
   template <class T> std::shared_ptr<Juggler<T>> GetJuggler() {
     const char *typeName = typeid(T).name();
 
-    assert(name_id.find(typeName) != name_id.end() &&
-           "Component not registered before use.");
+    if (name_id.find(typeName) == name_id.end())
+      throw "Component not registered before use.";
 
     return std::static_pointer_cast<Juggler<T>>(name_juggler[typeName]);
   }
@@ -27,7 +27,8 @@ public:
     const char *typeName = typeid(T).name();
     auto it = name_id.find(typeName);
 
-    assert(it != name_id.end() && "Component not registered before use.");
+    if (it == name_id.end())
+      throw "Component not registered before use.";
 
     return it->second;
   }
@@ -35,8 +36,10 @@ public:
   template <class T> void RegisterComponent() {
     const char *typeName = typeid(T).name();
 
-    assert(name_id.find(typeName) == name_id.end() &&
-           "Registering component type more than once.");
+    if (name_id.find(typeName) != name_id.end())
+      throw "Registering component type more than once.";
+    if (cmpCount > MAX_CMPS)
+      throw "Registering more components than are allowed.";
 
     name_id.insert({typeName, cmpCount});
     name_juggler.insert({typeName, std::make_shared<Juggler<T>>()});

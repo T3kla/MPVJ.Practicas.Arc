@@ -3,9 +3,8 @@
 #include "entity_manager.h"
 
 class Entity {
-private:
+protected:
   EntID id = 0;
-  Signature sign = Signature();
 
 public:
   virtual void EarlyUpdate() = 0; // Pre-component update
@@ -14,7 +13,4 @@ public:
 
   virtual EntID GetEntID() const { return id; }
   virtual void SetEntID(const EntID &id) { this->id = id; }
-
-  virtual Signature GetSignature() const { return sign; }
-  virtual void SetSignature(const Signature &sign) { this->sign = sign; }
 };

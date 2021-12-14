@@ -1,7 +1,6 @@
 #pragma once
 
 #include "entity_manager.h"
-#include <cassert>
 #include <unordered_map>
 
 // Array wrapper that ensures the data is tightly packed
@@ -25,8 +24,8 @@ public:
   size_t GetSize() const { return size; }
 
   void AddComponent(EntID id, const T &cmp) {
-    assert(ent_idx.find(id) == ent_idx.end() &&
-           "Component added to same entity more than once.");
+    if (ent_idx.find(id) != ent_idx.end())
+      throw "Retrieving non-existent component.";
 
     ent_idx[id] = size;
     idx_ent[size] = id;
@@ -35,15 +34,15 @@ public:
   }
 
   T &GetComponent(EntID id) {
-    assert(ent_idx.find(id) != ent_idx.end() &&
-           "Retrieving non-existent component.");
+    if (ent_idx.find(id) == ent_idx.end())
+      throw "Retrieving non-existent component.";
 
     return data[ent_idx[id]];
   }
 
   void RemoveComponent(EntID id) {
-    assert(ent_idx.find(id) != ent_idx.end() &&
-           "Removing non-existent component.");
+    if (ent_idx.find(id) == ent_idx.end())
+      throw "Retrieving non-existent component.";
 
     // Move data from botton to now-empty spot
     size_t oldEntityIndex = ent_idx[id];

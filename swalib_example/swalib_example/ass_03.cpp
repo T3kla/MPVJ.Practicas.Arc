@@ -1,26 +1,18 @@
 #include "ass_03.h"
 
-#include <random>
-
+#include "circle_collider.h"
 #include "core.h"
-#include "sys.h"
-
+#include "ecs_manager.h"
 #include "engine_game.h"
 #include "engine_render.h"
 #include "entity.h"
-
 #include "pi.h"
-#include "vec.h"
-
-#include "ecs_manager.h"
-//#include "entity_manager.h"
-//#include "component_manager.h"
-//#include "system_manager.h"
-
-#include "circle_collider.h"
 #include "rigidbody_2d.h"
 #include "sprite_renderer.h"
+#include "sys.h"
 #include "transform_2d.h"
+#include "vec.h"
+#include <random>
 
 Ass03::Ass03() { EngineGame::Subscribe(this); }
 Ass03::~Ass03() { EngineGame::UnSubscribe(this); }

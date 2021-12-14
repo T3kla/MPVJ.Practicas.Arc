@@ -14,8 +14,8 @@ public:
   template <class T> std::shared_ptr<T> RegisterSystem() {
     const char *typeName = typeid(T).name();
 
-    assert(name_sys.find(typeName) == name_sys.end() &&
-           "Registering system more than once.");
+    if (name_sys.find(typeName) != name_sys.end())
+      throw "Registering system more than once.";
 
     auto system = std::make_shared<T>();
     name_sys.insert({typeName, system});
@@ -25,8 +25,8 @@ public:
   template <class T> void SetSignature(Signature sign) {
     const char *typeName = typeid(T).name();
 
-    assert(name_sys.find(typeName) != name_sys.end() &&
-           "System used before registered.");
+    if (name_sys.find(typeName) == name_sys.end())
+      throw "System used before registered.";
 
     name_sign.insert({typeName, sign});
   }
