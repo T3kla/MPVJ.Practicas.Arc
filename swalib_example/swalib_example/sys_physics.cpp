@@ -1,40 +1,45 @@
 #include "sys_physics.h"
 #include "circle_collider.h"
 #include "ecs_manager.h"
+#include "entity_manager.h"
 #include "rigidbody_2d.h"
 #include "stasis.h"
 #include "sys.h"
 #include "transform_2d.h"
 #include "vec.h"
 
+static std::vector<Transform2D> tf;
+static std::vector<Rigidbody2D> rb;
+
 void SysPhysics::Run() {
   auto nozero = [](const float &f) { return f == 0.f ? f + FLT_EPSILON : f; };
   auto &ecs = ECS::Get();
 
-  for (auto const &a : entities) {
-    auto &aTF = ecs.GetComponent<Transform2D>(a);
-    auto &aRB = ecs.GetComponent<Rigidbody2D>(a);
-    // auto &aCC = ecs.GetComponent<CircleCollider>(a);
+  // Buffer up
+  tf.clear();
+  rb.clear();
+  for (auto const &ent : entities) {
+    tf.emplace_back(ecs.GetComponent<Transform2D>(ent));
+    rb.emplace_back(ecs.GetComponent<Rigidbody2D>(ent));
+  }
 
-    for (auto const &b : entities) {
-      if (a == b)
+  // Calculate collisions
+  for (size_t i = 0; i < entities.size(); i++) {
+    for (size_t j = 0; j < entities.size(); j++) {
+      if (i == j)
         continue;
 
-      auto &bTF = ecs.GetComponent<Transform2D>(b);
-      auto &bRB = ecs.GetComponent<Rigidbody2D>(b);
-      // auto &bCC = ecs.GetComponent<CircleCollider>(b);
-
-      auto limit = (aTF.scale.x + bTF.scale.x) * (aTF.scale.x + bTF.scale.x);
-      if ((aTF.position - bTF.position).MagnitudeSq() <= limit) {
+      if ((tf[i].position - tf[j].position).MagnitudeSq() <=
+          powf(tf[i].scale.x + tf[j].scale.x, 2)) {
         // Elastic sphere collisions
-        auto p1 = aTF.position;
-        auto p2 = bTF.position;
-        auto v1 = aRB.velocity;
-        auto v2 = bRB.velocity;
-        auto m1 = aRB.mass;
-        auto m2 = bRB.mass;
-        auto r1 = aTF.scale.x;
-        auto r2 = bTF.scale.x;
+        auto &p1 = tf[i].position;
+        auto &p2 = tf[j].position;
+        auto &v1 = rb[i].velocity;
+        auto &v2 = rb[j].velocity;
+        auto &m1 = rb[i].mass;
+        auto &m2 = rb[j].mass;
+        auto &r1 = tf[i].scale.x;
+        auto &r2 = tf[j].scale.x;
 
         // Backtime to ensure single point intersection
         auto backTimeRoot =
@@ -92,32 +97,40 @@ void SysPhysics::Run() {
         v2_par *= v2_len_f / nozero(v2_len);
 
         // Recompose velocity
-        aRB.velocity = v1_par + v1_ort;
-        bRB.velocity = v2_par + v2_ort;
+        rb[i].velocity = v1_par + v1_ort;
+        rb[j].velocity = v2_par + v2_ort;
 
         break;
       }
     }
 
-    aTF.position =
-        aTF.position + aRB.velocity * (float)(Stasis::GetDeltaScaled() * 0.001);
+    tf[i].position = tf[i].position +
+                     rb[i].velocity * (float)(Stasis::GetDeltaScaled() * 0.001);
 
     // Rebound on margins
-    if (aTF.position.x > SCR_WIDTH) {
-      aTF.position.x = SCR_WIDTH - 1;
-      aRB.velocity.x *= -1.f;
+    if (tf[i].position.x > SCR_WIDTH) {
+      tf[i].position.x = SCR_WIDTH - 1;
+      rb[i].velocity.x *= -1.f;
     }
-    if (aTF.position.x < 0.f) {
-      aTF.position.x = 1;
-      aRB.velocity.x *= -1.f;
+    if (tf[i].position.x < 0.f) {
+      tf[i].position.x = 1;
+      rb[i].velocity.x *= -1.f;
     }
-    if (aTF.position.y > SCR_HEIGHT) {
-      aTF.position.y = SCR_HEIGHT - 1;
-      aRB.velocity.y *= -1.f;
+    if (tf[i].position.y > SCR_HEIGHT) {
+      tf[i].position.y = SCR_HEIGHT - 1;
+      rb[i].velocity.y *= -1.f;
     }
-    if (aTF.position.y < 0.f) {
-      aTF.position.y = 1;
-      aRB.velocity.y *= -1.f;
+    if (tf[i].position.y < 0.f) {
+      tf[i].position.y = 1;
+      rb[i].velocity.y *= -1.f;
     }
+  }
+
+  // Buffer down
+  size_t count = 0;
+  for (auto it = entities.begin(); it != entities.end(); ++it) {
+    ecs.GetComponent<Transform2D>(*it) = tf[count];
+    ecs.GetComponent<Rigidbody2D>(*it) = rb[count];
+    count++;
   }
 }

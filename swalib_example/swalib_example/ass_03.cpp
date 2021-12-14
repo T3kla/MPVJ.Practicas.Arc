@@ -88,11 +88,8 @@ void Ass03::Start() {
   }
 }
 
-void Ass03::Update() {
-  physics->Run();
-  // renderer->Run();
-}
+void Ass03::Update() {}
 
-void Ass03::Fixed() {}
+void Ass03::Fixed() { physics->Run(); }
 
 void Ass03::End() {}

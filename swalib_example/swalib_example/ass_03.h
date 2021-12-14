@@ -6,11 +6,11 @@
 #include "sys_renderer.h"
 #include <memory>
 
-constexpr int BALLS_NUM = 50;
+constexpr int BALLS_NUM = 150;
 
 class Ass03 : public GameObject {
 private:
-  float maxBallSpeed = 100.f;
+  float maxBallSpeed = 1000.f;
   float maxBallRadius = 40.f;
   float minBallRadius = 20.f;
 

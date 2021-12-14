@@ -5,11 +5,9 @@
 #include "stasis.h"
 #include "sys.h"
 
-static double nowUp = 0.;
+static double dt = 0.;
 static double nowFx = 0.;
-static double oldUp = 0.;
 static double oldFx = 0.;
-static double freqUp = 0.;
 static double freqFx = 0.;
 
 auto FreqRefresh = [](double &now, double &old, double &freq) {
@@ -26,6 +24,7 @@ Engine &Engine::Get() { return instance; }
 
 void Engine::Run() {
   Stasis::RefreshTime();
+
   EngineGame::Awake();
   EngineInput::Init();
   EngineRender::Init();
@@ -35,13 +34,14 @@ void Engine::Run() {
     Stasis::RefreshTime();
     EngineInput::Loop();
 
-    FreqRefresh(nowUp, oldUp, freqUp);
+    dt = Stasis::GetDelta();
     EngineGame::Update();
 
-    instance.fxCount += Stasis::GetDelta();
+    instance.fxCount += dt;
     instance.fxCount = min(instance.fxCount, STEP * 2);
     while (instance.fxCount >= STEP) {
       FreqRefresh(nowFx, oldFx, freqFx);
+
       EngineGame::Fixed();
 
       instance.fxCount -= STEP;
@@ -74,5 +74,5 @@ void Engine::SetMouseDelta(const Vec2 &pos) {
   Get().mouseDeltaY = pos.y;
 }
 
-float Engine::GetUpdateFPS() { return (float)(1000. / freqUp); }
+float Engine::GetUpdateFPS() { return (float)(1000. / dt); }
 float Engine::GetFixedFPS() { return (float)(1000. / freqFx); }
