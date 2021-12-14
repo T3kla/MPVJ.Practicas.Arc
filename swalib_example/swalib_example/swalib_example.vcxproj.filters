@@ -137,6 +137,9 @@
     <ClCompile Include="pi.cpp">
       <Filter>Source Files\math\pi</Filter>
     </ClCompile>
+    <ClCompile Include="vector2d.cpp">
+      <Filter>Source Files\.lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h">
@@ -155,9 +158,6 @@
       <Filter>Source Files\.lib</Filter>
     </ClInclude>
     <ClInclude Include="sys.h">
-      <Filter>Source Files\.lib</Filter>
-    </ClInclude>
-    <ClInclude Include="vector2d.h">
       <Filter>Source Files\.lib</Filter>
     </ClInclude>
     <ClInclude Include="stasis.h">
@@ -225,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="pi.h">
       <Filter>Source Files\math\pi</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2d.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

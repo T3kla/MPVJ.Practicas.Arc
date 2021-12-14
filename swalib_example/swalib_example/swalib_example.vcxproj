@@ -140,6 +140,7 @@
     <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="sys_win.cpp" />
     <ClCompile Include="vec.cpp" />
+    <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ass_03.h" />

@@ -73,5 +73,5 @@ void Engine::SetMouseDelta(const Vec2 &pos) {
   Get().mouseDeltaY = pos.y;
 }
 
-float Engine::GetUpdateFPS() { return 1000. / freqUp; }
-float Engine::GetFixedFPS() { return 1000. / freqFx; }
+float Engine::GetUpdateFPS() { return (float)(1000. / freqUp); }
+float Engine::GetFixedFPS() { return (float)(1000. / freqFx); }

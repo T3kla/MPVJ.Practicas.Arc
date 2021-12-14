@@ -38,6 +38,7 @@ void Ass03::Start() {
 
   //    System Registration
   physics = ecs.RegisterSystem<SysPhysics>();
+  renderer = ecs.RegisterSystem<SysRenderer>();
 
   //    Physics system
   Signature signPhysics;

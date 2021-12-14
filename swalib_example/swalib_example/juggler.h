@@ -34,7 +34,7 @@ public:
     ++size;
   }
 
-  T &GetComponent(EntID id) const {
+  T &GetComponent(EntID id) {
     assert(ent_idx.find(id) != ent_idx.end() &&
            "Retrieving non-existent component.");
 

@@ -44,15 +44,15 @@ public:
     ++cmpCount;
   }
 
-  template <class T> void AddComponent(EntID id, const T &cmp) const {
+  template <class T> void AddComponent(EntID id, const T &cmp) {
     GetJuggler<T>()->AddComponent(id, cmp);
   }
 
-  template <class T> T &GetComponent(EntID id) const {
+  template <class T> T &GetComponent(EntID id) {
     return GetJuggler<T>()->GetComponent(id);
   }
 
-  template <class T> void RemoveComponent(EntID id) const {
+  template <class T> void RemoveComponent(EntID id) {
     GetJuggler<T>()->RemoveComponent(id);
   }
 
