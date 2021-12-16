@@ -1,22 +1,17 @@
 #pragma once
 
-#include "entity.h"
+#include "ball.h"
 #include "gameobject.h"
-#include "sys_physics.h"
-#include "sys_renderer.h"
 #include <memory>
 
 constexpr int BALLS_NUM = 50;
+constexpr float MAX_SPEED = 100.f;
+constexpr float MAX_RADIUS = 20.f;
+constexpr float MIN_RADIUS = 10.f;
 
 class Ass03 : public GameObject {
 private:
-  float maxBallSpeed = 100.f;
-  float maxBallRadius = 40.f;
-  float minBallRadius = 20.f;
-
-  std::vector<Entity> balls;
-  std::shared_ptr<SysPhysics> physics = nullptr;
-  std::shared_ptr<SysRenderer> renderer = nullptr;
+  std::vector<Ball> balls;
 
 public:
   Ass03();
@@ -26,5 +21,5 @@ public:
   virtual void Start() override;
   virtual void Update() override;
   virtual void Fixed() override;
-  virtual void End() override;
+  virtual void Quit() override;
 };

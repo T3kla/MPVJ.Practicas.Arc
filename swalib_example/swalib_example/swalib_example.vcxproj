@@ -121,53 +121,36 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ass_03.cpp" />
-    <ClCompile Include="component_manager.cpp" />
+    <ClCompile Include="ball.cpp" />
     <ClCompile Include="core.cpp" />
-    <ClCompile Include="ecs_manager.cpp" />
     <ClCompile Include="engine.cpp" />
-    <ClCompile Include="entity_manager.cpp" />
     <ClCompile Include="engine_game.cpp" />
     <ClCompile Include="engine_input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="pi.cpp" />
-    <ClCompile Include="sys_physics.cpp" />
     <ClCompile Include="engine_render.cpp" />
-    <ClCompile Include="sys_renderer.cpp" />
     <ClCompile Include="stasis.cpp" />
-    <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="sys_win.cpp" />
     <ClCompile Include="vec.cpp" />
     <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ass_03.h" />
-    <ClInclude Include="circle_collider.h" />
-    <ClInclude Include="component_manager.h" />
+    <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />
-    <ClInclude Include="ecs_manager.h" />
     <ClInclude Include="engine.h" />
-    <ClInclude Include="entity.h" />
-    <ClInclude Include="entity_manager.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="engine_game.h" />
     <ClInclude Include="gameobject.h" />
     <ClInclude Include="engine_input.h" />
-    <ClInclude Include="juggler.h" />
     <ClInclude Include="lodepng.h" />
-    <ClInclude Include="sys_physics.h" />
     <ClInclude Include="pi.h" />
     <ClInclude Include="engine_render.h" />
-    <ClInclude Include="sys_renderer.h" />
-    <ClInclude Include="sprite_renderer.h" />
-    <ClInclude Include="rigidbody_2d.h" />
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sys.h" />
-    <ClInclude Include="system.h" />
-    <ClInclude Include="system_manager.h" />
-    <ClInclude Include="transform_2d.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="vector2d.h" />
   </ItemGroup>

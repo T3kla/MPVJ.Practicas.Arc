@@ -1,7 +1,7 @@
 #pragma once
 
+#include "ball.h"
 #include "stdafx.h"
-#include "sys_renderer.h"
 #include <memory>
 
 class EngineRender {
@@ -17,7 +17,8 @@ public:                                        //
 private:
   GLuint txBg = 0;
   GLuint txBall = 0;
-  std::shared_ptr<SysRenderer> sysRenderer = nullptr;
+
+  std::vector<Ball> *balls = nullptr;
 
   static void Awake();
   static void Start();
@@ -28,4 +29,6 @@ private:
 public:
   static const unsigned int &GetTxBg();
   static const unsigned int &GetTxBall();
+
+  static void SetBallVector(std::vector<Ball> *balls);
 };

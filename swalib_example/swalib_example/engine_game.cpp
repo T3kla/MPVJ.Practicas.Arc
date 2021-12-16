@@ -52,5 +52,5 @@ void EngineGame::Fixed() {
 
 void EngineGame::Quit() {
   for (auto &&go : *instance.GetGameObjects())
-    go->End();
+    go->Quit();
 }

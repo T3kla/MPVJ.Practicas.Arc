@@ -1,6 +1,5 @@
 #include "engine_render.h"
 #include "core.h"
-#include "ecs_manager.h"
 #include "engine.h"
 #include "font.h"
 #include "stasis.h"
@@ -40,9 +39,6 @@ void EngineRender::Awake() {
   glEnable(GL_BLEND);
   //	Blend func. for alpha color.
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-  // Get SysRenderer
-  instance.sysRenderer = ECS::Get().GetSystem<SysRenderer>();
 }
 
 void EngineRender::Start() {}
@@ -58,7 +54,13 @@ void EngineRender::Update() {
                                 vec2(128.f, 128.f), instance.txBg);
 
   // Render balls
-  instance.sysRenderer->Run();
+  if (instance.balls != nullptr)
+    for (auto &ball : *instance.balls) {
+      Vec2 pos = ball.GetPosition();
+      Vec2 rad = {ball.GetRadius() * 2.f, ball.GetRadius() * 2.f};
+      GLuint tx = ball.GetTextureID();
+      CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
+    }
 
   auto avg_up_final = 0.0;
   auto avg_fx_final = 0.0;
@@ -96,3 +98,7 @@ void EngineRender::Quit() {
 
 const GLuint &EngineRender::GetTxBg() { return instance.txBg; }
 const GLuint &EngineRender::GetTxBall() { return instance.txBall; }
+
+void EngineRender::SetBallVector(std::vector<Ball> *balls) {
+  instance.balls = balls;
+}
