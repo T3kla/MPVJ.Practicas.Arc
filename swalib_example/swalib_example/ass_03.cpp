@@ -37,7 +37,7 @@ void Ass03::Awake() {
   Signature signPhysics;
   signPhysics.set(ecs.GetComponentID<Transform2D>());
   signPhysics.set(ecs.GetComponentID<Rigidbody2D>());
-  // signPhysics.set(ecs.GetComponentID<CircleCollider>());
+  signPhysics.set(ecs.GetComponentID<CircleCollider>());
   ecs.SetSystemSignature<SysPhysics>(signPhysics);
 
   //    Render system

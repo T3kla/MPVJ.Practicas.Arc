@@ -30,16 +30,6 @@ const std::vector<GameObject *> *EngineGame::GetGameObjects() {
   return &Get().each;
 }
 
-void EngineGame::Init() {
-  // GameObject Start
-  Start();
-}
-
-void EngineGame::Exit() {
-  // GameObject End
-  End();
-}
-
 void EngineGame::Awake() {
   for (auto &&go : *instance.GetGameObjects())
     go->Awake();
@@ -60,7 +50,7 @@ void EngineGame::Fixed() {
     go->Fixed();
 }
 
-void EngineGame::End() {
+void EngineGame::Quit() {
   for (auto &&go : *instance.GetGameObjects())
     go->End();
 }

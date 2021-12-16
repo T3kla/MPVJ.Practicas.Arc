@@ -14,7 +14,7 @@ void SysPhysics::Run() {
   for (auto const &a : entities) {
     auto &aTF = ecs.GetComponent<Transform2D>(a);
     auto &aRB = ecs.GetComponent<Rigidbody2D>(a);
-    // auto &aCC = ecs.GetComponent<CircleCollider>(a);
+    auto &aCC = ecs.GetComponent<CircleCollider>(a);
 
     for (auto const &b : entities) {
       if (a == b)

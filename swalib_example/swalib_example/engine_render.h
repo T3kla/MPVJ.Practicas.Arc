@@ -19,9 +19,11 @@ private:
   GLuint txBall = 0;
   std::shared_ptr<SysRenderer> sysRenderer = nullptr;
 
-  static void Init();
-  static void Loop();
-  static void Exit();
+  static void Awake();
+  static void Start();
+  static void Update();
+  static void Fixed();
+  static void Quit();
 
 public:
   static const unsigned int &GetTxBg();

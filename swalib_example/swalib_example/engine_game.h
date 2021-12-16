@@ -14,16 +14,13 @@ public:                                    //
   static EngineGame &Get();                //
 
 private:
+  static void Awake();
+  static void Start();
+  static void Update();
+  static void Fixed();
+  static void Quit();
+
   std::vector<GameObject *> each = std::vector<GameObject *>();
-
-  static void Init();
-  static void Exit();
-
-  static void Awake();  // GameObject calls
-  static void Start();  //
-  static void Update(); //
-  static void Fixed();  //
-  static void End();    //
 
 public:
   static void Subscribe(GameObject *gameObject);

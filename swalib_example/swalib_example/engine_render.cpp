@@ -13,7 +13,7 @@ EngineRender::EngineRender() {}
 
 EngineRender &EngineRender::Get() { return instance; }
 
-void EngineRender::Init() {
+void EngineRender::Awake() {
   FONT_Init();
 
   // Load textures
@@ -45,7 +45,9 @@ void EngineRender::Init() {
   instance.sysRenderer = ECS::Get().GetSystem<SysRenderer>();
 }
 
-void EngineRender::Loop() {
+void EngineRender::Start() {}
+
+void EngineRender::Update() {
   // Render
   glClear(GL_COLOR_BUFFER_BIT); // Clear color buffer to preset values.
 
@@ -83,7 +85,9 @@ void EngineRender::Loop() {
   SYS_Show(); // Exchanges the front and back buffers}
 }
 
-void EngineRender::Exit() {
+void EngineRender::Fixed() {}
+
+void EngineRender::Quit() {
   CORE_UnloadPNG(instance.txBg);
   CORE_UnloadPNG(instance.txBall);
 
