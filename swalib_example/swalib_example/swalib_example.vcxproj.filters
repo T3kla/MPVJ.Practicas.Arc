@@ -14,9 +14,6 @@
     <Filter Include="Source Files\interfaces">
       <UniqueIdentifier>{c4bb1df6-0717-491e-8d26-253274cadbb9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\assignment">
-      <UniqueIdentifier>{ce07d6a1-6db5-438d-b28b-c7b716a6708f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\no ecs">
       <UniqueIdentifier>{4f1fb031-b294-4128-b78d-bdf508f801ee}</UniqueIdentifier>
     </Filter>
@@ -37,6 +34,9 @@
     </Filter>
     <Filter Include="Source Files\.lib\math\pi">
       <UniqueIdentifier>{1211317a-6f52-4335-aeb6-a0b7e0eb66d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\practicas">
+      <UniqueIdentifier>{ce07d6a1-6db5-438d-b28b-c7b716a6708f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +62,8 @@
     <ClCompile Include="vec.cpp">
       <Filter>Source Files\.lib\math\vec</Filter>
     </ClCompile>
-    <ClCompile Include="ass_03.cpp">
-      <Filter>Source Files\assignment</Filter>
+    <ClCompile Include="practica_03.cpp">
+      <Filter>Source Files\practicas</Filter>
     </ClCompile>
     <ClCompile Include="pi.cpp">
       <Filter>Source Files\.lib\math\pi</Filter>
@@ -106,14 +106,14 @@
     <ClInclude Include="engine.h">
       <Filter>Source Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="gameobject.h">
+    <ClInclude Include="object.h">
       <Filter>Source Files\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="vec.h">
       <Filter>Source Files\.lib\math\vec</Filter>
     </ClInclude>
-    <ClInclude Include="ass_03.h">
-      <Filter>Source Files\assignment</Filter>
+    <ClInclude Include="practica_03.h">
+      <Filter>Source Files\practicas</Filter>
     </ClInclude>
     <ClInclude Include="pi.h">
       <Filter>Source Files\.lib\math\pi</Filter>

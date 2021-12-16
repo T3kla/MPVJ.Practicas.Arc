@@ -8,7 +8,7 @@ EngineGame::EngineGame() {}
 
 EngineGame &EngineGame::Get() { return instance; }
 
-void EngineGame::Subscribe(GameObject *gameObject) {
+void EngineGame::Subscribe(Object *gameObject) {
   // Duplication guard
   auto it = std::find(instance.each.begin(), instance.each.end(), gameObject);
   if (it != instance.each.end())
@@ -17,7 +17,7 @@ void EngineGame::Subscribe(GameObject *gameObject) {
   instance.each.emplace_back(gameObject);
 }
 
-void EngineGame::UnSubscribe(const GameObject *gameObject) {
+void EngineGame::UnSubscribe(const Object *gameObject) {
   // Not found guard
   auto it = std::find(instance.each.begin(), instance.each.end(), gameObject);
   if (it == instance.each.end())
@@ -26,7 +26,7 @@ void EngineGame::UnSubscribe(const GameObject *gameObject) {
   instance.each.erase(it);
 }
 
-const std::vector<GameObject *> *EngineGame::GetGameObjects() {
+const std::vector<Object *> *EngineGame::GetGameObjects() {
   return &Get().each;
 }
 

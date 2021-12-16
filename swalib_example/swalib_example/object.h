@@ -1,6 +1,6 @@
 #pragma once
 
-class GameObject {
+class Object {
 public:
   virtual void Awake() = 0;
   virtual void Start() = 0;

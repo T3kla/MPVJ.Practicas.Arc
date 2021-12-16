@@ -120,7 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ass_03.cpp" />
+    <ClCompile Include="practica_03.cpp" />
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="engine.cpp" />
@@ -137,13 +137,13 @@
     <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ass_03.h" />
+    <ClInclude Include="practica_03.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="engine_game.h" />
-    <ClInclude Include="gameobject.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="engine_input.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="pi.h" />

@@ -1,4 +1,4 @@
-#include "ass_03.h"
+#include "practica_03.h"
 
 #include "core.h"
 #include "engine_game.h"
@@ -10,12 +10,12 @@
 #include "vec.h"
 #include <random>
 
-Ass03::Ass03() { EngineGame::Subscribe(this); }
-Ass03::~Ass03() { EngineGame::UnSubscribe(this); }
+Practica03::Practica03() { EngineGame::Subscribe(this); }
+Practica03::~Practica03() { EngineGame::UnSubscribe(this); }
 
-void Ass03::Awake() {}
+void Practica03::Awake() {}
 
-void Ass03::Start() {
+void Practica03::Start() {
   // Ball initialization
   std::default_random_engine rand(Stasis::GetDelta());
   std::uniform_real_distribution<float> randPosX(0., SCR_WIDTH);
@@ -37,11 +37,10 @@ void Ass03::Start() {
   EngineRender::SetBallVector(&balls);
 }
 
-void Ass03::Update() {
+void Practica03::Update() {
   for (auto &ball : balls)
     ball.Slot(&balls);
 }
+void Practica03::Fixed() {}
 
-void Ass03::Fixed() {}
-
-void Ass03::Quit() {}
+void Practica03::Quit() {}
