@@ -35,4 +35,5 @@ public:
   void SetMass(float mass);
 
   void Slot(std::vector<Ball> *balls);
+  bool IsColliding(std::vector<Ball> *balls);
 };

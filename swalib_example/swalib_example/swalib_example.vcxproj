@@ -120,7 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="practica_03.cpp" />
+    <ClCompile Include="practica.cpp" />
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="engine.cpp" />
@@ -137,7 +137,7 @@
     <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="practica_03.h" />
+    <ClInclude Include="practica.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="engine.h" />

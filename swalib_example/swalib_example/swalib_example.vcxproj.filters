@@ -35,7 +35,7 @@
     <Filter Include="Source Files\.lib\math\pi">
       <UniqueIdentifier>{1211317a-6f52-4335-aeb6-a0b7e0eb66d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\practicas">
+    <Filter Include="Source Files\practica">
       <UniqueIdentifier>{ce07d6a1-6db5-438d-b28b-c7b716a6708f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -62,8 +62,8 @@
     <ClCompile Include="vec.cpp">
       <Filter>Source Files\.lib\math\vec</Filter>
     </ClCompile>
-    <ClCompile Include="practica_03.cpp">
-      <Filter>Source Files\practicas</Filter>
+    <ClCompile Include="practica.cpp">
+      <Filter>Source Files\practica</Filter>
     </ClCompile>
     <ClCompile Include="pi.cpp">
       <Filter>Source Files\.lib\math\pi</Filter>
@@ -112,8 +112,8 @@
     <ClInclude Include="vec.h">
       <Filter>Source Files\.lib\math\vec</Filter>
     </ClInclude>
-    <ClInclude Include="practica_03.h">
-      <Filter>Source Files\practicas</Filter>
+    <ClInclude Include="practica.h">
+      <Filter>Source Files\practica</Filter>
     </ClInclude>
     <ClInclude Include="pi.h">
       <Filter>Source Files\.lib\math\pi</Filter>

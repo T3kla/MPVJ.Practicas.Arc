@@ -133,3 +133,12 @@ void Ball::Slot(std::vector<Ball> *balls) {
     velocity.y *= -1.f;
   }
 }
+
+bool Ball::IsColliding(std::vector<Ball> *balls) {
+  for (auto &ball : *balls)
+    if ((position - ball.position).MagnitudeSq() <=
+        powf(radius + ball.radius, 2))
+      return true;
+
+  return false;
+}

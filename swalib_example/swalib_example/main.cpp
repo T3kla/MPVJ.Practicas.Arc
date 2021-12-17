@@ -1,10 +1,10 @@
 #include "engine.h"
-#include "practica_03.h"
+#include "practica.h"
 #include <iostream>
 
 int Main(void) {
 
-  auto p03 = Practica03();
+  auto prtc = Practica();
   Engine::Run();
 
   return 0;
