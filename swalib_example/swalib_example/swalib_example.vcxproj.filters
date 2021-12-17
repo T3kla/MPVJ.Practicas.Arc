@@ -38,6 +38,9 @@
     <Filter Include="Source Files\practica">
       <UniqueIdentifier>{ce07d6a1-6db5-438d-b28b-c7b716a6708f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\no ecs\components">
+      <UniqueIdentifier>{14ff15bd-b737-4cac-8e54-b4b3ff30eb7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core.cpp">
@@ -85,6 +88,12 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files\.lib</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files\no ecs\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="component_registry.cpp">
+      <Filter>Source Files\no ecs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +147,21 @@
     </ClInclude>
     <ClInclude Include="component.h">
       <Filter>Source Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Source Files\no ecs\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="component_registry.h">
+      <Filter>Source Files\no ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Source Files\no ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite_renderer.h">
+      <Filter>Source Files\no ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="circle_collider.h">
+      <Filter>Source Files\no ecs\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

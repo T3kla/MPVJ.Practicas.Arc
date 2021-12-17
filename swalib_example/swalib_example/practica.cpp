@@ -1,19 +1,34 @@
 #include "practica.h"
 
+#include <random>
+
 #include "core.h"
-#include "engine_game.h"
-#include "engine_render.h"
-#include "pi.h"
-#include "stasis.h"
 #include "stdafx.h"
 #include "sys.h"
+
+#include "engine_game.h"
+#include "engine_render.h"
+#include "stasis.h"
+
+#include "pi.h"
 #include "vec.h"
-#include <random>
+
+#include "circle_collider.h"
+#include "component_registry.h"
+#include "sprite_renderer.h"
+#include "transform.h"
 
 Practica::Practica() { EngineGame::Subscribe(this); }
 Practica::~Practica() { EngineGame::UnSubscribe(this); }
 
-void Practica::Awake() {}
+void Practica::Awake() {
+  CmpRegistry::RegisterComponent<Transform>(); // TODO: a ver si registra
+  auto a = CmpRegistry::GetComponentID<Transform>();
+  CmpRegistry::RegisterComponent<CircleCollider>();
+  auto b = CmpRegistry::GetComponentID<CircleCollider>();
+  CmpRegistry::RegisterComponent<SpriteRenderer>();
+  auto c = CmpRegistry::GetComponentID<SpriteRenderer>();
+}
 
 void Practica::Start() {
   // Ball initialization

@@ -120,6 +120,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="component_registry.cpp" />
+    <ClCompile Include="entity.cpp" />
     <ClCompile Include="practica.cpp" />
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="core.cpp" />
@@ -138,7 +140,10 @@
     <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="circle_collider.h" />
     <ClInclude Include="component.h" />
+    <ClInclude Include="component_registry.h" />
+    <ClInclude Include="entity.h" />
     <ClInclude Include="practica.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />
@@ -150,9 +155,11 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="pi.h" />
     <ClInclude Include="engine_render.h" />
+    <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sys.h" />
+    <ClInclude Include="transform.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="vector2d.h" />
   </ItemGroup>
