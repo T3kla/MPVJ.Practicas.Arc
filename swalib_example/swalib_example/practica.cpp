@@ -17,7 +17,7 @@ void Practica::Awake() {}
 
 void Practica::Start() {
   // Ball initialization
-  std::default_random_engine rand(Stasis::GetDelta());
+  std::default_random_engine rand((unsigned int)Stasis::GetDelta());
   std::uniform_real_distribution<float> randPosX(0., SCR_WIDTH);
   std::uniform_real_distribution<float> randPosY(0., SCR_HEIGHT);
   std::uniform_real_distribution<float> randSpd(-MAX_SPEED, MAX_SPEED);
@@ -30,7 +30,7 @@ void Practica::Start() {
       Vec2 velocity = {randSpd(rand), randSpd(rand)};
       GLuint texture = EngineRender::GetTxBall();
       float radius = randRad(rand);
-      float mass = radius * PI * PI;
+      float mass = radius * powf((float)PI, 2);
 
       newBall = {position, velocity, texture, radius, mass};
     } while (newBall.IsColliding(&balls)); // No overlap at awake
