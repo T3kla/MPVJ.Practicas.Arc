@@ -83,6 +83,9 @@
     <ClCompile Include="ball.cpp">
       <Filter>Source Files\no ecs\entities\ball</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files\.lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.h">
@@ -132,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="ball.h">
       <Filter>Source Files\no ecs\entities\ball</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>Source Files\interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

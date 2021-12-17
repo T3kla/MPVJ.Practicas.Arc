@@ -132,11 +132,13 @@
     <ClCompile Include="pi.cpp" />
     <ClCompile Include="engine_render.cpp" />
     <ClCompile Include="stasis.cpp" />
+    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="sys_win.cpp" />
     <ClCompile Include="vec.cpp" />
     <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="component.h" />
     <ClInclude Include="practica.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />
