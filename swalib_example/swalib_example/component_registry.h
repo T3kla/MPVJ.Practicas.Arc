@@ -37,7 +37,7 @@ template <class T> inline int CmpRegistry::GetComponentID() {
   const char *typeName = typeid(T).name();
   auto it = instance.cmp_to_id.find(typeName);
 
-  if (it != instance.cmp_to_id.end())
+  if (it == instance.cmp_to_id.end())
     return -1;
 
   return it->second;
