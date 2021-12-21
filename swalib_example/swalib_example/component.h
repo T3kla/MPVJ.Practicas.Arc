@@ -1,5 +1,9 @@
 #pragma once
 
+class Entity;
+
 class Component {
-  virtual void Slot() = 0;
+public:
+  Entity *owner = nullptr;
+  virtual void Slot(){};
 };

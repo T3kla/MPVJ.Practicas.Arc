@@ -1,5 +1,4 @@
 #include "engine.h"
-#include "practica.h"
 #include <iostream>
 
 int Main(void) {
@@ -10,7 +9,6 @@ int Main(void) {
   // MAX_RADIUS en practica.h
   // MIN_RADIUS en practica.h
 
-  auto prtc = Practica();
   Engine::Run();
 
   return 0;

@@ -15,19 +15,21 @@
 
 #include "circle_collider.h"
 #include "component_registry.h"
+#include "rigidbody.h"
 #include "sprite_renderer.h"
 #include "transform.h"
 
+Practica Practica::instance;
 Practica::Practica() { EngineGame::Subscribe(this); }
 Practica::~Practica() { EngineGame::UnSubscribe(this); }
 
+std::vector<Entity> *Practica::GetEntities() { return &instance.entities; }
+
 void Practica::Awake() {
   CmpRegistry::RegisterComponent<Transform>(); // TODO: a ver si registra
-  auto a = CmpRegistry::GetComponentID<Transform>();
   CmpRegistry::RegisterComponent<CircleCollider>();
-  auto b = CmpRegistry::GetComponentID<CircleCollider>();
   CmpRegistry::RegisterComponent<SpriteRenderer>();
-  auto c = CmpRegistry::GetComponentID<SpriteRenderer>();
+  CmpRegistry::RegisterComponent<RigidBody>();
 }
 
 void Practica::Start() {
@@ -39,7 +41,7 @@ void Practica::Start() {
   std::uniform_real_distribution<float> randRad(MIN_RADIUS, MAX_RADIUS);
 
   for (int i = 0; i < BALLS_NUM; i++) {
-    Ball newBall = {};
+    Entity newBall = {};
     do {
       Vec2 position = {randPosX(rand), randPosY(rand)};
       Vec2 velocity = {randSpd(rand), randSpd(rand)};
@@ -47,18 +49,37 @@ void Practica::Start() {
       float radius = randRad(rand);
       float mass = radius * powf((float)PI, 2);
 
-      newBall = {position, velocity, texture, radius, mass};
-    } while (newBall.IsColliding(&balls)); // No overlap at awake
+      Transform tf = {};
+      tf.position = position;
+      newBall.AddComponent<Transform>(tf);
 
-    balls.emplace_back(newBall);
+      RigidBody rb = {};
+      rb.velocity = velocity;
+      rb.mass = mass;
+      newBall.AddComponent<RigidBody>(rb);
+
+      CircleCollider cc = {};
+      cc.radius = radius;
+      newBall.AddComponent<CircleCollider>(cc);
+
+      SpriteRenderer sr = {};
+      sr.textureID = texture;
+      newBall.AddComponent<SpriteRenderer>(sr);
+
+    } while (newBall.GetComponent<CircleCollider>()->IsColliding(
+        &entities)); // No overlap at awake
+
+    entities.emplace_back(newBall);
   }
-
-  EngineRender::SetBallVector(&balls);
 }
 
 void Practica::Update() {
-  for (auto &ball : balls)
-    ball.Slot(&balls);
+  for (auto &ball : entities) {
+    ball.GetComponent<Transform>()->Slot();
+    ball.GetComponent<RigidBody>()->Slot();
+    ball.GetComponent<CircleCollider>()->Slot();
+    ball.GetComponent<SpriteRenderer>()->Slot();
+  }
 }
 void Practica::Fixed() {}
 

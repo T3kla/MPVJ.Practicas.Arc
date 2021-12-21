@@ -1,15 +1,23 @@
-#include "engine_render.h"
+#include "practica.h"
+
+#include "vec.h"
+
 #include "core.h"
-#include "engine.h"
 #include "font.h"
-#include "stasis.h"
+#include "stdafx.h"
 #include "sys.h"
 #include "vector2d.h"
 
+#include "engine.h"
+#include "engine_render.h"
+#include "stasis.h"
+
+#include "circle_collider.h"
+#include "sprite_renderer.h"
+#include "transform.h"
+
 EngineRender EngineRender::instance;
-
 EngineRender::EngineRender() {}
-
 EngineRender &EngineRender::Get() { return instance; }
 
 void EngineRender::Awake() {
@@ -54,13 +62,15 @@ void EngineRender::Update() {
                                 vec2(128.f, 128.f), instance.txBg);
 
   // Render balls
-  if (instance.balls != nullptr)
-    for (auto &ball : *instance.balls) {
-      Vec2 pos = ball.GetPosition();
-      Vec2 rad = {ball.GetRadius() * 2.f, ball.GetRadius() * 2.f};
-      GLuint tx = ball.GetTextureID();
-      CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
-    }
+  for (auto &ball : *Practica::GetEntities()) {
+    auto &tf = *ball.GetComponent<Transform>();
+    auto &cc = *ball.GetComponent<CircleCollider>();
+    auto &sr = *ball.GetComponent<SpriteRenderer>();
+    Vec2 pos = tf.position;
+    Vec2 rad = {cc.radius * 2.f, cc.radius * 2.f};
+    GLuint tx = sr.textureID;
+    CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
+  }
 
   auto avg_up_final = 0.0;
   auto avg_fx_final = 0.0;
@@ -98,7 +108,3 @@ void EngineRender::Quit() {
 
 const GLuint &EngineRender::GetTxBg() { return instance.txBg; }
 const GLuint &EngineRender::GetTxBall() { return instance.txBall; }
-
-void EngineRender::SetBallVector(std::vector<Ball> *balls) {
-  instance.balls = balls;
-}

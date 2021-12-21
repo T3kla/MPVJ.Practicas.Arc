@@ -123,7 +123,6 @@
     <ClCompile Include="component_registry.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="practica.cpp" />
-    <ClCompile Include="ball.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="engine_game.cpp" />
@@ -145,7 +144,6 @@
     <ClInclude Include="component_registry.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="practica.h" />
-    <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="font.h" />
@@ -155,6 +153,7 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="pi.h" />
     <ClInclude Include="engine_render.h" />
+    <ClInclude Include="rigidbody.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />
