@@ -5,4 +5,5 @@
 
 struct SpriteRenderer : public Component {
   GLuint textureID = 0;
+  virtual void Slot() override{};
 };

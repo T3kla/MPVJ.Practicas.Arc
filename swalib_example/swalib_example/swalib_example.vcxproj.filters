@@ -163,5 +163,8 @@
     <ClInclude Include="circle_collider.h">
       <Filter>Source Files\no ecs\components</Filter>
     </ClInclude>
+    <ClInclude Include="rigidbody.h">
+      <Filter>Source Files\no ecs\components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,7 +10,8 @@ int Main(void) {
   // MAX_RADIUS en practica.h
   // MIN_RADIUS en practica.h
 
-  auto prtc = Practica();
+  Practica::Init();
+
   Engine::Run();
 
   return 0;

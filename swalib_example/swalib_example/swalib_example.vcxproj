@@ -155,6 +155,7 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="pi.h" />
     <ClInclude Include="engine_render.h" />
+    <ClInclude Include="rigidbody.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />

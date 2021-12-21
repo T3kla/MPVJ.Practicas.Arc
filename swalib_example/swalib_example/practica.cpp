@@ -18,16 +18,20 @@
 #include "sprite_renderer.h"
 #include "transform.h"
 
-Practica::Practica() { EngineGame::Subscribe(this); }
-Practica::~Practica() { EngineGame::UnSubscribe(this); }
+#include "entity.h"
+
+Practica Practica::instance;
+Practica::Practica() {}
+
+void Practica::Init() { EngineGame::Subscribe(&instance); }
+
+std::vector<Ball> *Practica::GetBalls() { return &instance.balls; }
+std::vector<Entity> *Practica::GetEntities() { return &instance.entities; }
 
 void Practica::Awake() {
-  CmpRegistry::RegisterComponent<Transform>(); // TODO: a ver si registra
-  auto a = CmpRegistry::GetComponentID<Transform>();
+  CmpRegistry::RegisterComponent<Transform>();
   CmpRegistry::RegisterComponent<CircleCollider>();
-  auto b = CmpRegistry::GetComponentID<CircleCollider>();
   CmpRegistry::RegisterComponent<SpriteRenderer>();
-  auto c = CmpRegistry::GetComponentID<SpriteRenderer>();
 }
 
 void Practica::Start() {
@@ -62,4 +66,4 @@ void Practica::Update() {
 }
 void Practica::Fixed() {}
 
-void Practica::Quit() {}
+void Practica::Quit() { EngineGame::UnSubscribe(this); }

@@ -3,9 +3,9 @@
 Entity::Entity() {}
 
 Entity::~Entity() {
-  for (auto &cmp : components) {
+  for (auto &cmp : components)
     delete cmp.second;
-  }
+
   components.clear();
 }
 

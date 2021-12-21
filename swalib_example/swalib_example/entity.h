@@ -3,7 +3,6 @@
 #include "component.h"
 #include "component_registry.h"
 #include <map>
-#include <vector>
 
 class Entity {
   std::map<int, Component *> components;
@@ -14,29 +13,40 @@ public:
 
   template <class T> T *GetComponent() const;
   template <class T> void AddComponent(T component);
+  template <class T> void RemoveComponent();
 
   virtual void Slot();
 };
 
 template <class T> inline T *Entity::GetComponent() const {
   int cmpID = CmpRegistry::GetComponentID<T>();
-  auto it = components.find(typeName);
+  auto it = components.find(cmpID);
 
   if (it != components.end())
-    return true;
+    return nullptr;
 
   return (T *)it->second;
 }
 
 template <class T> inline void Entity::AddComponent(T component) {
   int cmpID = CmpRegistry::GetComponentID<T>();
+  auto it = components.find(cmpID);
 
-  auto it = components.find(typeName);
-  if (it != components.end()) {
-    delete it->second;
-    it->second = new component;
+  if (it != components.end())
     return;
-  }
 
-  components.insert({cmpID, new component});
+  Component *newCmp = new T(component);
+  newCmp->owner = this;
+  components.insert({cmpID, newCmp});
+}
+
+template <class T> inline void Entity::RemoveComponent() {
+  int cmpID = CmpRegistry::GetComponentID<T>();
+  auto it = components.find(cmpID);
+
+  if (it == components.end())
+    return;
+
+  delete it->second;
+  components.erase(it);
 }
