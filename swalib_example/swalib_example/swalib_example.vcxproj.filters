@@ -95,6 +95,9 @@
     <ClCompile Include="component_registry.cpp">
       <Filter>Source Files\no ecs</Filter>
     </ClCompile>
+    <ClCompile Include="circle_collider.cpp">
+      <Filter>Source Files\no ecs\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.h">

@@ -5,7 +5,7 @@
 #include <map>
 
 class Entity {
-  std::map<int, Component *> components;
+  std::map<int, void *> components;
 
 public:
   Entity();
@@ -22,7 +22,7 @@ template <class T> inline T *Entity::GetComponent() const {
   int cmpID = CmpRegistry::GetComponentID<T>();
   auto it = components.find(cmpID);
 
-  if (it != components.end())
+  if (it == components.end())
     return nullptr;
 
   return (T *)it->second;
