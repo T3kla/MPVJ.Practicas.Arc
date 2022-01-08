@@ -1,18 +1,17 @@
 #pragma once
 
 #include "component.h"
-#include "component_registry.h"
 #include <unordered_map>
 
 class Entity {
 private:
-  std::unordered_map<int, void *> components;
+  std::unordered_map<const char *, void *> components;
 
 public:
   Entity();
   ~Entity();
 
-  template <class T> int GetCmpID() const;
+  template <class T> const char *GetCmpID() const;
   template <class T> T *GetComponent() const;
   template <class T> void AddComponent(const T &component);
   template <class T> void RemoveComponent();
@@ -21,8 +20,8 @@ public:
   virtual void Slot();
 };
 
-template <class T> int Entity::GetCmpID() const {
-  return CmpRegistry::GetComponentID<T>();
+template <class T> const char *Entity::GetCmpID() const {
+  return typeid(T).name();
 };
 
 template <class T> inline T *Entity::GetComponent() const {

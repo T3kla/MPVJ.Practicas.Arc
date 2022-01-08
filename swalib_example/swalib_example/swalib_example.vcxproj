@@ -121,7 +121,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="circle_collider.cpp" />
-    <ClCompile Include="component_registry.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="practica.cpp" />
     <ClCompile Include="ball.cpp" />
@@ -143,7 +142,6 @@
   <ItemGroup>
     <ClInclude Include="circle_collider.h" />
     <ClInclude Include="component.h" />
-    <ClInclude Include="component_registry.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="practica.h" />
     <ClInclude Include="ball.h" />
