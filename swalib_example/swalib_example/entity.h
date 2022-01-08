@@ -2,25 +2,32 @@
 
 #include "component.h"
 #include "component_registry.h"
-#include <map>
+#include <unordered_map>
 
 class Entity {
-  std::map<int, void *> components;
+private:
+  std::unordered_map<int, void *> components;
 
 public:
   Entity();
   ~Entity();
 
+  template <class T> int GetCmpID() const;
   template <class T> T *GetComponent() const;
-  template <class T> void AddComponent(T component);
+  template <class T> void AddComponent(const T &component);
   template <class T> void RemoveComponent();
+  template <class T> void RemoveAllComponents();
 
   virtual void Slot();
 };
 
+template <class T> int Entity::GetCmpID() const {
+  return CmpRegistry::GetComponentID<T>();
+};
+
 template <class T> inline T *Entity::GetComponent() const {
-  int cmpID = CmpRegistry::GetComponentID<T>();
-  auto it = components.find(cmpID);
+  auto id = GetCmpID<T>();
+  auto it = components.find(id);
 
   if (it == components.end())
     return nullptr;
@@ -28,25 +35,32 @@ template <class T> inline T *Entity::GetComponent() const {
   return (T *)it->second;
 }
 
-template <class T> inline void Entity::AddComponent(T component) {
-  int cmpID = CmpRegistry::GetComponentID<T>();
-  auto it = components.find(cmpID);
+template <class T> inline void Entity::AddComponent(const T &component) {
+  auto id = GetCmpID<T>();
+  auto it = components.find(id);
 
   if (it != components.end())
     return;
 
   Component *newCmp = new T(component);
   newCmp->owner = this;
-  components.insert({cmpID, newCmp});
+  components.insert({id, newCmp});
 }
 
 template <class T> inline void Entity::RemoveComponent() {
-  int cmpID = CmpRegistry::GetComponentID<T>();
-  auto it = components.find(cmpID);
+  auto id = GetCmpID<T>();
+  auto it = components.find(id);
 
   if (it == components.end())
     return;
 
   delete it->second;
   components.erase(it);
+}
+
+template <class T> void Entity::RemoveAllComponents() {
+  for (auto &cmp : components)
+    delete cmp.second;
+
+  components.clear();
 }

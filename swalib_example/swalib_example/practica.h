@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-constexpr int BALLS_NUM = 250;
+constexpr int BALLS_NUM = 10;
 constexpr float MAX_SPEED = 100.f;
 constexpr float MAX_RADIUS = 20.f;
 constexpr float MIN_RADIUS = 10.f;

@@ -14,7 +14,6 @@
 #include "vec.h"
 
 #include "circle_collider.h"
-#include "component_registry.h"
 #include "rigidbody.h"
 #include "sprite_renderer.h"
 #include "transform.h"
@@ -29,12 +28,7 @@ void Practica::Init() { EngineGame::Subscribe(&instance); }
 std::vector<Ball> *Practica::GetBalls() { return &instance.balls; }
 std::vector<Entity> *Practica::GetEntities() { return &instance.entities; }
 
-void Practica::Awake() {
-  CmpRegistry::RegisterComponent<Transform>();
-  CmpRegistry::RegisterComponent<RigidBody>();
-  CmpRegistry::RegisterComponent<CircleCollider>();
-  CmpRegistry::RegisterComponent<SpriteRenderer>();
-}
+void Practica::Awake() {}
 
 void Practica::Start() {
   // Ball initialization

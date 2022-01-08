@@ -92,11 +92,11 @@
     <ClCompile Include="entity.cpp">
       <Filter>Source Files\no ecs\entities</Filter>
     </ClCompile>
-    <ClCompile Include="component_registry.cpp">
-      <Filter>Source Files\no ecs</Filter>
-    </ClCompile>
     <ClCompile Include="circle_collider.cpp">
       <Filter>Source Files\no ecs\components</Filter>
+    </ClCompile>
+    <ClCompile Include="component_registry.cpp">
+      <Filter>Source Files\no ecs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +154,6 @@
     <ClInclude Include="entity.h">
       <Filter>Source Files\no ecs\entities</Filter>
     </ClInclude>
-    <ClInclude Include="component_registry.h">
-      <Filter>Source Files\no ecs</Filter>
-    </ClInclude>
     <ClInclude Include="transform.h">
       <Filter>Source Files\no ecs\components</Filter>
     </ClInclude>
@@ -168,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="rigidbody.h">
       <Filter>Source Files\no ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="component_registry.h">
+      <Filter>Source Files\no ecs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

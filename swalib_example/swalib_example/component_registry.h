@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <unordered_set>
 
 class CmpRegistry {
 private:                                     // SINGLETON
@@ -11,34 +12,21 @@ private:                                     // SINGLETON
 private:
   int count = 0;
   std::unordered_map<const char *, int> cmp_to_id = {};
+  std::unordered_set<const char *> set = {};
 
 public:
-  template <class T> static bool IsRegistered();
-  template <class T> static void RegisterComponent();
   template <class T> static int GetComponentID();
 };
 
-template <class T> inline bool CmpRegistry::IsRegistered() {
-  const char *typeName = typeid(T).name();
-  auto it = instance.cmp_to_id.find(typeName);
-
-  if (it != instance.cmp_to_id.end())
-    return true;
-
-  return false;
-}
-
-template <class T> inline void CmpRegistry::RegisterComponent() {
-  const char *typeName = typeid(T).name();
-  instance.cmp_to_id.insert({typeName, instance.count++});
-}
-
 template <class T> inline int CmpRegistry::GetComponentID() {
   const char *typeName = typeid(T).name();
-  auto it = instance.cmp_to_id.find(typeName);
 
-  if (it == instance.cmp_to_id.end())
-    return -1;
+  instance.set.insert(typeName);
 
-  return it->second;
+  for (auto &id : instance.cmp_to_id)
+    if (strcmp(typeName, id.first) == 0)
+      return id.second;
+
+  instance.cmp_to_id.insert({typeName, instance.count++});
+  return instance.count - 1;
 }
