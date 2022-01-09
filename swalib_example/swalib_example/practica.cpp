@@ -34,7 +34,7 @@ void Practica::Awake() {}
 void Practica::Start() {
   // Ball initialization
 
-  std::default_random_engine rand(time(NULL));
+  std::default_random_engine rand((unsigned int)time(NULL));
   std::uniform_real_distribution<float> randPosX(0., SCR_WIDTH);
   std::uniform_real_distribution<float> randPosY(0., SCR_HEIGHT);
   std::uniform_real_distribution<float> randSpd(-MAX_SPEED, MAX_SPEED);
@@ -43,29 +43,32 @@ void Practica::Start() {
   entities.reserve(BALLS_NUM);
 
   for (int i = 0; i < BALLS_NUM; i++) {
+
     auto newBall = new Entity;
 
-    Vec2 position = {randPosX(rand), randPosY(rand)};
-    Vec2 velocity = {randSpd(rand), randSpd(rand)};
-    GLuint texture = EngineRender::GetTxBall();
-    float radius = randRad(rand);
-    float mass = radius * powf((float)PI, 2);
+    Transform tf;
+    RigidBody rb;
+    CircleCollider cc;
+    SpriteRenderer sr;
 
-    Transform tf = {};
-    tf.position = position;
+    do {
+      Vec2 position = {randPosX(rand), randPosY(rand)};
+      Vec2 velocity = {randSpd(rand), randSpd(rand)};
+      GLuint texture = EngineRender::GetTxBall();
+      float radius = randRad(rand);
+      float mass = radius * powf((float)PI, 2);
+
+      tf.position = position;
+      rb.velocity = velocity;
+      rb.mass = mass;
+      cc.radius = radius;
+      sr.textureID = texture;
+
+    } while (CircleCollider::AnyOverlap(tf, cc, entities));
+
     newBall->AddComponent<Transform>(tf);
-
-    RigidBody rb = {};
-    rb.velocity = velocity;
-    rb.mass = mass;
     newBall->AddComponent<RigidBody>(rb);
-
-    CircleCollider cc = {};
-    cc.radius = radius;
     newBall->AddComponent<CircleCollider>(cc);
-
-    SpriteRenderer sr = {};
-    sr.textureID = texture;
     newBall->AddComponent<SpriteRenderer>(sr);
 
     entities.emplace_back(newBall);
