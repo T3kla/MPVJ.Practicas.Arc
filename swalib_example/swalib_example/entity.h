@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component.h"
+#include "msg.h"
 #include <unordered_map>
 
 class Entity {
@@ -17,6 +18,7 @@ public:
   template <class T> void AddComponent(const T &component);
   template <class T> void RemoveComponent();
 
+  void SendMessageNoWin(Msg *msg);
   void RemoveAllComponents();
 
   virtual void Slot();

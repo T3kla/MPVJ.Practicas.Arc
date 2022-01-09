@@ -98,7 +98,13 @@
     <ClCompile Include="circle_collider.cpp">
       <Filter>Source Files\no ecs\components</Filter>
     </ClCompile>
-    <ClCompile Include="message.cpp">
+    <ClCompile Include="msg.cpp">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="new_vel_msg.cpp">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="new_pos_msg.cpp">
       <Filter>Source Files\no ecs\messages</Filter>
     </ClCompile>
   </ItemGroup>
@@ -169,7 +175,13 @@
     <ClInclude Include="rigidbody.h">
       <Filter>Source Files\no ecs\components</Filter>
     </ClInclude>
-    <ClInclude Include="message.h">
+    <ClInclude Include="msg.h">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="new_vel_msg.h">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="new_pos_msg.h">
       <Filter>Source Files\no ecs\messages</Filter>
     </ClInclude>
   </ItemGroup>
