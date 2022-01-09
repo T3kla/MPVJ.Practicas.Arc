@@ -67,6 +67,7 @@ void EngineRender::Update() {
       CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
     }
 
+  // Render FPS and stuff
   auto avg_up_final = 0.0;
   auto avg_fx_final = 0.0;
 
