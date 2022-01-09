@@ -1,9 +1,13 @@
 #include "engine_render.h"
+#include "circle_collider.h"
 #include "core.h"
 #include "engine.h"
 #include "font.h"
+#include "sprite_renderer.h"
 #include "stasis.h"
 #include "sys.h"
+#include "transform.h"
+#include "vec.h"
 #include "vector2d.h"
 
 EngineRender EngineRender::instance;
@@ -56,9 +60,10 @@ void EngineRender::Update() {
   // Render balls
   if (instance.balls != nullptr)
     for (auto &ball : *instance.balls) {
-      Vec2 pos = ball.GetPosition();
-      Vec2 rad = {ball.GetRadius() * 2.f, ball.GetRadius() * 2.f};
-      GLuint tx = ball.GetTextureID();
+      Vec2 pos = ball->GetComponent<Transform>()->position;
+      float r = ball->GetComponent<CircleCollider>()->radius;
+      Vec2 rad = {r * 2.f, r * 2.f};
+      GLuint tx = ball->GetComponent<SpriteRenderer>()->textureID;
       CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
     }
 
@@ -99,6 +104,6 @@ void EngineRender::Quit() {
 const GLuint &EngineRender::GetTxBg() { return instance.txBg; }
 const GLuint &EngineRender::GetTxBall() { return instance.txBall; }
 
-void EngineRender::SetBallVector(std::vector<Ball> *balls) {
+void EngineRender::SetBallVector(std::vector<Entity *> *balls) {
   instance.balls = balls;
 }

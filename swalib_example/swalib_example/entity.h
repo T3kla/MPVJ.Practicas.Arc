@@ -7,20 +7,22 @@ class Entity {
 private:
   std::unordered_map<const char *, void *> components;
 
+  template <class T> const char *GetCmpID() const;
+
 public:
   Entity();
   ~Entity();
 
-  template <class T> const char *GetCmpID() const;
   template <class T> T *GetComponent() const;
   template <class T> void AddComponent(const T &component);
   template <class T> void RemoveComponent();
-  template <class T> void RemoveAllComponents();
+
+  void RemoveAllComponents();
 
   virtual void Slot();
 };
 
-template <class T> const char *Entity::GetCmpID() const {
+template <class T> inline const char *Entity::GetCmpID() const {
   return typeid(T).name();
 };
 
@@ -55,11 +57,4 @@ template <class T> inline void Entity::RemoveComponent() {
 
   delete it->second;
   components.erase(it);
-}
-
-template <class T> void Entity::RemoveAllComponents() {
-  for (auto &cmp : components)
-    delete cmp.second;
-
-  components.clear();
 }

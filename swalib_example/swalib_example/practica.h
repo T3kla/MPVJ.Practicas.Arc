@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-constexpr int BALLS_NUM = 10;
+constexpr int BALLS_NUM = 50;
 constexpr float MAX_SPEED = 100.f;
 constexpr float MAX_RADIUS = 20.f;
 constexpr float MIN_RADIUS = 10.f;
@@ -20,11 +20,11 @@ public:                                //
 
 public:
   std::vector<Ball> balls;
-  std::vector<Entity> entities;
+  std::vector<Entity *> entities;
 
   static void Init();
   static std::vector<Ball> *GetBalls();
-  static std::vector<Entity> *GetEntities();
+  static std::vector<Entity *> *GetEntities();
 
 private:
   virtual void Awake() override;

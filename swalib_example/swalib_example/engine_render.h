@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ball.h"
+#include "entity.h"
 #include "stdafx.h"
 #include <memory>
 
@@ -18,7 +18,7 @@ private:
   GLuint txBg = 0;
   GLuint txBall = 0;
 
-  std::vector<Ball> *balls = nullptr;
+  std::vector<Entity *> *balls = nullptr;
 
   static void Awake();
   static void Start();
@@ -30,5 +30,5 @@ public:
   static const unsigned int &GetTxBg();
   static const unsigned int &GetTxBall();
 
-  static void SetBallVector(std::vector<Ball> *balls);
+  static void SetBallVector(std::vector<Entity *> *balls);
 };

@@ -122,6 +122,7 @@
   <ItemGroup>
     <ClCompile Include="circle_collider.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="message.cpp" />
     <ClCompile Include="practica.cpp" />
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="core.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="circle_collider.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="message.h" />
     <ClInclude Include="practica.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="core.h" />

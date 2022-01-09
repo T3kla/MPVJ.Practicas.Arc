@@ -41,6 +41,9 @@
     <Filter Include="Source Files\no ecs\components">
       <UniqueIdentifier>{14ff15bd-b737-4cac-8e54-b4b3ff30eb7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\no ecs\messages">
+      <UniqueIdentifier>{6f618853-17f8-46aa-b3bf-eecb7c935cca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core.cpp">
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="circle_collider.cpp">
       <Filter>Source Files\no ecs\components</Filter>
+    </ClCompile>
+    <ClCompile Include="message.cpp">
+      <Filter>Source Files\no ecs\messages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="rigidbody.h">
       <Filter>Source Files\no ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="message.h">
+      <Filter>Source Files\no ecs\messages</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
