@@ -2,25 +2,35 @@
 
 #include "circle_collider.h"
 #include "component.h"
+#include "msg.h"
+#include "new_pos_msg.h"
+#include "new_vel_msg.h"
+#include "rigidbody.h"
 #include "transform.h"
 #include "vec.h"
 
 struct RigidBody : public Component {
+
   Vec2 velocity = {0.f, 0.f};
+
   float mass = 1.f;
+
   virtual void Slot() override {
     auto nozero = [](const float &f) { return f == 0.f ? f + FLT_EPSILON : f; };
 
     auto &aTF = *owner->GetComponent<Transform>();
     auto &aCC = *owner->GetComponent<CircleCollider>();
 
-    for (auto &ball : *Practica::GetEntities()) {
-      if (&ball == owner)
-        continue; // TODO: test this
+    NewPosMsg newPosMsg;
+    NewVelMsg newVelMsg;
 
-      auto &bTF = *ball.GetComponent<Transform>();
-      auto &bRB = *ball.GetComponent<RigidBody>();
-      auto &bCC = *ball.GetComponent<CircleCollider>();
+    for (auto ball : *Practica::GetEntities()) {
+      if (ball == owner)
+        continue;
+
+      auto &bTF = *ball->GetComponent<Transform>();
+      auto &bRB = *ball->GetComponent<RigidBody>();
+      auto &bCC = *ball->GetComponent<CircleCollider>();
 
       if ((aTF.position - bTF.position).MagnitudeSq() <=
           powf(aCC.radius + bCC.radius, 2)) {
@@ -91,30 +101,43 @@ struct RigidBody : public Component {
 
         // Recompose velocity
         velocity = v1_par + v1_ort;
-        bRB.velocity = v2_par + v2_ort;
+        newVelMsg.newVel = v2_par + v2_ort;
+        ball->SendMessageNoWin(&newVelMsg);
 
         break;
       }
     }
 
-    aTF.position += velocity * (float)(Stasis::GetDeltaScaled() / 1000.);
+    newPosMsg.newPos = aTF.position;
+    newPosMsg.newPos += velocity * (float)(Stasis::GetDeltaScaled() / 1000.);
+    owner->SendMessageNoWin(&newPosMsg);
 
     // Rebound on margins
     if ((aTF.position.x > SCR_WIDTH)) {
-      aTF.position.x = SCR_WIDTH - 1;
+      newPosMsg.newPos.x = SCR_WIDTH - 1;
+      owner->SendMessageNoWin(&newPosMsg);
       velocity.x *= -1.f;
     }
     if ((aTF.position.x < 0.f)) {
-      aTF.position.x = 1;
+      newPosMsg.newPos.x = 1;
+      owner->SendMessageNoWin(&newPosMsg);
       velocity.x *= -1.f;
     }
     if ((aTF.position.y > SCR_HEIGHT)) {
-      aTF.position.y = SCR_HEIGHT - 1;
+      newPosMsg.newPos.y = SCR_HEIGHT - 1;
+      owner->SendMessageNoWin(&newPosMsg);
       velocity.y *= -1.f;
     }
     if ((aTF.position.y < 0.f)) {
-      aTF.position.y = 1;
+      newPosMsg.newPos.y = 1;
+      owner->SendMessageNoWin(&newPosMsg);
       velocity.y *= -1.f;
     }
+  }
+
+  virtual void ReceiveMessage(Msg *msg) override {
+    auto *ptr = dynamic_cast<NewVelMsg *>(msg);
+    if (ptr != nullptr)
+      velocity = ptr->newVel;
   }
 };

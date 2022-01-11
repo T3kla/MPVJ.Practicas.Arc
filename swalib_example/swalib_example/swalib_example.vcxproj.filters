@@ -20,6 +20,9 @@
     <Filter Include="Source Files\no ecs\entities">
       <UniqueIdentifier>{3f75cbb0-3622-4d42-955b-79273a949237}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\no ecs\entities\ball">
+      <UniqueIdentifier>{fb0e63fb-9b4c-408f-a59d-39113ad74fe0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\.lib\time">
       <UniqueIdentifier>{c746f6f5-8892-4c8d-b1a5-9328c14971e9}</UniqueIdentifier>
     </Filter>
@@ -37,6 +40,9 @@
     </Filter>
     <Filter Include="Source Files\no ecs\components">
       <UniqueIdentifier>{14ff15bd-b737-4cac-8e54-b4b3ff30eb7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\no ecs\messages">
+      <UniqueIdentifier>{6f618853-17f8-46aa-b3bf-eecb7c935cca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,14 +86,26 @@
     <ClCompile Include="engine_input.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="ball.cpp">
+      <Filter>Source Files\no ecs\entities\ball</Filter>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files\.lib</Filter>
     </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Source Files\no ecs\entities</Filter>
     </ClCompile>
-    <ClCompile Include="component_registry.cpp">
-      <Filter>Source Files\no ecs</Filter>
+    <ClCompile Include="circle_collider.cpp">
+      <Filter>Source Files\no ecs\components</Filter>
+    </ClCompile>
+    <ClCompile Include="msg.cpp">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="new_vel_msg.cpp">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="new_pos_msg.cpp">
+      <Filter>Source Files\no ecs\messages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,14 +154,14 @@
     <ClInclude Include="engine_input.h">
       <Filter>Source Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="ball.h">
+      <Filter>Source Files\no ecs\entities\ball</Filter>
+    </ClInclude>
     <ClInclude Include="component.h">
       <Filter>Source Files\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
       <Filter>Source Files\no ecs\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="component_registry.h">
-      <Filter>Source Files\no ecs</Filter>
     </ClInclude>
     <ClInclude Include="transform.h">
       <Filter>Source Files\no ecs\components</Filter>
@@ -156,6 +174,15 @@
     </ClInclude>
     <ClInclude Include="rigidbody.h">
       <Filter>Source Files\no ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="msg.h">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="new_vel_msg.h">
+      <Filter>Source Files\no ecs\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="new_pos_msg.h">
+      <Filter>Source Files\no ecs\messages</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

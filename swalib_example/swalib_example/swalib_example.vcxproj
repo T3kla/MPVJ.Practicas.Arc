@@ -120,8 +120,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="component_registry.cpp" />
+    <ClCompile Include="circle_collider.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="msg.cpp" />
+    <ClCompile Include="new_pos_msg.cpp" />
+    <ClCompile Include="new_vel_msg.cpp" />
     <ClCompile Include="practica.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="engine.cpp" />
@@ -141,8 +144,10 @@
   <ItemGroup>
     <ClInclude Include="circle_collider.h" />
     <ClInclude Include="component.h" />
-    <ClInclude Include="component_registry.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="msg.h" />
+    <ClInclude Include="new_pos_msg.h" />
+    <ClInclude Include="new_vel_msg.h" />
     <ClInclude Include="practica.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="engine.h" />

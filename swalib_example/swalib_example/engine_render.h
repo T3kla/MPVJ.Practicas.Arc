@@ -18,7 +18,7 @@ private:
   GLuint txBg = 0;
   GLuint txBall = 0;
 
-  std::vector<Entity> *balls = nullptr;
+  std::vector<Entity *> *balls = nullptr;
 
   static void Awake();
   static void Start();
@@ -29,4 +29,6 @@ private:
 public:
   static const unsigned int &GetTxBg();
   static const unsigned int &GetTxBall();
+
+  static void SetBallVector(std::vector<Entity *> *balls);
 };

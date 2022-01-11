@@ -2,10 +2,20 @@
 
 Entity::Entity() {}
 
-Entity::~Entity() {
-  for (auto &cmp : components) 
+Entity::~Entity() {}
+
+void Entity::SendMessageNoWin(Msg *msg) {
+  for (auto &cmp : components)
+    ((Component *)cmp.second)->ReceiveMessage(msg);
+}
+
+void Entity::RemoveAllComponents() {
+  for (auto &cmp : components)
     delete cmp.second;
   components.clear();
 }
 
-void Entity::Slot() {}
+void Entity::Slot() {
+  for (auto &cmp : components)
+    ((Component *)cmp.second)->Slot();
+}

@@ -1,49 +1,58 @@
 #pragma once
 
 #include "component.h"
-#include "component_registry.h"
-#include <map>
-#include <vector>
+#include "msg.h"
+#include <unordered_map>
 
 class Entity {
-  std::map<int, Component *> components;
+private:
+  std::unordered_map<const char *, void *> components;
+
+  template <class T> const char *GetCmpID() const;
 
 public:
   Entity();
   ~Entity();
 
   template <class T> T *GetComponent() const;
-  template <class T> void AddComponent(T component);
+  template <class T> void AddComponent(const T &component);
   template <class T> void RemoveComponent();
+
+  void SendMessageNoWin(Msg *msg);
+  void RemoveAllComponents();
 
   virtual void Slot();
 };
 
-template <class T> inline T *Entity::GetComponent() const {
-  int cmpID = CmpRegistry::GetComponentID<T>();
-  auto it = components.find(cmpID);
+template <class T> inline const char *Entity::GetCmpID() const {
+  return typeid(T).name();
+};
 
-  if (it != components.end())
+template <class T> inline T *Entity::GetComponent() const {
+  auto id = GetCmpID<T>();
+  auto it = components.find(id);
+
+  if (it == components.end())
     return nullptr;
 
   return (T *)it->second;
 }
 
-template <class T> inline void Entity::AddComponent(T component) {
-  int cmpID = CmpRegistry::GetComponentID<T>();
-  auto it = components.find(cmpID);
+template <class T> inline void Entity::AddComponent(const T &component) {
+  auto id = GetCmpID<T>();
+  auto it = components.find(id);
 
   if (it != components.end())
     return;
 
   Component *newCmp = new T(component);
   newCmp->owner = this;
-  components.insert({cmpID, newCmp});
+  components.insert({id, newCmp});
 }
 
 template <class T> inline void Entity::RemoveComponent() {
-  int cmpID = CmpRegistry::GetComponentID<T>();
-  auto it = components.find(cmpID);
+  auto id = GetCmpID<T>();
+  auto it = components.find(id);
 
   if (it == components.end())
     return;
