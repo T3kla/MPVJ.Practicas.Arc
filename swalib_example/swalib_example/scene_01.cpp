@@ -2,6 +2,7 @@
 
 #include "engine_game.h"
 #include "sys_balls.h"
+#include "sys_explosions.h"
 #include "sys_hook.h"
 #include "sys_physics.h"
 #include "sys_player.h"
@@ -23,16 +24,17 @@ void Scene_01::Awake() {}
 
 void Scene_01::Start() {
 
-  SysBalls::InstantiateBallL({300.f, 500.f}, true);
-  SysBalls::InstantiateBallB({600.f, 500.f}, true);
-  SysBalls::InstantiateBallM({800.f, 500.f}, true);
-  SysBalls::InstantiateBallS({1000.f, 500.f}, true);
+  SysBalls::InstantiateL({300.f, 500.f}, true);
+  SysBalls::InstantiateB({600.f, 500.f}, true);
+  SysBalls::InstantiateM({800.f, 500.f}, true);
+  SysBalls::InstantiateS({1000.f, 500.f}, true);
 
   // Systems
   new SysPlayer();
   new SysPhysics();
   new SysHook();
   new SysBalls();
+  new SysExplosions();
 }
 
 void Scene_01::Update() {}

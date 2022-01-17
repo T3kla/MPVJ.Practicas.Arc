@@ -2,24 +2,23 @@
 
 #include "sys.h"
 
-#include "engine.h"
-#include "engine_game.h"
-#include "inputs.h"
-#include "scene_01.h"
-#include "sprite_loader.h"
-
-#include "entity.h"
-
 #include "ball.h"
 #include "circle_collider.h"
+#include "engine.h"
+#include "engine_game.h"
+#include "entity.h"
 #include "gameobject.h"
 #include "hook.h"
+#include "inputs.h"
 #include "player.h"
 #include "rigidbody.h"
+#include "scene_01.h"
 #include "sprite_animation.h"
+#include "sprite_loader.h"
 #include "sprite_renderer.h"
 #include "square_collider.h"
 #include "sys_balls.h"
+#include "sys_explosions.h"
 #include "transform.h"
 
 Entity *GetHook();
@@ -71,6 +70,7 @@ void SysHook::Fixed() {
         auto size = bbl->size;
         SysBalls::InstantiateSmaller(btf->position, true, size);
         SysBalls::InstantiateSmaller(btf->position, false, size);
+        SysExplosions::InstantiateSmaller(btf->position, size);
         return;
       }
     }
@@ -99,7 +99,7 @@ void SysHook::InstantiateHook(const Vec2 &pos) {
   hk->speed = -1000.f;
 
   sc->center = {0.f, -420.f};
-  sc->size = {50.f, 1000.f};
+  sc->size = {35.f, 950.f};
 
   sr->sprite = &SpriteLoader::sprHook[0];
   sr->offsetPosition = {0.f, -420.f};

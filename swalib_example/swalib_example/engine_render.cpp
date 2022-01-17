@@ -17,7 +17,6 @@
 #include "transform.h"
 
 #include "sys_player.h"
-#include "sys_score.h"
 
 #include "scene_01.h"
 
@@ -81,7 +80,7 @@ void EngineRender::Fixed() {
   CORE_RenderCenteredSprite(vec2(SCR_WIDTH / 2.f, SCR_HEIGHT / 2.f),
                             vec2(1280.f, 720.f), SpriteLoader::sprBg.texture);
 
-  // Layered rendering
+  // Layered rendering preparation
   layered.clear();
 
   for (auto &entity : Scene_01::GetRegistry()) {
@@ -108,6 +107,7 @@ void EngineRender::Fixed() {
     if (!tf || !go || !sr || !go->isActive)
       continue;
 
+    // Animations
     if (sa && sa->enable && sa->animation) {
       sa->count += (float)STP * 0.001f;
 
@@ -120,28 +120,23 @@ void EngineRender::Fixed() {
       sr->sprite = &sa->animation->at(frame);
     }
 
-    auto &pos = tf->position + sr->offsetPosition;
-    auto &sze = sr->size;
-    auto &uv0 = sr->sprite->uv0;
-    auto &uv1 = sr->sprite->uv1;
-    CORE_RenderCenteredSpriteWithUVs(vec2(pos.x, pos.y), vec2(sze.x, sze.y),
-                                     vec2(uv0.x, uv0.y), vec2(uv1.x, uv1.y),
-                                     sr->sprite->texture);
+    // Sprite drawing
+    if (sr && sr->enable) {
+      auto &pos = tf->position + sr->offsetPosition;
+      auto &sze = sr->size;
+      auto &uv0 = sr->sprite->uv0;
+      auto &uv1 = sr->sprite->uv1;
+      CORE_RenderCenteredSpriteWithUVs(vec2(pos.x, pos.y), vec2(sze.x, sze.y),
+                                       vec2(uv0.x, uv0.y), vec2(uv1.x, uv1.y),
+                                       sr->sprite->texture);
+    }
   }
-
-  // Render balls
-  // if (instance.balls != nullptr)
-  //  for (auto &ball : *instance.balls) {
-  //    Vec2 pos = ball->GetComponent<Transform>()->position;
-  //    float r = ball->GetComponent<CircleCollider>()->radius;
-  //    Vec2 rad = {r * 2.f, r * 2.f};
-  //    GLuint tx = ball->GetComponent<SpriteRenderer>()->textureID;
-  //    CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
-  //  }
 
   // Render FPS and stuff
   sprintf(buffer, "TIME: %0.1f", Stasis::GetTimeScaled() / 1000.);
   FONT_DrawString({w * 0.05f, h * 0.9f}, buffer);
+  sprintf(buffer, "HEALTH: %d", SysPlayer::GetPlayerHealth());
+  FONT_DrawString({w * 0.8f, h * 0.9f}, buffer);
 
   SYS_Show(); // Exchanges the front and back buffers}
 }

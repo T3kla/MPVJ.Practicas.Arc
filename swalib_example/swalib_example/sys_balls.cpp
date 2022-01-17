@@ -75,16 +75,16 @@ void SysBalls::InstantiateSmaller(const Vec2 &pos, bool right, char size) {
     return;
   SetBall(pos, right, next);
 }
-void SysBalls::InstantiateBallL(const Vec2 &pos, bool right) {
+void SysBalls::InstantiateL(const Vec2 &pos, bool right) {
   SetBall(pos, right, 'L');
 }
-void SysBalls::InstantiateBallB(const Vec2 &pos, bool right) {
+void SysBalls::InstantiateB(const Vec2 &pos, bool right) {
   SetBall(pos, right, 'B');
 }
-void SysBalls::InstantiateBallM(const Vec2 &pos, bool right) {
+void SysBalls::InstantiateM(const Vec2 &pos, bool right) {
   SetBall(pos, right, 'M');
 }
-void SysBalls::InstantiateBallS(const Vec2 &pos, bool right) {
+void SysBalls::InstantiateS(const Vec2 &pos, bool right) {
   SetBall(pos, right, 'S');
 }
 
@@ -105,7 +105,6 @@ Entity *SetBall(const Vec2 &pos, bool right, char size) {
   rb->linearDrag = 0.0f;
   rb->velocity = {175.f * (right ? 1.f : -1.f), 200.f};
 
-  bl->damage = 5;
   bl->size = size;
 
   sr->offsetPosition = {0.f, 0.f};
@@ -147,7 +146,7 @@ Entity *GetBall() {
   }
 
   // Instantiation
-  auto hook = new Entity();
+  auto ball = new Entity();
 
   auto tf = Transform();
   auto go = GameObject();
@@ -156,15 +155,15 @@ Entity *GetBall() {
   auto sr = SpriteRenderer();
   auto cl = CircleCollider();
 
-  hook->AddComponent<Transform>(&tf);
-  hook->AddComponent<GameObject>(&go);
-  hook->AddComponent<RigidBody>(&rb);
-  hook->AddComponent<Ball>(&bl);
-  hook->AddComponent<SpriteRenderer>(&sr);
-  hook->AddComponent<CircleCollider>(&cl);
+  ball->AddComponent<Transform>(&tf);
+  ball->AddComponent<GameObject>(&go);
+  ball->AddComponent<RigidBody>(&rb);
+  ball->AddComponent<Ball>(&bl);
+  ball->AddComponent<SpriteRenderer>(&sr);
+  ball->AddComponent<CircleCollider>(&cl);
 
-  reg.push_back(hook);
-  return hook;
+  reg.push_back(ball);
+  return ball;
 }
 
 float ReboundPerSize(char size) {

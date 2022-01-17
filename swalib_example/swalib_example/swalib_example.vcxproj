@@ -27,26 +27,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -136,22 +136,22 @@
     <ClCompile Include="stasis.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="sys_balls.cpp" />
+    <ClCompile Include="sys_explosions.cpp" />
     <ClCompile Include="sys_hook.cpp" />
     <ClCompile Include="sys_physics.cpp" />
     <ClCompile Include="sys_player.cpp" />
-    <ClCompile Include="sys_score.cpp" />
     <ClCompile Include="sys_win.cpp" />
     <ClCompile Include="vec.cpp" />
     <ClCompile Include="vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h" />
+    <ClInclude Include="explosion.h" />
     <ClInclude Include="hook.h" />
     <ClInclude Include="inputs.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="sprite_animation.h" />
     <ClInclude Include="circle_collider.h" />
-    <ClInclude Include="component.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="scene_01.h" />
     <ClInclude Include="core.h" />
@@ -172,10 +172,10 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sys.h" />
     <ClInclude Include="sys_balls.h" />
+    <ClInclude Include="sys_explosions.h" />
     <ClInclude Include="sys_hook.h" />
     <ClInclude Include="sys_physics.h" />
     <ClInclude Include="sys_player.h" />
-    <ClInclude Include="sys_score.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="vector2d.h" />

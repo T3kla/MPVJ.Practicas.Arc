@@ -17,8 +17,8 @@ public:
 
   static void SysBalls::InstantiateSmaller(const Vec2 &pos, bool right,
                                            char size);
-  static void SysBalls::InstantiateBallL(const Vec2 &pos, bool right);
-  static void SysBalls::InstantiateBallB(const Vec2 &pos, bool right);
-  static void SysBalls::InstantiateBallM(const Vec2 &pos, bool right);
-  static void SysBalls::InstantiateBallS(const Vec2 &pos, bool right);
+  static void SysBalls::InstantiateL(const Vec2 &pos, bool right);
+  static void SysBalls::InstantiateB(const Vec2 &pos, bool right);
+  static void SysBalls::InstantiateM(const Vec2 &pos, bool right);
+  static void SysBalls::InstantiateS(const Vec2 &pos, bool right);
 };

@@ -110,7 +110,7 @@
     <ClCompile Include="sprite_loader.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="sys_score.cpp">
+    <ClCompile Include="sys_explosions.cpp">
       <Filter>Source Files\ecs\systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -160,9 +160,6 @@
     <ClInclude Include="engine_input.h">
       <Filter>Source Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="component.h">
-      <Filter>Source Files\interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="entity.h">
       <Filter>Source Files\ecs\entity</Filter>
     </ClInclude>
@@ -196,9 +193,6 @@
     <ClInclude Include="sprite.h">
       <Filter>Source Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="sys_score.h">
-      <Filter>Source Files\ecs\systems</Filter>
-    </ClInclude>
     <ClInclude Include="sprite_animation.h">
       <Filter>Source Files\ecs\components</Filter>
     </ClInclude>
@@ -215,6 +209,12 @@
       <Filter>Source Files\ecs\components</Filter>
     </ClInclude>
     <ClInclude Include="square_collider.h">
+      <Filter>Source Files\ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sys_explosions.h">
+      <Filter>Source Files\ecs\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="explosion.h">
       <Filter>Source Files\ecs\components</Filter>
     </ClInclude>
   </ItemGroup>

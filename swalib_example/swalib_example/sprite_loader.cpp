@@ -36,7 +36,7 @@ void SpriteLoader::LoadTextures() {
   sprBalls.push_back({txSheet, {0.6f, 0.4f}, {0.8f, 0.6f}});
   sprBalls.push_back({txSheet, {0.6f, 0.2f}, {0.8f, 0.4f}});
 
-  sprExpls.push_back({txSheet, {0.4f, 0.6f}, {0.8f, 1.0f}});
+  sprExpls.push_back({txSheet, {0.6f, 0.6f}, {1.0f, 1.0f}});
   sprExpls.push_back({txSheet, {0.4f, 0.4f}, {0.6f, 0.6f}});
   sprExpls.push_back({txSheet, {0.8f, 0.4f}, {1.0f, 0.6f}});
   sprExpls.push_back({txSheet, {0.8f, 0.2f}, {1.0f, 0.4f}});
