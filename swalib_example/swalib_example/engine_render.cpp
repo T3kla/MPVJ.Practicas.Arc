@@ -16,6 +16,9 @@
 #include "sprite_renderer.h"
 #include "transform.h"
 
+#include "sys_player.h"
+#include "sys_score.h"
+
 #include "scene_01.h"
 
 #include <algorithm>

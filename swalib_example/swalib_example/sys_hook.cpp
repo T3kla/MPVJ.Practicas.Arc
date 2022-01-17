@@ -18,11 +18,13 @@
 #include "rigidbody.h"
 #include "sprite_animation.h"
 #include "sprite_renderer.h"
+#include "square_collider.h"
 #include "sys_balls.h"
 #include "transform.h"
 
 Entity *GetHook();
-bool IsCollidingCircLine(Vec2 circlePos, float circleRad, Vec2 point);
+bool IsColliding(Vec2 circlePos, float circleRad, Vec2 sqrPos, Vec2 sqrSize);
+float Clamp(float value, float min, float max);
 
 SysHook::SysHook() { EngineGame::Subscribe(this); }
 
@@ -42,6 +44,7 @@ void SysHook::Fixed() {
     auto *tf = hook->GetComponent<Transform>();
     auto *go = hook->GetComponent<GameObject>();
     auto *hk = hook->GetComponent<Hook>();
+    auto *sc = hook->GetComponent<SquareCollider>();
 
     if (!tf || !hk || !go->isActive)
       continue;
@@ -61,7 +64,8 @@ void SysHook::Fixed() {
       if (!btf || !bgo || !brb || !bbl || !bcl || !bgo->isActive)
         continue;
 
-      if (IsCollidingCircLine(btf->position, bcl->radius, tf->position)) {
+      if (IsColliding(btf->position, bcl->radius, tf->position + sc->center,
+                      sc->size)) {
         go->isActive = false;
         bgo->isActive = false;
         auto size = bbl->size;
@@ -84,6 +88,7 @@ void SysHook::InstantiateHook(const Vec2 &pos) {
   auto *tf = hook->GetComponent<Transform>();
   auto *go = hook->GetComponent<GameObject>();
   auto *hk = hook->GetComponent<Hook>();
+  auto *sc = hook->GetComponent<SquareCollider>();
   auto *sr = hook->GetComponent<SpriteRenderer>();
   auto *sa = hook->GetComponent<SpriteAnimation>();
 
@@ -92,6 +97,9 @@ void SysHook::InstantiateHook(const Vec2 &pos) {
   go->isActive = true;
 
   hk->speed = -1000.f;
+
+  sc->center = {0.f, -420.f};
+  sc->size = {50.f, 1000.f};
 
   sr->sprite = &SpriteLoader::sprHook[0];
   sr->offsetPosition = {0.f, -420.f};
@@ -125,12 +133,14 @@ Entity *GetHook() {
   auto tf = Transform();
   auto go = GameObject();
   auto hk = Hook();
+  auto sc = SquareCollider();
   auto sr = SpriteRenderer();
   auto sa = SpriteAnimation();
 
   hook->AddComponent<Transform>(&tf);
   hook->AddComponent<GameObject>(&go);
   hook->AddComponent<Hook>(&hk);
+  hook->AddComponent<SquareCollider>(&sc);
   hook->AddComponent<SpriteRenderer>(&sr);
   hook->AddComponent<SpriteAnimation>(&sa);
 
@@ -138,13 +148,23 @@ Entity *GetHook() {
   return hook;
 }
 
-bool IsCollidingCircLine(Vec2 circlePos, float circleRad, Vec2 point) {
-  for (size_t i = 0; i < 500; i++) {
-    auto p = point - Vec2(-15.f, -10.f + 5.f * i);
-    auto toSphere = circlePos - p;
+bool IsColliding(Vec2 circlePos, float circleRad, Vec2 sqrPos, Vec2 sqrSize) {
+  Vec2 point = {0.f, 0.f};
 
-    if (toSphere.Magnitude() < circleRad - 10.f)
-      return true;
-  }
-  return false;
+  auto maxX = sqrPos.x + sqrSize.x / 2.f;
+  auto minX = sqrPos.x - sqrSize.x / 2.f;
+
+  auto maxY = sqrPos.y + sqrSize.y / 2.f;
+  auto minY = sqrPos.y - sqrSize.y / 2.f;
+
+  point.x = Clamp(circlePos.x - sqrPos.x + sqrPos.x, minX, maxX);
+  point.y = Clamp(circlePos.y - sqrPos.y + sqrPos.y, minY, maxY);
+
+  auto distance = (point - circlePos).Magnitude();
+
+  return distance < circleRad / 2.f;
+}
+
+float Clamp(float value, float min, float max) {
+  return std::max(min, std::min(max, value));
 }

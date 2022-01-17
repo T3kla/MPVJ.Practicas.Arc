@@ -1,6 +1,6 @@
 #pragma once
 
-constexpr double FPS = 144.;
+constexpr double FPS = 60.;
 constexpr double STP = 1000. / FPS;
 
 class Engine {

@@ -16,4 +16,5 @@ public:
   ~SysPlayer();
 
   static Entity *GetPlayer();
+  static int GetPlayerHealth();
 };

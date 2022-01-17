@@ -167,6 +167,7 @@
     <ClInclude Include="sprite.h" />
     <ClInclude Include="sprite_loader.h" />
     <ClInclude Include="sprite_renderer.h" />
+    <ClInclude Include="square_collider.h" />
     <ClInclude Include="stasis.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sys.h" />

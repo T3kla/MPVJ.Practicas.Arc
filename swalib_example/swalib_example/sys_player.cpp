@@ -12,6 +12,8 @@
 
 #include "entity.h"
 
+#include "ball.h"
+#include "circle_collider.h"
 #include "gameobject.h"
 #include "player.h"
 #include "rigidbody.h"
@@ -22,13 +24,17 @@
 constexpr char *stateIdle = "idle";
 constexpr char *stateMoving = "moving";
 constexpr char *stateShooting = "shooting";
+constexpr char *stateHurt = "hurt";
 
 float inputBlock = 0.f;
+float invul = 0.f;
+float invulBlink = 0.1f;
 
 void UpdateAnimation();
 void InstantiatePlayer();
 void BlockInput(float time);
 bool CanInput();
+bool IsColliding(Vec2 posA, float radA, Vec2 posB, float radB);
 
 Entity player = {};
 
@@ -43,23 +49,48 @@ void SysPlayer::Awake() {}
 
 void SysPlayer::Start() {}
 
-void SysPlayer::Update() { inputBlock -= Stasis::GetDeltaScaled() * 0.001; }
+void SysPlayer::Update() {
+  auto &reg = Scene_01::GetRegistry();
 
-void SysPlayer::Fixed() {
+  inputBlock -= Stasis::GetDeltaScaled() * 0.001;
+  invul -= Stasis::GetDeltaScaled() * 0.001;
+
   auto *tf = player.GetComponent<Transform>();
   auto *go = player.GetComponent<GameObject>();
   auto *rb = player.GetComponent<RigidBody>();
   auto *pl = player.GetComponent<Player>();
 
   if (go && go->isActive) {
+
+    // Collisions
+    for (auto &ball : reg) {
+      auto *btf = ball->GetComponent<Transform>();
+      auto *bgo = ball->GetComponent<GameObject>();
+      auto *brb = ball->GetComponent<RigidBody>();
+      auto *bbl = ball->GetComponent<Ball>();
+      auto *bcl = ball->GetComponent<CircleCollider>();
+
+      if (!btf || !bgo || !brb || !bbl || !bcl || !bgo->isActive)
+        continue;
+
+      if (IsColliding(tf->position, 40.f, btf->position, bcl->radius)) {
+        //
+
+        pl->state = stateHurt;
+        invul = 3.f;
+        return;
+      }
+    }
+
+    // Input move and shoot
     auto *sa = player.GetComponent<SpriteAnimation>();
 
     Vec2 add = Vec2::Zero();
 
     if (CanInput() && SYS_KeyPressed(KEY_A))
-      add -= pl->speed * (float)STP * 0.001f;
+      add -= pl->speed * (float)Stasis::GetDeltaScaled() * 0.001f;
     if (CanInput() && SYS_KeyPressed(KEY_D))
-      add += pl->speed * (float)STP * 0.001f;
+      add += pl->speed * (float)Stasis::GetDeltaScaled() * 0.001f;
 
     rb->velocity += add;
 
@@ -77,7 +108,7 @@ void SysPlayer::Fixed() {
     pl->reversed = rb->velocity.x < 0.f ? true : false;
 
     if (CanInput() && SYS_KeyPressed(KEY_W)) {
-      BlockInput(0.25f);
+      BlockInput(0.1f);
       SysHook::InstantiateHook(tf->position);
       pl->state = stateShooting;
     }
@@ -86,9 +117,15 @@ void SysPlayer::Fixed() {
   }
 }
 
+void SysPlayer::Fixed() {}
+
 void SysPlayer::Quit() {}
 
 Entity *SysPlayer::GetPlayer() { return &player; }
+
+int SysPlayer::GetPlayerHealth() {
+  return player.GetComponent<Player>()->health;
+}
 
 void InstantiatePlayer() {
   auto tf = Transform();
@@ -102,13 +139,13 @@ void InstantiatePlayer() {
 
   go.isActive = true;
 
-  pl.health = true;
+  pl.health = 3;
   pl.speed = 5000.f;
   pl.state = stateIdle;
   pl.reversed = false;
 
   rb.velocity = {0.f, 0.f};
-  rb.linearDrag = 0.07f;
+  rb.linearDrag = 0.2f;
 
   sr.sprite = &SpriteLoader::sprPlayerMoveL[0];
   sr.offsetPosition = {0.f, 0.f};
@@ -156,8 +193,19 @@ void UpdateAnimation() {
       sa->duration = 0.4f;
       sa->animation = pl->reversed ? &SpriteLoader::sprPlayerShootL
                                    : &SpriteLoader::sprPlayerShootR;
+    } else if (pl->state == stateHurt) {
+
+      sa->enable = false;
+      sr->sprite = pl->reversed ? &SpriteLoader::sprPlayerHitL
+                                : &SpriteLoader::sprPlayerHitR;
     }
+
+  // Blink if invulnerable
 }
 
 void BlockInput(float time) { inputBlock = time; }
 bool CanInput() { return inputBlock < 0.f; }
+
+bool IsColliding(Vec2 posA, float radA, Vec2 posB, float radB) {
+  return (posA - posB).Magnitude() < radA + radB;
+}
