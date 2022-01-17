@@ -45,6 +45,29 @@ void CORE_RenderCenteredSprite(const vec2 &pos, const vec2 &size, GLuint texid)
 }
 
 //-----------------------------------------------------------------------------
+// Render a Sprite.
+// pos:	Window position to draw sprite center.
+void CORE_RenderCenteredSpriteWithUVs(const vec2 &pos, const vec2 &size, const vec2& uv0, const vec2& uv1, GLuint texid)
+{
+  vec2 p0 = pos - (size * .5f);
+  vec2 p1 = pos + (size * .5f);
+
+  auto len = uv1.y - uv0.y;
+  auto avgY = (uv0.y + uv1.y) / 2.f;
+  auto dif = 0.5f - avgY;
+  auto sum0 = dif + 0.5f - len/2.f;
+  auto sum1 = dif + 0.5f + len / 2.f;
+
+  glBindTexture( GL_TEXTURE_2D, texid );
+  glBegin( GL_QUADS );
+  glTexCoord2d(uv0.x,sum0); glVertex2f(p0.x, p0.y);
+  glTexCoord2d(uv1.x,sum0); glVertex2f(p1.x, p0.y);
+  glTexCoord2d(uv1.x,sum1); glVertex2f(p1.x, p1.y);
+  glTexCoord2d(uv0.x,sum1); glVertex2f(p0.x, p1.y);
+  glEnd();
+}
+
+//-----------------------------------------------------------------------------
 // Render a Sprite in a window position with rotation in radians.
 void CORE_RenderCenteredRotatedSprite(const vec2 &pos, const vec2 &size, float angle, GLuint texid, rgba_t color)
 {
@@ -158,7 +181,18 @@ GLuint CORE_LoadBmp(const char filename[], bool wrap)
 
 //-----------------------------------------------------------------------------
 // Load PNG
-GLuint CORE_LoadPNG(const char filename[], bool wrap)
+void Reverse(void* start, int size) {
+    unsigned int* lo = (unsigned int*)start;
+    unsigned int* hi = (unsigned int*)start + size - 1;
+    unsigned int swap;
+    while (lo < hi) {
+        swap = *lo;
+        *lo++ = *hi;
+        *hi-- = swap;
+    }
+}
+
+GLuint CORE_LoadPNG(const char filename[], bool wrap, bool reverseHorizontal)
 {
   // Load and decode image.
   std::vector<unsigned char> image_data;
@@ -173,9 +207,12 @@ GLuint CORE_LoadPNG(const char filename[], bool wrap)
   std::vector<unsigned char> reversed_image_data;
   reversed_image_data.resize(image_data.size());
   for (unsigned i = 0; i < height; i++)
-  {
     memcpy(reversed_image_data.data() + i * width * 4, image_data.data() + (height-i-1) * width * 4, width * 4);
-  }
+
+  // Reverse horizontal
+  if (reverseHorizontal)
+      for (unsigned i = 0; i < height; i++)
+          Reverse(reversed_image_data.data() + i * width * 4, width);
 
   // Create OpenGL texture
   return CreateOpenGLTextureFromData(reversed_image_data.data(), width, height, wrap);

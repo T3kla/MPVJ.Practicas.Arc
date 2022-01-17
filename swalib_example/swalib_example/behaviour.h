@@ -1,7 +1,6 @@
 #pragma once
 
-class Object {
-public:
+struct Behaviour {
   virtual void Awake() = 0;
   virtual void Start() = 0;
   virtual void Update() = 0;

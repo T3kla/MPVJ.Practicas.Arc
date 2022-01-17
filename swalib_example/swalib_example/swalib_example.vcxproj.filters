@@ -14,15 +14,6 @@
     <Filter Include="Source Files\interfaces">
       <UniqueIdentifier>{c4bb1df6-0717-491e-8d26-253274cadbb9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\no ecs">
-      <UniqueIdentifier>{4f1fb031-b294-4128-b78d-bdf508f801ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\no ecs\entities">
-      <UniqueIdentifier>{3f75cbb0-3622-4d42-955b-79273a949237}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\no ecs\entities\ball">
-      <UniqueIdentifier>{fb0e63fb-9b4c-408f-a59d-39113ad74fe0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\.lib\time">
       <UniqueIdentifier>{c746f6f5-8892-4c8d-b1a5-9328c14971e9}</UniqueIdentifier>
     </Filter>
@@ -35,14 +26,23 @@
     <Filter Include="Source Files\.lib\math\pi">
       <UniqueIdentifier>{1211317a-6f52-4335-aeb6-a0b7e0eb66d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\practica">
+    <Filter Include="Source Files\scenes">
       <UniqueIdentifier>{ce07d6a1-6db5-438d-b28b-c7b716a6708f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\no ecs\components">
+    <Filter Include="Source Files\rendering">
+      <UniqueIdentifier>{feeb1697-bd0e-4ebc-958a-6406f1d92521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs">
+      <UniqueIdentifier>{4f1fb031-b294-4128-b78d-bdf508f801ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\components">
       <UniqueIdentifier>{14ff15bd-b737-4cac-8e54-b4b3ff30eb7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\no ecs\messages">
-      <UniqueIdentifier>{6f618853-17f8-46aa-b3bf-eecb7c935cca}</UniqueIdentifier>
+    <Filter Include="Source Files\ecs\systems">
+      <UniqueIdentifier>{80fa2faa-37fa-4348-a592-0fdbf7f407a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs\entity">
+      <UniqueIdentifier>{3f75cbb0-3622-4d42-955b-79273a949237}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -68,8 +68,8 @@
     <ClCompile Include="vec.cpp">
       <Filter>Source Files\.lib\math\vec</Filter>
     </ClCompile>
-    <ClCompile Include="practica.cpp">
-      <Filter>Source Files\practica</Filter>
+    <ClCompile Include="scene_01.cpp">
+      <Filter>Source Files\scenes</Filter>
     </ClCompile>
     <ClCompile Include="pi.cpp">
       <Filter>Source Files\.lib\math\pi</Filter>
@@ -86,26 +86,32 @@
     <ClCompile Include="engine_input.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="ball.cpp">
-      <Filter>Source Files\no ecs\entities\ball</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files\.lib</Filter>
     </ClCompile>
     <ClCompile Include="entity.cpp">
-      <Filter>Source Files\no ecs\entities</Filter>
+      <Filter>Source Files\ecs\entity</Filter>
     </ClCompile>
-    <ClCompile Include="circle_collider.cpp">
-      <Filter>Source Files\no ecs\components</Filter>
+    <ClCompile Include="gameobject.h">
+      <Filter>Source Files\ecs\components</Filter>
     </ClCompile>
-    <ClCompile Include="msg.cpp">
-      <Filter>Source Files\no ecs\messages</Filter>
+    <ClCompile Include="sys_physics.cpp">
+      <Filter>Source Files\ecs\systems</Filter>
     </ClCompile>
-    <ClCompile Include="new_vel_msg.cpp">
-      <Filter>Source Files\no ecs\messages</Filter>
+    <ClCompile Include="sys_player.cpp">
+      <Filter>Source Files\ecs\systems</Filter>
     </ClCompile>
-    <ClCompile Include="new_pos_msg.cpp">
-      <Filter>Source Files\no ecs\messages</Filter>
+    <ClCompile Include="sys_balls.cpp">
+      <Filter>Source Files\ecs\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sys_hook.cpp">
+      <Filter>Source Files\ecs\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite_loader.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="sys_score.cpp">
+      <Filter>Source Files\ecs\systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,14 +136,14 @@
     <ClInclude Include="engine.h">
       <Filter>Source Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="object.h">
+    <ClInclude Include="behaviour.h">
       <Filter>Source Files\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="vec.h">
       <Filter>Source Files\.lib\math\vec</Filter>
     </ClInclude>
-    <ClInclude Include="practica.h">
-      <Filter>Source Files\practica</Filter>
+    <ClInclude Include="scene_01.h">
+      <Filter>Source Files\scenes</Filter>
     </ClInclude>
     <ClInclude Include="pi.h">
       <Filter>Source Files\.lib\math\pi</Filter>
@@ -154,35 +160,56 @@
     <ClInclude Include="engine_input.h">
       <Filter>Source Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="ball.h">
-      <Filter>Source Files\no ecs\entities\ball</Filter>
-    </ClInclude>
     <ClInclude Include="component.h">
       <Filter>Source Files\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
-      <Filter>Source Files\no ecs\entities</Filter>
+      <Filter>Source Files\ecs\entity</Filter>
     </ClInclude>
     <ClInclude Include="transform.h">
-      <Filter>Source Files\no ecs\components</Filter>
+      <Filter>Source Files\ecs\components</Filter>
     </ClInclude>
     <ClInclude Include="sprite_renderer.h">
-      <Filter>Source Files\no ecs\components</Filter>
+      <Filter>Source Files\ecs\components</Filter>
     </ClInclude>
     <ClInclude Include="circle_collider.h">
-      <Filter>Source Files\no ecs\components</Filter>
+      <Filter>Source Files\ecs\components</Filter>
     </ClInclude>
     <ClInclude Include="rigidbody.h">
-      <Filter>Source Files\no ecs\components</Filter>
+      <Filter>Source Files\ecs\components</Filter>
     </ClInclude>
-    <ClInclude Include="msg.h">
-      <Filter>Source Files\no ecs\messages</Filter>
+    <ClInclude Include="sys_physics.h">
+      <Filter>Source Files\ecs\systems</Filter>
     </ClInclude>
-    <ClInclude Include="new_vel_msg.h">
-      <Filter>Source Files\no ecs\messages</Filter>
+    <ClInclude Include="sys_player.h">
+      <Filter>Source Files\ecs\systems</Filter>
     </ClInclude>
-    <ClInclude Include="new_pos_msg.h">
-      <Filter>Source Files\no ecs\messages</Filter>
+    <ClInclude Include="sys_balls.h">
+      <Filter>Source Files\ecs\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sys_hook.h">
+      <Filter>Source Files\ecs\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite_loader.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="sys_score.h">
+      <Filter>Source Files\ecs\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite_animation.h">
+      <Filter>Source Files\ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="ball.h">
+      <Filter>Source Files\ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Source Files\ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="inputs.h">
+      <Filter>Source Files\.lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

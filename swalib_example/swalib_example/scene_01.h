@@ -1,8 +1,7 @@
 #pragma once
 
-#include "ball.h"
+#include "behaviour.h"
 #include "entity.h"
-#include "object.h"
 #include <memory>
 #include <vector>
 
@@ -11,20 +10,18 @@ constexpr float MAX_SPEED = 100.f;
 constexpr float MAX_RADIUS = 20.f;
 constexpr float MIN_RADIUS = 10.f;
 
-class Practica : public Object {
+class Scene_01 : public Behaviour {
 private:                               // SINGLETON
-  Practica();                          //
-  static Practica instance;            //
+  Scene_01();                          //
+  static Scene_01 instance;            //
 public:                                //
-  Practica(const Practica &) = delete; //
+  Scene_01(const Scene_01 &) = delete; //
 
 public:
-  std::vector<Ball> balls;
-  std::vector<Entity *> entities;
+  static std::vector<Entity *> reg;
 
-  static void Init();
-  static std::vector<Ball> *GetBalls();
-  static std::vector<Entity *> *GetEntities();
+  static void Load();
+  static std::vector<Entity *> &GetRegistry();
 
 private:
   virtual void Awake() override;

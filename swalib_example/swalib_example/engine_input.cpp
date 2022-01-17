@@ -14,12 +14,7 @@ void EngineInput::Awake() {}
 
 void EngineInput::Start() {}
 
-void EngineInput::Update() {
-  if (SYS_KeyPressed(SYS_KEY_UP))
-    Stasis::SetScale(Stasis::GetScale() + .001 * Stasis::GetDelta());
-  if (SYS_KeyPressed(SYS_KEY_DOWN))
-    Stasis::SetScale(Stasis::GetScale() - .001 * Stasis::GetDelta());
-}
+void EngineInput::Update() {}
 
 void EngineInput::Fixed() {}
 

@@ -1,11 +1,7 @@
 #pragma once
 
 class Entity;
-class Msg;
 
-class Component {
-public:
+struct Component {
   Entity *owner = nullptr;
-  virtual void Slot(){};
-  virtual void ReceiveMessage(Msg *msg){};
 };

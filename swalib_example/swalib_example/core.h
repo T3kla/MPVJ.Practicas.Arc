@@ -36,6 +36,8 @@ inline rgba_t rgbamake(byte r, byte g, byte b, byte a)
 #define RAD2DEG(_rad_) (360.f * (_rad_) / (2.f * M_PIf))
 #define DEG2RAD(_deg_) ((2.f * M_PIf) * (_deg_) / 360.f)
 
+typedef unsigned int GLuint;
+
 //-----------------------------------------------------------------------------
 // Generate a random number.
 float  CORE_FRand     (float from, float to);
@@ -44,7 +46,7 @@ float  CORE_FRand     (float from, float to);
 GLuint CORE_LoadBmp   (const char filename[], bool wrap);
 //-----------------------------------------------------------------------------
 // Load PNG
-GLuint CORE_LoadPNG   (const char filename[], bool wrap);
+GLuint CORE_LoadPNG   (const char filename[], bool wrap, bool reverseHorizontal = false);
 //-----------------------------------------------------------------------------
 // Unload BMP
 void   CORE_UnloadBmp (GLuint texid);
@@ -59,6 +61,10 @@ void   CORE_RenderSprite(const vec2 &p0, const vec2 &p1, GLuint texid);
 // Render a Sprite.
 // pos:	Window position to draw sprite center.
 void   CORE_RenderCenteredSprite(const vec2 &pos, const vec2 &size, GLuint texid);
+//-----------------------------------------------------------------------------
+// Now with UVs lol.
+// pos:	Window position to draw sprite center.
+void   CORE_RenderCenteredSpriteWithUVs(const vec2& pos, const vec2& size, const vec2& uv0, const vec2& uv1, GLuint texid);
 //-----------------------------------------------------------------------------
 // Render a Sprite in a window position with rotation in radians.
 void   CORE_RenderCenteredRotatedSprite(const vec2 &pos, const vec2 &size, float angle, GLuint texid, rgba_t color = RGBA(255,255,255,255));

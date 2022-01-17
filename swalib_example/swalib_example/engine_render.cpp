@@ -1,27 +1,39 @@
 #include "engine_render.h"
-#include "circle_collider.h"
-#include "core.h"
+
 #include "engine.h"
-#include "font.h"
-#include "sprite_renderer.h"
 #include "stasis.h"
+
+#include "core.h"
+#include "font.h"
+#include "stdafx.h"
 #include "sys.h"
-#include "transform.h"
-#include "vec.h"
 #include "vector2d.h"
 
+#include "gameobject.h"
+#include "sprite.h"
+#include "sprite_animation.h"
+#include "sprite_loader.h"
+#include "sprite_renderer.h"
+#include "transform.h"
+
+#include "scene_01.h"
+
+#include <vector>
+
+static char buffer[256];
+static float w = 0;
+static float h = 0;
+
 EngineRender EngineRender::instance;
-
 EngineRender::EngineRender() {}
-
 EngineRender &EngineRender::Get() { return instance; }
 
 void EngineRender::Awake() {
   FONT_Init();
 
-  // Load textures
-  instance.txBg = CORE_LoadPNG("data/circle-bkg-128.png", true);
-  instance.txBall = CORE_LoadPNG("data/tyrian_ball.png", false);
+  // Save screen size as float
+  w = (float)SCR_WIDTH;
+  h = (float)SCR_HEIGHT;
 
   // Set up rendering.
   //    Sets up clipping.
@@ -43,6 +55,9 @@ void EngineRender::Awake() {
   glEnable(GL_BLEND);
   //	Blend func. for alpha color.
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  // Load textures
+  SpriteLoader::LoadTextures();
 }
 
 void EngineRender::Start() {}
@@ -52,59 +67,75 @@ void EngineRender::Update() {
   glClear(GL_COLOR_BUFFER_BIT); // Clear color buffer to preset values.
 
   // Render background
-  for (int i = 0; i <= SCR_WIDTH / 128; i++)
-    for (int j = 0; j <= SCR_HEIGHT / 128; j++)
-      CORE_RenderCenteredSprite(vec2(i * 128.f + 64.f, j * 128.f + 64.f),
-                                vec2(128.f, 128.f), instance.txBg);
+  CORE_RenderCenteredSprite(vec2(SCR_WIDTH / 2.f, SCR_HEIGHT / 2.f),
+                            vec2(1280.f, 720.f), SpriteLoader::sprBg.texture);
 
-  // Render balls
-  if (instance.balls != nullptr)
-    for (auto &ball : *instance.balls) {
-      Vec2 pos = ball->GetComponent<Transform>()->position;
-      float r = ball->GetComponent<CircleCollider>()->radius;
-      Vec2 rad = {r * 2.f, r * 2.f};
-      GLuint tx = ball->GetComponent<SpriteRenderer>()->textureID;
-      CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
+  // Render stuff
+  for (auto &entity : Scene_01::GetRegistry()) {
+    auto *tf = entity->GetComponent<Transform>();
+    auto *go = entity->GetComponent<GameObject>();
+    auto *sr = entity->GetComponent<SpriteRenderer>();
+    auto *sa = entity->GetComponent<SpriteAnimation>();
+
+    if (!tf || !go || !sr || !go->isActive)
+      continue;
+
+    // if (sa && sa->enabled && sa->animation) {
+    if (sa) {
+
+      auto &f2 = sa->count;
+      auto f3 = sa->count;
+      float &f4 = sa->count;
+      float f5 = sa->count;
+
+      auto &d2 = sa->duration;
+      auto d3 = sa->duration;
+      float &d4 = sa->duration;
+      float d5 = sa->duration;
+
+      auto &a2 = sa->animation;
+      auto a3 = sa->animation;
+      std::vector<Sprite> *a4 = sa->animation;
+      std::vector<Sprite> a5 = *sa->animation;
+
+      auto frameFreq = sa->duration / a3->size();
+
+      // auto frame = (int)floorf(sa->count / frameFreq);
+
+      // sr->sprite = &sa->animation->at(frame);
+
+      // sa->count += (float)Stasis::GetTimeScaled() * 0.001f * sa->speed;
+      // if (sa->count > sa->duration)
+      //   sa->count -= sa->duration;
+      float f6 = sa->count;
     }
 
+    auto &pos = tf->position;
+    auto &sze = sr->size;
+    auto &uv0 = sr->sprite->uv0;
+    auto &uv1 = sr->sprite->uv1;
+    CORE_RenderCenteredSpriteWithUVs(vec2(pos.x, pos.y), vec2(sze.x, sze.y),
+                                     vec2(uv0.x, uv0.y), vec2(uv1.x, uv1.y),
+                                     sr->sprite->texture);
+  }
+
+  // Render balls
+  // if (instance.balls != nullptr)
+  //  for (auto &ball : *instance.balls) {
+  //    Vec2 pos = ball->GetComponent<Transform>()->position;
+  //    float r = ball->GetComponent<CircleCollider>()->radius;
+  //    Vec2 rad = {r * 2.f, r * 2.f};
+  //    GLuint tx = ball->GetComponent<SpriteRenderer>()->textureID;
+  //    CORE_RenderCenteredSprite(vec2(pos.x, pos.y), vec2(rad.x, rad.y), tx);
+  //  }
+
   // Render FPS and stuff
-  auto avg_up_final = 0.0;
-  auto avg_fx_final = 0.0;
-
-  auto str_m1 = "       ARROW_UP AND ARROW_DOWN";
-  auto str_m2 = "           TO MODIFY SCALE";
-
-  FONT_DrawString(vec2(0, SCR_HEIGHT - 16), str_m1);
-  FONT_DrawString(vec2(0, SCR_HEIGHT - 32), str_m2);
-
-  auto str_sc = "       SCALE: " + std::to_string(Stasis::GetScale());
-  auto str_tw =
-      " SCALED TIME: " + std::to_string(Stasis::GetTimeScaled() / 1000.);
-  auto str_tr = "   REAL TIME: " + std::to_string(Stasis::GetTime() / 1000.);
-  auto str_up = "  UPDATE FPS: " + std::to_string(Engine::GetUpdateFPS());
-  auto str_fx = "   FIXED FPS: " + std::to_string(Engine::GetFixedFPS());
-
-  FONT_DrawString(vec2(0, 64), str_sc.c_str());
-  FONT_DrawString(vec2(0, 48), str_tw.c_str());
-  FONT_DrawString(vec2(0, 32), str_tr.c_str());
-  FONT_DrawString(vec2(0, 16), str_fx.c_str());
-  FONT_DrawString(vec2(0, 0), str_up.c_str());
+  sprintf(buffer, "TIME: %0.1f", Stasis::GetTimeScaled() / 1000.);
+  FONT_DrawString({w * 0.05f, h * 0.9f}, buffer);
 
   SYS_Show(); // Exchanges the front and back buffers}
 }
 
 void EngineRender::Fixed() {}
 
-void EngineRender::Quit() {
-  CORE_UnloadPNG(instance.txBg);
-  CORE_UnloadPNG(instance.txBall);
-
-  FONT_End();
-}
-
-const GLuint &EngineRender::GetTxBg() { return instance.txBg; }
-const GLuint &EngineRender::GetTxBall() { return instance.txBall; }
-
-void EngineRender::SetBallVector(std::vector<Entity *> *balls) {
-  instance.balls = balls;
-}
+void EngineRender::Quit() { FONT_End(); }

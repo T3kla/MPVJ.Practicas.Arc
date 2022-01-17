@@ -1,7 +1,5 @@
 #pragma once
 
-#include "component.h"
-#include "msg.h"
 #include <unordered_map>
 
 class Entity {
@@ -15,13 +13,10 @@ public:
   ~Entity();
 
   template <class T> T *GetComponent() const;
-  template <class T> void AddComponent(const T &component);
+  template <class T> void AddComponent(const T *component);
   template <class T> void RemoveComponent();
 
-  void SendMessageNoWin(Msg *msg);
   void RemoveAllComponents();
-
-  virtual void Slot();
 };
 
 template <class T> inline const char *Entity::GetCmpID() const {
@@ -38,15 +33,15 @@ template <class T> inline T *Entity::GetComponent() const {
   return (T *)it->second;
 }
 
-template <class T> inline void Entity::AddComponent(const T &component) {
+template <class T> inline void Entity::AddComponent(const T *component) {
   auto id = GetCmpID<T>();
   auto it = components.find(id);
 
   if (it != components.end())
     return;
 
-  Component *newCmp = new T(component);
-  newCmp->owner = this;
+  void *newCmp = new T;
+  memcpy(newCmp, component, sizeof(T));
   components.insert({id, newCmp});
 }
 
