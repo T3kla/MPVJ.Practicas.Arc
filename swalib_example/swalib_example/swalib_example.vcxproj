@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h" />
+    <ClInclude Include="hook.h" />
     <ClInclude Include="inputs.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="sprite_animation.h" />

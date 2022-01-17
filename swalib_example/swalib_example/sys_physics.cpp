@@ -21,7 +21,7 @@ void SysPhysics::Fixed() {
     auto go = entity->GetComponent<GameObject>();
     auto rb = entity->GetComponent<RigidBody>();
 
-    if (!go->isActive)
+    if (!tf || !go || !rb || !go->isActive)
       continue;
     tf->position += rb->velocity * (float)STP * 0.001f;
     rb->velocity = rb->velocity * (1.f - rb->linearDrag);

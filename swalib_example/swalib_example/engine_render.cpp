@@ -18,11 +18,14 @@
 
 #include "scene_01.h"
 
+#include <algorithm>
 #include <vector>
 
 static char buffer[256];
 static float w = 0;
 static float h = 0;
+
+static std::vector<Entity *> layered;
 
 EngineRender EngineRender::instance;
 EngineRender::EngineRender() {}
@@ -58,11 +61,16 @@ void EngineRender::Awake() {
 
   // Load textures
   SpriteLoader::LoadTextures();
+
+  // Layers buffer
+  layered.reserve(10);
 }
 
 void EngineRender::Start() {}
 
-void EngineRender::Update() {
+void EngineRender::Update() {}
+
+void EngineRender::Fixed() {
   // Render
   glClear(GL_COLOR_BUFFER_BIT); // Clear color buffer to preset values.
 
@@ -70,8 +78,25 @@ void EngineRender::Update() {
   CORE_RenderCenteredSprite(vec2(SCR_WIDTH / 2.f, SCR_HEIGHT / 2.f),
                             vec2(1280.f, 720.f), SpriteLoader::sprBg.texture);
 
-  // Render stuff
+  // Layered rendering
+  layered.clear();
+
   for (auto &entity : Scene_01::GetRegistry()) {
+    auto *go = entity->GetComponent<GameObject>();
+    auto *sr = entity->GetComponent<SpriteRenderer>();
+
+    if (go && sr && go->isActive)
+      layered.push_back(entity);
+  }
+
+  std::sort(layered.begin(), layered.end(), [](Entity *a, Entity *b) {
+    auto *aSR = a->GetComponent<SpriteRenderer>();
+    auto *bSR = b->GetComponent<SpriteRenderer>();
+    return aSR->layer < bSR->layer;
+  });
+
+  // Render stuff
+  for (auto &entity : layered) {
     auto *tf = entity->GetComponent<Transform>();
     auto *go = entity->GetComponent<GameObject>();
     auto *sr = entity->GetComponent<SpriteRenderer>();
@@ -80,45 +105,19 @@ void EngineRender::Update() {
     if (!tf || !go || !sr || !go->isActive)
       continue;
 
-    // if (sa && sa->enabled && sa->animation) {
-    if (sa) {
+    if (sa && sa->enable && sa->animation) {
+      sa->count += (float)STP * 0.001f;
 
-      auto &f2 = sa->count;
-      auto f3 = sa->count;
-      float &f4 = sa->count;
-      float f5 = sa->count;
+      if (sa->count >= sa->duration)
+        sa->count = fmodf(sa->count, sa->duration);
 
-      auto &d2 = sa->duration;
-      auto d3 = sa->duration;
-      float &d4 = sa->duration;
-      float d5 = sa->duration;
+      auto frameFreq = sa->duration / sa->animation->size();
+      auto frame = (int)floorf(sa->count / frameFreq);
 
-      auto &e2 = sa->enable;
-      auto e3 = sa->enable;
-      bool &e4 = sa->enable;
-      bool e5 = sa->enable;
-
-      auto &a2 = sa->animation;
-      auto a3 = sa->animation;
-      std::vector<Sprite> *a4 = sa->animation;
-      std::vector<Sprite> a5 = *sa->animation;
-
-      auto s2 = a3->size();
-      size_t s3 = a3->size();
-
-      auto frameFreq = sa->duration / a3->size();
-
-      // auto frame = (int)floorf(sa->count / frameFreq);
-
-      // sr->sprite = &sa->animation->at(frame);
-
-      // sa->count += (float)Stasis::GetTimeScaled() * 0.001f * sa->speed;
-      // if (sa->count > sa->duration)
-      //   sa->count -= sa->duration;
-      float f6 = sa->count;
+      sr->sprite = &sa->animation->at(frame);
     }
 
-    auto &pos = tf->position;
+    auto &pos = tf->position + sr->offsetPosition;
     auto &sze = sr->size;
     auto &uv0 = sr->sprite->uv0;
     auto &uv1 = sr->sprite->uv1;
@@ -143,7 +142,5 @@ void EngineRender::Update() {
 
   SYS_Show(); // Exchanges the front and back buffers}
 }
-
-void EngineRender::Fixed() {}
 
 void EngineRender::Quit() { FONT_End(); }

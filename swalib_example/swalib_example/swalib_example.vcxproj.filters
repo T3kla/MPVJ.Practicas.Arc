@@ -211,5 +211,8 @@
     <ClInclude Include="inputs.h">
       <Filter>Source Files\.lib</Filter>
     </ClInclude>
+    <ClInclude Include="hook.h">
+      <Filter>Source Files\ecs\components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

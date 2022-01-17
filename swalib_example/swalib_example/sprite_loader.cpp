@@ -31,15 +31,11 @@ void SpriteLoader::LoadTextures() {
 
   sprBg = {txBg, Vec2::Zero(), Vec2::One()};
 
-  sprBalls.reserve(4);
-  sprBalls.clear();
   sprBalls.push_back({txSheet, {0.2f, 0.6f}, {0.6f, 1.0f}});
   sprBalls.push_back({txSheet, {0.2f, 0.4f}, {0.4f, 0.6f}});
   sprBalls.push_back({txSheet, {0.6f, 0.4f}, {0.8f, 0.6f}});
   sprBalls.push_back({txSheet, {0.6f, 0.2f}, {0.8f, 0.4f}});
 
-  sprExpls.reserve(4);
-  sprExpls.clear();
   sprExpls.push_back({txSheet, {0.4f, 0.6f}, {0.8f, 1.0f}});
   sprExpls.push_back({txSheet, {0.4f, 0.4f}, {0.6f, 0.6f}});
   sprExpls.push_back({txSheet, {0.8f, 0.4f}, {1.0f, 0.6f}});
@@ -47,31 +43,21 @@ void SpriteLoader::LoadTextures() {
 
   sprPlayerIdle = {txSheet, {0.2f, 0.0f}, {0.4f, 0.2f}};
 
-  sprPlayerMoveL.reserve(2);
-  sprPlayerMoveL.clear();
   sprPlayerMoveL.push_back({txSheetRev, {0.2f, 0.0f}, {0.4f, 0.2f}});
   sprPlayerMoveL.push_back({txSheetRev, {0.0f, 0.0f}, {0.2f, 0.2f}});
 
-  sprPlayerShootL.reserve(2);
-  sprPlayerShootL.clear();
   sprPlayerShootL.push_back({txSheetRev, {0.6f, 0.0f}, {0.8f, 0.2f}});
   sprPlayerShootL.push_back({txSheetRev, {0.4f, 0.0f}, {0.6f, 0.2f}});
 
-  sprPlayerMoveR.reserve(2);
-  sprPlayerMoveR.clear();
   sprPlayerMoveR.push_back({txSheet, {0.6f, 0.0f}, {0.8f, 0.2f}});
   sprPlayerMoveR.push_back({txSheet, {0.8f, 0.0f}, {1.0f, 0.2f}});
 
-  sprPlayerShootR.reserve(2);
-  sprPlayerShootR.clear();
   sprPlayerShootR.push_back({txSheet, {0.2f, 0.0f}, {0.4f, 0.2f}});
   sprPlayerShootR.push_back({txSheet, {0.4f, 0.0f}, {0.6f, 0.2f}});
 
   sprPlayerHitL = {txSheet, {0.2f, 0.2f}, {0.4f, 0.4f}};
   sprPlayerHitR = {txSheet, {0.4f, 0.2f}, {0.6f, 0.4f}};
 
-  sprHook.reserve(2);
-  sprHook.clear();
   sprHook.push_back({txSheet, {0.0f, 0.0f}, {0.1f, 1.0f}});
   sprHook.push_back({txSheet, {0.1f, 0.0f}, {0.2f, 1.0f}});
 }
