@@ -93,10 +93,18 @@ void EngineRender::Update() {
       float &d4 = sa->duration;
       float d5 = sa->duration;
 
+      auto &e2 = sa->enable;
+      auto e3 = sa->enable;
+      bool &e4 = sa->enable;
+      bool e5 = sa->enable;
+
       auto &a2 = sa->animation;
       auto a3 = sa->animation;
       std::vector<Sprite> *a4 = sa->animation;
       std::vector<Sprite> a5 = *sa->animation;
+
+      auto s2 = a3->size();
+      size_t s3 = a3->size();
 
       auto frameFreq = sa->duration / a3->size();
 

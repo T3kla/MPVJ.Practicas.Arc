@@ -110,17 +110,12 @@ void InstantiatePlayer() {
   sr.pivot = {0.5f, 0.5f};
   sr.layer = 0;
 
-  // sa.enabled = true;
-  // sa.frame = 0;
-  // sa.speed = 1.f;
+  sa.enable = true;
+  sa.animation = &SpriteLoader::sprPlayerShootR;
   sa.duration = 2.f;
   sa.count = 365.24f;
-  // sa.count1 = 1.f;
-  // sa.count2 = 2.f;
-  // sa.count3 = 3.f;
-  // sa.count4 = 4.f;
-  // sa.frame2 = 24;
-  sa.animation = &SpriteLoader::sprPlayerShootR;
+  // sa.frame = 0;
+  // sa.speed = 1.f;
 
   player.AddComponent<Transform>(&tf);
   player.AddComponent<GameObject>(&go);
